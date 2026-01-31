@@ -4,7 +4,7 @@ import { Tool, Category, RecommendationResult } from './types';
 import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
 import { SubmitToolForm } from './components/SubmitToolForm';
-import { getAIRecommendations } from './services/geminiService';
+// Removed Gemini import
 import { Cpu, Github, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2 } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
@@ -81,17 +81,17 @@ const App: React.FC = () => {
             result = favTools.map(t => ({ tool: t, reason: undefined }));
         } else {
             // Home View: Standard logic
-            if (recommendations.length > 0) {
-                result = recommendations
-                    .map(r => {
-                        const tool = tools.find(t => t.id === r.toolId);
-                        return tool ? { tool, reason: r.reason } : null;
-                    })
-                    .filter(item => item !== null) as { tool: Tool, reason: string }[];
+            if (searchQuery.length > 0) {
+                // Local Search Logic
+                const lowerQuery = searchQuery.toLowerCase();
+                const matchedTools = tools.filter(t =>
+                    t.name.toLowerCase().includes(lowerQuery) ||
+                    t.description.toLowerCase().includes(lowerQuery) ||
+                    t.tags.some(tag => tag.toLowerCase().includes(lowerQuery)) ||
+                    t.category.toLowerCase().includes(lowerQuery)
+                );
 
-                if (activeCategory !== 'All') {
-                    result = result.filter(t => t.tool.category === activeCategory);
-                }
+                result = matchedTools.map(t => ({ tool: t, reason: 'Matched via search' }));
             } else {
                 let filtered = tools;
                 if (activeCategory !== 'All') {
@@ -125,7 +125,6 @@ const App: React.FC = () => {
     }, [view, activeCategory, recommendations, sortBy, selectedTags, favorites, tools]);
 
     const handleAISearch = async (query: string) => {
-        setIsSearching(true);
         setSearchQuery(query);
         setActiveCategory('All');
         setSortBy('default');
@@ -133,14 +132,6 @@ const App: React.FC = () => {
 
         // Automatically switch to home view if searching
         if (view !== 'home') setView('home');
-
-        const minDelay = new Promise(resolve => setTimeout(resolve, 800));
-        const apiCall = getAIRecommendations(query, tools); // use tools from state
-
-        const [results] = await Promise.all([apiCall, minDelay]);
-
-        setRecommendations(results);
-        setIsSearching(false);
     };
 
     const resetFilters = () => {
@@ -258,7 +249,7 @@ const App: React.FC = () => {
                                     </h1>
                                     <p className="text-lg text-slate-400 mb-8">
                                         Navigate the expanding universe of Artificial Intelligence.
-                                        Describe your workflow, and let our Gemini-powered engine find the best tools for you.
+                                        Search for the best tools to enhance your workflow.
                                     </p>
                                 </div>
 
@@ -266,9 +257,9 @@ const App: React.FC = () => {
                                 <div className="animate-fade-in animation-delay-100 w-full flex justify-center">
                                     <AIRecommender
                                         onSearch={handleAISearch}
-                                        isSearching={isSearching}
+                                        isSearching={false}
                                         onClear={resetFilters}
-                                        hasResults={recommendations.length > 0}
+                                        hasResults={searchQuery.length > 0}
                                     />
                                 </div>
                             </>
@@ -315,7 +306,7 @@ const App: React.FC = () => {
                                             {view === 'home' && recommendations.length > 0 && (
                                                 <div className="flex items-center justify-between mb-6">
                                                     <h2 className="text-2xl font-bold flex items-center gap-2">
-                                                        <span className="text-indigo-400">Gemini</span> Recommendations for "{searchQuery}"
+                                                        Search Results for "{searchQuery}"
                                                     </h2>
                                                     <button
                                                         onClick={resetFilters}
@@ -327,7 +318,7 @@ const App: React.FC = () => {
                                             )}
 
                                             {/* Category Filters (Only on Home when not searching) */}
-                                            {view === 'home' && recommendations.length === 0 && (
+                                            {view === 'home' && searchQuery.length === 0 && (
                                                 <div className="flex flex-col items-center gap-6 mb-10">
                                                     {/* Category Filters */}
                                                     <div className="flex flex-wrap justify-center gap-3">
@@ -336,8 +327,8 @@ const App: React.FC = () => {
                                                                 key={cat}
                                                                 onClick={() => setActiveCategory(cat)}
                                                                 className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out transform flex items-center gap-2 active:scale-95 ${activeCategory === cat
-                                                                        ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-105 ring-1 ring-indigo-400'
-                                                                        : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 border border-slate-700/50'
+                                                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-105 ring-1 ring-indigo-400'
+                                                                    : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 border border-slate-700/50'
                                                                     }`}
                                                             >
                                                                 {cat}
@@ -353,8 +344,8 @@ const App: React.FC = () => {
                                                                     key={tag}
                                                                     onClick={() => toggleTag(tag)}
                                                                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ease-in-out transform active:scale-95 ${selectedTags.includes(tag)
-                                                                            ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50 hover:bg-indigo-500/30 scale-105 shadow-sm shadow-indigo-500/20'
-                                                                            : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:border-slate-600 hover:text-slate-300 hover:scale-105'
+                                                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50 hover:bg-indigo-500/30 scale-105 shadow-sm shadow-indigo-500/20'
+                                                                        : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:border-slate-600 hover:text-slate-300 hover:scale-105'
                                                                         }`}
                                                                 >
                                                                     <TagIcon size={10} className={`transition-colors duration-200 ${selectedTags.includes(tag) ? 'text-indigo-400' : 'text-slate-500'}`} />
@@ -462,7 +453,7 @@ const App: React.FC = () => {
             {/* Footer */}
             <footer className="bg-slate-900 border-t border-slate-800 py-12">
                 <div className="max-w-7xl mx-auto px-4 text-center">
-                    <p className="text-slate-500 mb-4">Powered by Google Gemini 2.0</p>
+                    <p className="text-slate-500 mb-4">Powered by Neon Postgres</p>
                     <p className="text-slate-600 text-sm">
                         © {new Date().getFullYear()} AIverse Directory. All rights reserved.
                     </p>
