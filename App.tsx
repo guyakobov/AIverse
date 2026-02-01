@@ -5,7 +5,7 @@ import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
 import { SubmitToolForm } from './components/SubmitToolForm';
 // Removed Gemini import
-import { Cpu, Github, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2 } from 'lucide-react';
+import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2 } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
 type View = 'home' | 'favorites' | 'submit';
@@ -220,14 +220,7 @@ const App: React.FC = () => {
                                 Submit Tool
                             </button>
 
-                            <a
-                                href="https://github.com"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="p-2 text-slate-400 hover:text-white transition-colors"
-                            >
-                                <Github size={20} />
-                            </a>
+
                         </div>
                     </div>
                 </div>
