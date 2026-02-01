@@ -1,10 +1,8 @@
-import pool from './db.js';
+import { sql } from '@vercel/postgres';
 
 export default async function handler(req, res) {
     try {
-        const client = await pool.connect();
-        const { rows } = await client.query('SELECT * FROM tools');
-        client.release();
+        const { rows } = await sql`SELECT * FROM tools`;
         res.status(200).json(rows);
     } catch (error) {
         console.error('Database error:', error);
