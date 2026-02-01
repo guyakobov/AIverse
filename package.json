@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@google/genai": "^1.39.0",
+    "@vercel/postgres": "^0.10.0",
     "dotenv": "^17.2.3",
     "lucide-react": "^0.563.0",
     "pg": "^8.18.0",

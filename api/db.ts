@@ -1,12 +1,7 @@
+import { createPool } from '@vercel/postgres';
 
-import pkg from 'pg';
-const { Pool } = pkg;
-
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+const pool = createPool({
+    connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL
 });
 
 export default pool;
