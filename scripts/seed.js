@@ -28,7 +28,12 @@ const tools = [
         url: 'https://chat.openai.com',
         icon: 'MessageSquare',
         tags: ['Chatbot', 'LLM', 'General'],
-        pricing: 'Freemium'
+        pricing: 'Freemium',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/openai/' },
+            { platform: 'podcast', url: 'https://open.spotify.com/show/openai-podcast' },
+            { platform: 'article', url: 'https://openai.com/blog/chatgpt' }
+        ]
     },
     {
         id: 'midjourney',
@@ -38,7 +43,11 @@ const tools = [
         url: 'https://midjourney.com',
         icon: 'Image',
         tags: ['Art', 'Generative', 'Creative'],
-        pricing: 'Paid'
+        pricing: 'Paid',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/midjourney/' },
+            { platform: 'article', url: 'https://techcrunch.com/2022/midjourney-ai/' }
+        ]
     },
     {
         id: 'github-copilot',
@@ -48,7 +57,10 @@ const tools = [
         url: 'https://github.com/features/copilot',
         icon: 'Terminal',
         tags: ['Development', 'Autocomplete', 'Productivity'],
-        pricing: 'Paid'
+        pricing: 'Paid',
+        links: [
+            { platform: 'article', url: 'https://github.blog/2021-06-29-introducing-github-copilot-ai-pair-programmer/' }
+        ]
     },
     {
         id: 'jasper',
@@ -58,7 +70,10 @@ const tools = [
         url: 'https://jasper.ai',
         icon: 'FileText',
         tags: ['Marketing', 'Copywriting', 'SEO'],
-        pricing: 'Paid'
+        pricing: 'Paid',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/jasper.ai/' }
+        ]
     },
     {
         id: 'runway',
@@ -68,7 +83,10 @@ const tools = [
         url: 'https://runwayml.com',
         icon: 'Video',
         tags: ['Editor', 'VFX', 'Generative Video'],
-        pricing: 'Freemium'
+        pricing: 'Freemium',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/runwayml/' }
+        ]
     },
     {
         id: 'elevenlabs',
@@ -78,7 +96,10 @@ const tools = [
         url: 'https://elevenlabs.io',
         icon: 'Mic',
         tags: ['TTS', 'Voice Cloning', 'Audio'],
-        pricing: 'Freemium'
+        pricing: 'Freemium',
+        links: [
+            { platform: 'youtube', url: 'https://www.youtube.com/@elevenlabs' }
+        ]
     },
     {
         id: 'perplexity',
@@ -88,7 +109,10 @@ const tools = [
         url: 'https://perplexity.ai',
         icon: 'Search',
         tags: ['Search', 'Academic', 'News'],
-        pricing: 'Freemium'
+        pricing: 'Freemium',
+        links: [
+            { platform: 'twitter', url: 'https://twitter.com/perplexity_ai' }
+        ]
     },
     {
         id: 'notion-ai',
@@ -128,7 +152,10 @@ const tools = [
         url: 'https://suno.com',
         icon: 'Music',
         tags: ['Music', 'Song Generation', 'Creative'],
-        pricing: 'Freemium'
+        pricing: 'Freemium',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/suno_ai_/' }
+        ]
     },
     {
         id: 'gemini',
@@ -188,7 +215,19 @@ async function seed() {
         pricing TEXT NOT NULL
       );
     `);
-        console.log('Table "tools" created or already exists.');
+
+        await pool.query(`
+      CREATE TABLE IF NOT EXISTS tool_links (
+        id SERIAL PRIMARY KEY,
+        tool_id TEXT REFERENCES tools(id) ON DELETE CASCADE,
+        platform TEXT NOT NULL,
+        url TEXT NOT NULL
+      );
+    `);
+        console.log('Tables created or already exists.');
+
+        console.log('Cleaning up old links...');
+        await pool.query('DELETE FROM tool_links');
 
         console.log('Inserting tools...');
         for (const tool of tools) {
@@ -213,6 +252,15 @@ async function seed() {
                 tool.tags,
                 tool.pricing
             ]);
+
+            if (tool.links && tool.links.length > 0) {
+                for (const link of tool.links) {
+                    await pool.query(`
+            INSERT INTO tool_links (tool_id, platform, url)
+            VALUES ($1, $2, $3);
+          `, [tool.id, link.platform, link.url]);
+                }
+            }
         }
         console.log(`Successfully inserted/updated ${tools.length} tools.`);
     } catch (error) {

@@ -4,10 +4,11 @@ import { Tool, Category, RecommendationResult } from './types';
 import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
 import { SubmitToolForm } from './components/SubmitToolForm';
+import { ToolDetails } from './components/ToolDetails';
 import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
-type View = 'home' | 'favorites' | 'submit';
+type View = 'home' | 'favorites' | 'submit' | 'tool-details';
 
 const App: React.FC = () => {
     const [tools, setTools] = useState<Tool[]>([]);
@@ -21,23 +22,46 @@ const App: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState<SortOption>('default');
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
 
-    // Fetch tools from API
+    // Hash routing for tool details
     useEffect(() => {
-        const fetchTools = async () => {
-            try {
-                const response = await fetch('/api/tools');
-                if (!response.ok) throw new Error('Failed to fetch tools');
-                const data = await response.json();
-                setTools(data);
-            } catch (err) {
-                console.error("Error fetching tools:", err);
-                setError("Failed to load tools. Please try again later.");
-            } finally {
-                setIsLoading(false);
+        const handleHashChange = () => {
+            const hash = window.location.hash;
+            if (hash.startsWith('#tool/')) {
+                const id = hash.replace('#tool/', '');
+                setSelectedToolId(id);
+                setView('tool-details');
+            } else if (hash === '#favorites') {
+                setView('favorites');
+            } else if (hash === '#submit') {
+                setView('submit');
+            } else {
+                setView('home');
             }
         };
 
+        window.addEventListener('hashchange', handleHashChange);
+        handleHashChange(); // Initial check
+
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
+
+    const fetchTools = async () => {
+        try {
+            const response = await fetch('/api/tools');
+            if (!response.ok) throw new Error('Failed to fetch tools');
+            const data = await response.json();
+            setTools(data);
+        } catch (err) {
+            console.error("Error fetching tools:", err);
+            setError("Failed to load tools. Please try again later.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchTools();
     }, []);
 
@@ -124,9 +148,12 @@ const App: React.FC = () => {
 
         const groups: Record<string, { tool: Tool, reason?: string }[]> = {};
         CATEGORIES.filter(c => c !== 'All').forEach(cat => {
-            groups[cat] = displayedTools.filter(item => item.tool.category === cat);
+            const catTools = displayedTools.filter(item => item.tool.category === cat);
+            if (catTools.length > 0) {
+                groups[cat] = catTools;
+            }
         });
-        return groups;
+        return Object.keys(groups).length > 0 ? groups : null;
     }, [displayedTools, activeCategory, searchQuery, view]);
 
     const handleAISearch = async (query: string) => {
@@ -160,20 +187,30 @@ const App: React.FC = () => {
     }, [view, searchQuery, activeCategory, selectedTags]);
 
     const goHome = () => {
+        window.location.hash = '';
         setView('home');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const goFavorites = () => {
+        window.location.hash = 'favorites';
         setView('favorites');
         setSortBy('default');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const goSubmit = () => {
+        window.location.hash = 'submit';
         setView('submit');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    const openToolDetails = (id: string) => {
+        window.location.hash = `tool/${id}`;
+        setSelectedToolId(id);
+        setView('tool-details');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 flex flex-col font-sans">
@@ -228,7 +265,24 @@ const App: React.FC = () => {
             {/* Main Content */}
             <main className="flex-grow flex flex-col items-center pt-8 px-4 pb-20 max-w-7xl mx-auto w-full">
 
-                {view === 'submit' ? (
+                {view === 'tool-details' && selectedToolId ? (
+                    (() => {
+                        const tool = tools.find(t => t.id === selectedToolId);
+                        return tool ? (
+                            <ToolDetails
+                                tool={tool}
+                                onBack={goHome}
+                                isFavorite={favorites.includes(tool.id)}
+                                onToggleFavorite={() => toggleFavorite(tool.id)}
+                            />
+                        ) : (
+                            <div className="py-32 text-center">
+                                <h2 className="text-2xl font-bold text-white mb-4">Tool not found</h2>
+                                <button onClick={goHome} className="text-indigo-400 font-bold">Back to Home</button>
+                            </div>
+                        );
+                    })()
+                ) : view === 'submit' ? (
                     <SubmitToolForm onBack={goHome} />
                 ) : (
                     <>
@@ -427,10 +481,10 @@ const App: React.FC = () => {
                                                 </div>
                                             )}
                                         </div>
-                                    ) : groupedTools ? (
+                                    ) : (groupedTools && Object.keys(groupedTools).length > 0) ? (
                                         /* Grouped View (Category sections) */
                                         <div className="space-y-20">
-                                            {Object.entries(groupedTools).map(([cat, toolsInCategory]) => {
+                                            {(Object.entries(groupedTools) as [string, { tool: Tool, reason?: string }[]][]).map(([cat, toolsInCategory]) => {
                                                 if (toolsInCategory.length === 0) return null;
                                                 const colorSet = CATEGORY_COLORS[cat as Category] || CATEGORY_COLORS['All'];
                                                 const CatIcon = CATEGORY_ICONS[cat as Category] || LayoutGrid;
@@ -460,6 +514,7 @@ const App: React.FC = () => {
                                                                     recommendationReason={item.reason}
                                                                     isFavorite={favorites.includes(item.tool.id)}
                                                                     onToggleFavorite={() => toggleFavorite(item.tool.id)}
+                                                                    onClick={() => openToolDetails(item.tool.id)}
                                                                 />
                                                             ))}
                                                         </div>
@@ -477,6 +532,7 @@ const App: React.FC = () => {
                                                     recommendationReason={item.reason}
                                                     isFavorite={favorites.includes(item.tool.id)}
                                                     onToggleFavorite={() => toggleFavorite(item.tool.id)}
+                                                    onClick={() => openToolDetails(item.tool.id)}
                                                 />
                                             ))}
                                         </div>

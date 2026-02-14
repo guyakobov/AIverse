@@ -8,11 +8,12 @@ interface ToolCardProps {
   recommendationReason?: string;
   isFavorite: boolean;
   onToggleFavorite: () => void;
+  onClick: () => void;
 }
 
-export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, isFavorite, onToggleFavorite }) => {
+export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, isFavorite, onToggleFavorite, onClick }) => {
   const IconComponent = ICON_MAP[tool.icon] || ICON_MAP['Cpu'];
-  const colors = CATEGORY_COLORS[tool.category as keyof typeof CATEGORY_COLORS] || CATEGORY_COLORS['All'];
+  const colors = CATEGORY_COLORS[tool.category] || CATEGORY_COLORS['All'];
 
   // Pricing badge color logic
   const pricingColor = {
@@ -22,7 +23,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
   }[tool.pricing];
 
   return (
-    <div className={`relative group flex flex-col h-full bg-slate-800/40 backdrop-blur-md border rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${recommendationReason ? `border-${colors.text} ring-1 ring-${colors.text}/50` : 'border-slate-700/50 hover:border-slate-500'}`}
+    <div
+      onClick={onClick}
+      className={`relative group flex flex-col h-full bg-[#030712]/60 backdrop-blur-xl border rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-${colors.primary}/10 hover:border-${colors.border}/50 cursor-pointer ${recommendationReason ? `border-${colors.border} ring-1 ring-${colors.primary}/50` : 'border-slate-800/50'}`}
       style={{
         boxShadow: isFavorite ? '0 0 20px -5px rgba(236, 72, 153, 0.2)' : 'none'
       }}>
@@ -58,8 +61,8 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
               <Heart
                 size={20}
                 className={`transition-all duration-300 ${isFavorite
-                    ? 'fill-pink-500 text-pink-500 scale-125 filter drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]'
-                    : 'text-slate-400 group-hover/fav:text-pink-400 group-hover/fav:scale-110'
+                  ? 'fill-pink-500 text-pink-500 scale-125 filter drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]'
+                  : 'text-slate-400 group-hover/fav:text-pink-400 group-hover/fav:scale-110'
                   }`}
               />
             </button>
