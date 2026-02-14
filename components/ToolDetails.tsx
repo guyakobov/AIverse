@@ -50,7 +50,7 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-8">
                     {/* Header Card */}
-                    <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+                    <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden h-full flex flex-col justify-between">
                         <div className={`absolute top-0 right-0 w-64 h-64 bg-${colors.primary}/10 blur-[100px] -mr-32 -mt-32`}></div>
 
                         <div className="relative z-10">
@@ -104,140 +104,176 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="mt-12 pt-10 border-t border-slate-800/50 flex flex-col sm:flex-row gap-4">
-                                <a
-                                    href={tool.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={`flex-1 inline-flex justify-center items-center gap-3 py-5 px-8 bg-${colors.primary} hover:scale-[1.02] active:scale-[0.98] text-white rounded-2xl transition-all text-lg font-black shadow-xl shadow-${colors.primary}/20`}
-                                >
-                                    Visit Official Website <ExternalLink size={20} />
-                                </a>
-                            </div>
                         </div>
-                    </div>
 
-                    {/* Detailed Features / Content (Placeholder for more data) */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-6">
-                            <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                                <Calendar size={18} className="text-indigo-400" /> Key Features
-                            </h3>
-                            <ul className="space-y-3 text-slate-400 text-sm font-medium">
-                                <li className="flex items-start gap-2">
-                                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
-                                    High-performance AI model architecture
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
-                                    Real-time processing and generation
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
-                                    Seamless workflow integration
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-6">
-                            <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-                                <Globe size={18} className="text-indigo-400" /> Compatibility
-                            </h3>
-                            <ul className="space-y-3 text-slate-400 text-sm font-medium">
-                                <li className="flex items-start gap-2 text-indigo-200/60 bg-indigo-500/5 px-2 py-1 rounded">Web Browser Support</li>
-                                <li className="flex items-start gap-2 text-indigo-200/60 bg-indigo-500/5 px-2 py-1 rounded">API Access Available</li>
-                                <li className="flex items-start gap-2 text-indigo-200/60 bg-indigo-500/5 px-2 py-1 rounded">Mobile Responsive</li>
-                            </ul>
+                        <div className="mt-12 pt-10 border-t border-slate-800/50">
+                            <a
+                                href={tool.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`w-full inline-flex justify-center items-center gap-3 py-5 px-8 bg-${colors.primary} hover:scale-[1.02] active:scale-[0.98] text-white rounded-2xl transition-all text-lg font-black shadow-xl shadow-${colors.primary}/20`}
+                            >
+                                Visit Official Website <ExternalLink size={20} />
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 {/* Sidebar */}
-                <div className="space-y-8">
-                    {/* Resources & Socials */}
-                    <div className="bg-slate-900/60 border border-slate-800/50 rounded-3xl p-8 sticky top-28 shadow-xl">
-                        <h2 className="text-xl font-black text-white mb-8 border-b border-slate-800 pb-4 tracking-tight uppercase">External Resources</h2>
+                <div className="space-y-6">
+                    {/* Key Features */}
+                    <div className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl">
+                        <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
+                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`}>
+                                <Calendar size={18} className={`text-${colors.text}`} />
+                            </div>
+                            Key Features
+                        </h3>
+                        <ul className="space-y-4">
+                            {[
+                                "High-performance AI model architecture",
+                                "Real-time processing and generation",
+                                "Seamless workflow integration"
+                            ].map((feature, i) => (
+                                <li key={i} className="flex items-start gap-3 group">
+                                    <div className={`mt-1.5 w-1.5 h-1.5 rounded-full bg-${colors.primary} flex-shrink-0 group-hover:scale-150 transition-transform`}></div>
+                                    <span className="text-slate-400 text-sm font-bold leading-tight group-hover:text-slate-200 transition-colors">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-                        <div className="space-y-4">
-                            {tool.links && tool.links.length > 0 ? (
-                                tool.links.map((link, idx) => {
-                                    const platformConfig: Record<string, { label: string, icon: React.ReactNode, color: string, border: string, bg: string }> = {
-                                        instagram: {
-                                            label: 'Instagram',
-                                            icon: <Instagram size={20} className="text-white" />,
-                                            color: 'from-purple-500 to-pink-500',
-                                            border: 'border-pink-500/20',
-                                            bg: 'bg-gradient-to-r from-purple-600/10 to-pink-600/10'
-                                        },
-                                        twitter: {
-                                            label: 'X / Twitter',
-                                            icon: <Twitter size={20} className="text-white" />,
-                                            color: 'bg-blue-500',
-                                            border: 'border-blue-500/20',
-                                            bg: 'bg-blue-600/10'
-                                        },
-                                        podcast: {
-                                            label: 'Podcast',
-                                            icon: <Mic2 size={20} className="text-white" />,
-                                            color: 'bg-emerald-500',
-                                            border: 'border-emerald-500/20',
-                                            bg: 'bg-emerald-600/10'
-                                        },
-                                        article: {
-                                            label: 'Article/Review',
-                                            icon: <FileText size={20} className="text-white" />,
-                                            color: 'bg-indigo-500',
-                                            border: 'border-indigo-500/20',
-                                            bg: 'bg-indigo-600/10'
-                                        },
-                                        youtube: {
-                                            label: 'YouTube',
-                                            icon: <Globe size={20} className="text-white" />,
-                                            color: 'bg-red-500',
-                                            border: 'border-red-500/20',
-                                            bg: 'bg-red-600/10'
-                                        }
-                                    };
-
-                                    const config = platformConfig[link.platform.toLowerCase()] || {
-                                        label: link.platform,
-                                        icon: <Share2 size={20} className="text-white" />,
-                                        color: 'bg-slate-500',
-                                        border: 'border-slate-500/20',
-                                        bg: 'bg-slate-600/10'
-                                    };
-
-                                    return (
-                                        <a
-                                            key={idx}
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`flex items-center justify-between p-4 ${config.bg} border ${config.border} rounded-2xl hover:scale-[1.03] transition-all group`}
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className={`p-2.5 ${config.color} rounded-xl shadow-lg`}>
-                                                    {config.icon}
-                                                </div>
-                                                <span className="font-bold text-slate-200">{config.label}</span>
-                                            </div>
-                                            <ExternalLink size={16} className="text-slate-500 group-hover:text-white transition-colors" />
-                                        </a>
-                                    );
-                                })
-                            ) : (
-                                <div className="text-center py-10 px-4 bg-slate-900/50 rounded-2xl border border-slate-800 border-dashed">
-                                    <p className="text-slate-500 text-sm font-medium italic">No external resource links found for this tool.</p>
+                    {/* Compatibility */}
+                    <div className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl">
+                        <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
+                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`}>
+                                <Globe size={18} className={`text-${colors.text}`} />
+                            </div>
+                            Compatibility
+                        </h3>
+                        <div className="space-y-3">
+                            {[
+                                "Web Browser Support",
+                                "API Access Available",
+                                "Mobile Responsive"
+                            ].map((item, i) => (
+                                <div key={i} className="px-4 py-3 bg-slate-950/50 border border-slate-800/50 rounded-xl text-slate-400 text-xs font-bold leading-none hover:border-slate-700 hover:text-white transition-all">
+                                    {item}
                                 </div>
-                            )}
+                            ))}
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div className="mt-10 p-5 bg-indigo-500/5 border border-indigo-500/10 rounded-2xl">
-                            <p className="text-xs text-indigo-300 font-bold leading-relaxed">
-                                <span className="text-indigo-400 uppercase tracking-widest block mb-1">Disclaimer</span>
-                                AIverse is an independent directory. Links provided are for informational purposes only.
-                            </p>
+            {/* Bottom Section: Tool Talk */}
+            <div className="mt-8 px-4 sm:px-0">
+                <div className="bg-slate-900/40 border border-slate-800/50 rounded-[2.5rem] p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent"></div>
+
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                        <div>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                                Community & Resources
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                                Tool <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">Talk</span>
+                            </h2>
                         </div>
+                        <p className="max-w-md text-slate-500 text-sm font-medium leading-relaxed">
+                            Discover what the community is saying, watch in-depth reviews, and find expert guides across all platforms.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {tool.links && tool.links.length > 0 ? (
+                            tool.links.map((link, idx) => {
+                                const platformConfig: Record<string, { label: string, icon: React.ReactNode, color: string, border: string, bg: string, text: string }> = {
+                                    instagram: {
+                                        label: 'Instagram',
+                                        icon: <Instagram size={20} className="text-white" />,
+                                        color: 'bg-gradient-to-br from-purple-500 to-pink-500',
+                                        border: 'border-pink-500/20',
+                                        bg: 'bg-pink-600/5',
+                                        text: 'group-hover:text-pink-400'
+                                    },
+                                    twitter: {
+                                        label: 'X / Twitter',
+                                        icon: <Twitter size={20} className="text-white" />,
+                                        color: 'bg-blue-500',
+                                        border: 'border-blue-500/20',
+                                        bg: 'bg-blue-600/5',
+                                        text: 'group-hover:text-blue-400'
+                                    },
+                                    podcast: {
+                                        label: 'Podcast',
+                                        icon: <Mic2 size={20} className="text-white" />,
+                                        color: 'bg-emerald-500',
+                                        border: 'border-emerald-500/20',
+                                        bg: 'bg-emerald-600/5',
+                                        text: 'group-hover:text-emerald-400'
+                                    },
+                                    article: {
+                                        label: 'Review',
+                                        icon: <FileText size={20} className="text-white" />,
+                                        color: 'bg-indigo-500',
+                                        border: 'border-indigo-500/20',
+                                        bg: 'bg-indigo-600/5',
+                                        text: 'group-hover:text-indigo-400'
+                                    },
+                                    youtube: {
+                                        label: 'YouTube',
+                                        icon: <Globe size={20} className="text-white" />,
+                                        color: 'bg-red-500',
+                                        border: 'border-red-500/20',
+                                        bg: 'bg-red-600/5',
+                                        text: 'group-hover:text-red-400'
+                                    }
+                                };
+
+                                const config = platformConfig[link.platform.toLowerCase()] || {
+                                    label: link.platform,
+                                    icon: <Share2 size={20} className="text-white" />,
+                                    color: 'bg-slate-600',
+                                    border: 'border-slate-500/20',
+                                    bg: 'bg-slate-600/5',
+                                    text: 'group-hover:text-white'
+                                };
+
+                                return (
+                                    <a
+                                        key={idx}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`flex items-center justify-between p-5 ${config.bg} border ${config.border} rounded-3xl hover:bg-slate-800/40 hover:scale-[1.02] active:scale-[0.98] transition-all group`}
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className={`p-3 ${config.color} rounded-2xl shadow-lg ring-4 ring-white/5`}>
+                                                {config.icon}
+                                            </div>
+                                            <span className="font-bold text-slate-200 group-hover:text-white transition-colors">{config.label}</span>
+                                        </div>
+                                        <ExternalLink size={16} className={`text-slate-600 ${config.text} transition-colors`} />
+                                    </a>
+                                );
+                            })
+                        ) : (
+                            <div className="col-span-full py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
+                                <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
+                                <p className="text-slate-500 font-bold tracking-wide italic">No discussion links curated for this tool yet.</p>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="mt-12 pt-8 border-t border-slate-800/30 flex items-center gap-4">
+                        <div className="p-2 bg-indigo-500/10 rounded-lg">
+                            <Globe size={16} className="text-indigo-400" />
+                        </div>
+                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">
+                            <span className="text-slate-400 mr-2">Curation Policy:</span>
+                            Links are curated from verified community discussions and expert reviews.
+                        </p>
                     </div>
                 </div>
             </div>
