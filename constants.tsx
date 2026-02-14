@@ -67,7 +67,8 @@ export const TOOLS: Tool[] = [
     url: 'https://chat.openai.com',
     icon: 'MessageSquare',
     tags: ['Chatbot', 'LLM', 'General'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'midjourney',
@@ -77,7 +78,8 @@ export const TOOLS: Tool[] = [
     url: 'https://midjourney.com',
     icon: 'Image',
     tags: ['Art', 'Generative', 'Creative'],
-    pricing: 'Paid'
+    pricing: 'Paid',
+    links: []
   },
   {
     id: 'github-copilot',
@@ -87,7 +89,8 @@ export const TOOLS: Tool[] = [
     url: 'https://github.com/features/copilot',
     icon: 'Terminal',
     tags: ['Development', 'Autocomplete', 'Productivity'],
-    pricing: 'Paid'
+    pricing: 'Paid',
+    links: []
   },
   {
     id: 'jasper',
@@ -97,7 +100,8 @@ export const TOOLS: Tool[] = [
     url: 'https://jasper.ai',
     icon: 'FileText',
     tags: ['Marketing', 'Copywriting', 'SEO'],
-    pricing: 'Paid'
+    pricing: 'Paid',
+    links: []
   },
   {
     id: 'runway',
@@ -107,7 +111,8 @@ export const TOOLS: Tool[] = [
     url: 'https://runwayml.com',
     icon: 'Video',
     tags: ['Editor', 'VFX', 'Generative Video'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'elevenlabs',
@@ -117,7 +122,8 @@ export const TOOLS: Tool[] = [
     url: 'https://elevenlabs.io',
     icon: 'Mic',
     tags: ['TTS', 'Voice Cloning', 'Audio'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'perplexity',
@@ -127,7 +133,8 @@ export const TOOLS: Tool[] = [
     url: 'https://perplexity.ai',
     icon: 'Search',
     tags: ['Search', 'Academic', 'News'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'notion-ai',
@@ -137,7 +144,8 @@ export const TOOLS: Tool[] = [
     url: 'https://notion.so',
     icon: 'Briefcase',
     tags: ['Notes', 'Workspace', 'Organization'],
-    pricing: 'Paid'
+    pricing: 'Paid',
+    links: []
   },
   {
     id: 'stable-diffusion',
@@ -147,7 +155,8 @@ export const TOOLS: Tool[] = [
     url: 'https://stability.ai',
     icon: 'Image',
     tags: ['Open Source', 'Art', 'Generation'],
-    pricing: 'Free'
+    pricing: 'Free',
+    links: []
   },
   {
     id: 'cursor',
@@ -157,7 +166,8 @@ export const TOOLS: Tool[] = [
     url: 'https://cursor.sh',
     icon: 'Code',
     tags: ['IDE', 'Editor', 'Debugging'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'suno',
@@ -167,7 +177,8 @@ export const TOOLS: Tool[] = [
     url: 'https://suno.com',
     icon: 'Music',
     tags: ['Music', 'Song Generation', 'Creative'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'gemini',
@@ -177,7 +188,8 @@ export const TOOLS: Tool[] = [
     url: 'https://gemini.google.com',
     icon: 'Zap',
     tags: ['Multimodal', 'Google', 'Assistant'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'canva-magic',
@@ -187,7 +199,8 @@ export const TOOLS: Tool[] = [
     url: 'https://canva.com',
     icon: 'Layout',
     tags: ['Design', 'Social Media', 'Editor'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'tldv',
@@ -197,7 +210,8 @@ export const TOOLS: Tool[] = [
     url: 'https://tldv.io',
     icon: 'Mic',
     tags: ['Meetings', 'Summarization', 'Remote Work'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   },
   {
     id: 'consensus',
@@ -207,6 +221,70 @@ export const TOOLS: Tool[] = [
     url: 'https://consensus.app',
     icon: 'Search',
     tags: ['Science', 'Academic', 'Papers'],
-    pricing: 'Freemium'
+    pricing: 'Freemium',
+    links: []
   }
 ];
+export const LEGAL_CONTENT = {
+  terms: {
+    title: 'Terms of Use',
+    lastUpdated: 'February 14, 2026',
+    content: `
+Welcome to AIverse (the "Website"). By accessing or using this Website, you agree to comply with and be bound by these Terms of Use. If you do not agree, please do not use the Website.
+
+**2. Disclaimer of Warranties**
+The Website is an aggregation platform that provides links to third-party artificial intelligence tools and media content ("Third-Party Services"). We do not own, operate, or control these Third-Party Services. The content provided on this Website is for informational purposes only. We make no representations or warranties of any kind, express or implied, regarding the accuracy, reliability, or availability of any Third-Party Services.
+
+**3. Third-Party Links and Content**
+Our Website contains links to external websites, social media content (e.g., TikTok, Podcasts), and third-party tools. We are not responsible for the content, privacy policies, or practices of any third-party websites. You acknowledge and agree that AIverse shall not be responsible or liable, directly or indirectly, for any damage or loss caused by or in connection with the use of such content or services.
+
+**4. Intellectual Property**
+All original content, design, and layout of this Website are the property of AIverse. All trademarks, logos, and brand names of the AI tools mentioned are the property of their respective owners.
+
+**5. Limitation of Liability**
+To the fullest extent permitted by law, AIverse shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of the Website.`
+  },
+  privacy: {
+    title: 'Privacy Policy',
+    lastUpdated: 'February 14, 2026',
+    content: `
+**1. Information We Collect**
+We may collect non-personal information about your visit, such as your IP address, browser type, and the pages you visited, to help us analyze traffic and improve the Website.
+
+**2. Cookies**
+This Website uses cookies to enhance user experience. By using our Website, you consent to the use of cookies in accordance with this Privacy Policy.
+
+**3. Third-Party Links**
+Once you click a link to an external AI tool or media platform, this Privacy Policy no longer applies. We encourage you to read the privacy policies of any site you visit.`
+  },
+  disclaimer: {
+    title: 'Disclaimer',
+    lastUpdated: 'February 14, 2026',
+    content: `
+The information provided on this Website is for general informational purposes only. All information is provided in good faith; however, we make no representation or warranty regarding the accuracy or completeness of any information on the Site.
+
+**External Links Disclaimer:**
+The Site contains links to other websites or content belonging to or originating from third parties. Such external links are not investigated, monitored, or checked for accuracy or validity by us.
+
+**No Professional Advice:**
+The use or reliance of any information contained on the Site is solely at your own risk.`
+  },
+  accessibility: {
+    title: 'Accessibility Statement',
+    lastUpdated: 'February 14, 2026',
+    content: `
+**General**
+AIverse strives to ensure that its services are accessible to people with disabilities. We have invested resources to help ensure that our website is made easier to use and more accessible for people with disabilities, with the strong belief that every person has the right to live with dignity, equality, comfort, and independence.
+
+**Accessibility on This Website**
+We make efforts to comply with the Web Content Accessibility Guidelines (WCAG 2.1) at the AA level.
+
+**Disclaimer**
+Despite our efforts to make all pages and content fully accessible, some content may not have yet been fully adapted to the strictest accessibility standards. This may be a result of not having found or identified the most appropriate technological solution.
+
+**Contact Us**
+If you are experiencing difficulty with any content on AIverse or require assistance with any part of our site, please contact us and we will be happy to assist.
+
+**Email:** legal@ai-verse.com`
+  }
+};

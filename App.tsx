@@ -5,10 +5,12 @@ import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
 import { SubmitToolForm } from './components/SubmitToolForm';
 import { ToolDetails } from './components/ToolDetails';
+import { LegalPage } from './components/LegalPage';
 import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
-type View = 'home' | 'favorites' | 'submit' | 'tool-details';
+type View = 'home' | 'favorites' | 'submit' | 'tool-details' | 'legal';
+type LegalType = 'terms' | 'privacy' | 'disclaimer' | 'accessibility';
 
 const App: React.FC = () => {
     const [tools, setTools] = useState<Tool[]>([]);
@@ -23,6 +25,7 @@ const App: React.FC = () => {
     const [sortBy, setSortBy] = useState<SortOption>('default');
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
+    const [legalType, setLegalType] = useState<LegalType | null>(null);
 
     // Hash routing for tool details
     useEffect(() => {
@@ -32,6 +35,10 @@ const App: React.FC = () => {
                 const id = hash.replace('#tool/', '');
                 setSelectedToolId(id);
                 setView('tool-details');
+            } else if (hash.startsWith('#legal/')) {
+                const type = hash.replace('#legal/', '') as LegalType;
+                setLegalType(type);
+                setView('legal');
             } else if (hash === '#favorites') {
                 setView('favorites');
             } else if (hash === '#submit') {
@@ -212,6 +219,13 @@ const App: React.FC = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const openLegalPage = (type: LegalType) => {
+        window.location.hash = `legal/${type}`;
+        setLegalType(type);
+        setView('legal');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 flex flex-col font-sans">
             {/* Navbar */}
@@ -282,6 +296,8 @@ const App: React.FC = () => {
                             </div>
                         );
                     })()
+                ) : view === 'legal' && legalType ? (
+                    <LegalPage type={legalType} onBack={goHome} />
                 ) : view === 'submit' ? (
                     <SubmitToolForm onBack={goHome} />
                 ) : (
@@ -545,17 +561,50 @@ const App: React.FC = () => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-slate-950 border-t border-slate-900 py-16">
-                <div className="max-w-7xl mx-auto px-4 text-center">
-                    <div className="mb-8 flex justify-center items-center gap-6">
-                        <div className="h-px w-12 bg-slate-800"></div>
-                        <Cpu size={32} className="text-slate-700" />
-                        <div className="h-px w-12 bg-slate-800"></div>
+            <footer className="bg-slate-950 border-t border-slate-900 pt-20 pb-12">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                        <div className="md:col-span-2">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-1.5 rounded-lg">
+                                    <Cpu size={20} className="text-white" />
+                                </div>
+                                <span className="font-extrabold text-xl tracking-tight text-white">AI<span className="text-indigo-400">verse</span></span>
+                            </div>
+                            <p className="text-slate-500 text-sm leading-relaxed max-w-sm font-medium">
+                                The ultimate curated executive directory for professional AI tools. Build your future with verified, world-class technology.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">Platform</h4>
+                            <ul className="space-y-4">
+                                <li><button onClick={goHome} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Directory Root</button></li>
+                                <li><button onClick={goFavorites} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Saved Favorites</button></li>
+                                <li><button onClick={goSubmit} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Submit New Tool</button></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">Legal & Support</h4>
+                            <ul className="space-y-4">
+                                <li><button onClick={() => openLegalPage('terms')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Terms of Use</button></li>
+                                <li><button onClick={() => openLegalPage('privacy')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Privacy Policy</button></li>
+                                <li><button onClick={() => openLegalPage('disclaimer')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Disclaimer</button></li>
+                                <li><button onClick={() => openLegalPage('accessibility')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Accessibility</button></li>
+                                <li><a href="mailto:support@ai-verse.com" className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Contact Support</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mb-4">Architecture optimized with Neon Postgres</p>
-                    <p className="text-slate-600 text-sm font-medium">
-                        © {new Date().getFullYear()} AIverse Executive Directory. Professional tools for the next generation.
-                    </p>
+
+                    <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="text-slate-600 text-[10px] font-black uppercase tracking-[0.2em]">
+                            Architecture optimized with Neon Postgres
+                        </div>
+                        <p className="text-slate-500 text-xs font-medium">
+                            © {new Date().getFullYear()} AIverse Executive Directory. All rights reserved.
+                        </p>
+                    </div>
                 </div>
             </footer>
         </div>
