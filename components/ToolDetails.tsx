@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tool } from '../types';
+import { Tool, ToolLink } from '../types';
 import { ICON_MAP, CATEGORY_COLORS, CATEGORY_ICONS } from '../constants';
 import {
     ArrowLeft,
@@ -185,72 +185,103 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                         </p>
                     </div>
 
-                    {/* Highlights style section for ALL links */}
-                    <div className="space-y-12">
+                    {/* Highlights style section for ALL links, grouped by platform */}
+                    <div className="space-y-16 sm:space-y-20">
                         {tool.links && tool.links.length > 0 ? (
-                            <div className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-8 sm:gap-y-12 justify-center sm:justify-start">
-                                {tool.links.map((link, idx) => {
-                                    const platform = link.platform.toLowerCase();
+                            (() => {
+                                // Group links by platform
+                                const groups = tool.links.reduce((acc, link) => {
+                                    const p = link.platform.toLowerCase();
+                                    if (!acc[p]) acc[p] = [];
+                                    acc[p].push(link);
+                                    return acc;
+                                }, {} as Record<string, ToolLink[]>);
 
-                                    const configs: Record<string, { icon: React.ReactNode, gradient: string, label: string }> = {
+                                return (Object.entries(groups) as [string, ToolLink[]][]).map(([platform, links], pIdx) => {
+                                    const configs: Record<string, { icon: React.ReactNode, gradient: string, label: string, titleColor: string, headerLabel: string }> = {
                                         instagram: {
                                             icon: <Instagram size={32} className="w-8 h-8 sm:w-8 sm:h-8" />,
                                             gradient: 'from-[#f09433] via-[#e6683c] to-[#bc1888]',
-                                            label: `Insider ${idx + 1}`
+                                            label: 'Story',
+                                            titleColor: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400',
+                                            headerLabel: 'Instagram Highlights'
                                         },
                                         twitter: {
                                             icon: <Twitter size={30} />,
                                             gradient: 'from-blue-400 to-blue-600',
-                                            label: 'Thread'
+                                            label: 'Thread',
+                                            titleColor: 'text-blue-400',
+                                            headerLabel: 'Twitter Spotlight'
                                         },
                                         youtube: {
                                             icon: <Globe size={30} />,
                                             gradient: 'from-red-500 to-red-700',
-                                            label: 'Video'
+                                            label: 'Video',
+                                            titleColor: 'text-red-500',
+                                            headerLabel: 'YouTube Deep Dives'
                                         },
                                         podcast: {
                                             icon: <Mic2 size={30} />,
                                             gradient: 'from-emerald-400 to-teal-600',
-                                            label: 'Audio'
+                                            label: 'Episode',
+                                            titleColor: 'text-emerald-400',
+                                            headerLabel: 'Expert Podcast'
                                         },
                                         article: {
                                             icon: <FileText size={30} />,
                                             gradient: 'from-indigo-400 to-purple-600',
-                                            label: 'Review'
+                                            label: 'Review',
+                                            titleColor: 'text-indigo-400',
+                                            headerLabel: 'Article Reviews'
                                         }
                                     };
 
                                     const config = configs[platform] || {
                                         icon: <Share2 size={30} />,
                                         gradient: 'from-slate-400 to-slate-600',
-                                        label: 'Link'
+                                        label: 'Post',
+                                        titleColor: 'text-slate-400',
+                                        headerLabel: `${platform.charAt(0).toUpperCase() + platform.slice(1)} Feed`
                                     };
 
                                     return (
-                                        <a
-                                            key={idx}
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="group flex flex-col items-center gap-2.5 sm:gap-3 w-16 sm:w-20"
-                                        >
-                                            <div className="relative">
-                                                <div className={`absolute -inset-[2px] sm:-inset-[3px] bg-gradient-to-tr ${config.gradient} rounded-full blur-[1px] opacity-70 group-hover:opacity-100 transition-opacity`}></div>
-                                                <div className="relative w-14 h-14 sm:w-[70px] sm:h-[70px] bg-slate-950 rounded-full p-[2px] sm:p-[3px] border-2 border-slate-950">
-                                                    <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center group-hover:bg-slate-800 transition-colors overflow-hidden">
-                                                        <div className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
-                                                            {config.icon}
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div key={platform} className="animate-fade-in" style={{ animationDelay: `${pIdx * 100}ms` }}>
+                                            <div className="flex items-center gap-4 mb-8">
+                                                <h3 className={`text-xl sm:text-2xl font-black uppercase tracking-tight ${config.titleColor}`}>
+                                                    {config.headerLabel}
+                                                </h3>
+                                                <div className="flex-grow h-px bg-slate-800/30"></div>
                                             </div>
-                                            <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight text-center truncate w-full">
-                                                {platform === 'instagram' ? config.label : (configs[platform]?.label || platform)}
-                                            </span>
-                                        </a>
+
+                                            <div className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-8 sm:gap-y-10 justify-center sm:justify-start">
+                                                {links.map((link, idx) => (
+                                                    <a
+                                                        key={`${platform}-${idx}`}
+                                                        href={link.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="group flex flex-col items-center gap-2.5 sm:gap-3 w-16 sm:w-20"
+                                                    >
+                                                        <div className="relative">
+                                                            <div className={`absolute -inset-[2px] sm:-inset-[3px] bg-gradient-to-tr ${config.gradient} rounded-full blur-[1px] opacity-60 group-hover:opacity-100 transition-opacity`}></div>
+                                                            <div className="relative w-14 h-14 sm:w-[70px] sm:h-[70px] bg-slate-950 rounded-full p-[2px] sm:p-[3px] border-2 border-slate-950">
+                                                                <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center group-hover:bg-slate-800 transition-colors overflow-hidden">
+                                                                    <div className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                                                                        {config.icon}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight text-center truncate w-full">
+                                                            {config.label} {links.length > 1 ? idx + 1 : ''}
+                                                        </span>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
                                     );
-                                })}
-                            </div>
+                                });
+                            })()
                         ) : (
                             <div className="py-12 sm:py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
                                 <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
