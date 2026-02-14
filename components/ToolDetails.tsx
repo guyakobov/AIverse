@@ -185,18 +185,43 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                         </p>
                     </div>
 
+                    {/* Instagram Highlights style section */}
+                    {tool.links && tool.links.some(l => l.platform.toLowerCase() === 'instagram') && (
+                        <div className="mb-12">
+                            <h3 className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-6 border-b border-slate-800/50 pb-2 flex items-center gap-2">
+                                <Instagram size={14} className="text-pink-500" /> Instagram Highlights
+                            </h3>
+                            <div className="flex flex-wrap gap-8">
+                                {tool.links.filter(l => l.platform.toLowerCase() === 'instagram').map((link, idx) => (
+                                    <a
+                                        key={`ig-${idx}`}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group flex flex-col items-center gap-3 w-20"
+                                    >
+                                        <div className="relative">
+                                            <div className="absolute -inset-[3px] bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#bc1888] rounded-full blur-[1px] opacity-70 group-hover:opacity-100 transition-opacity"></div>
+                                            <div className="relative w-[70px] h-[70px] bg-slate-950 rounded-full p-[3px] border-2 border-slate-950">
+                                                <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center group-hover:bg-slate-800 transition-colors overflow-hidden">
+                                                    <Instagram size={32} className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span className="text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight text-center truncate w-full">
+                                            Community {idx + 1}
+                                        </span>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Other Links section */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {tool.links && tool.links.length > 0 ? (
-                            tool.links.map((link, idx) => {
+                        {tool.links && tool.links.filter(l => l.platform.toLowerCase() !== 'instagram').length > 0 ? (
+                            tool.links.filter(l => l.platform.toLowerCase() !== 'instagram').map((link, idx) => {
                                 const platformConfig: Record<string, { label: string, icon: React.ReactNode, color: string, border: string, bg: string, text: string }> = {
-                                    instagram: {
-                                        label: 'Instagram',
-                                        icon: <Instagram size={20} className="text-white" />,
-                                        color: 'bg-gradient-to-br from-purple-500 to-pink-500',
-                                        border: 'border-pink-500/20',
-                                        bg: 'bg-pink-600/5',
-                                        text: 'group-hover:text-pink-400'
-                                    },
                                     twitter: {
                                         label: 'X / Twitter',
                                         icon: <Twitter size={20} className="text-white" />,
@@ -259,10 +284,12 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                 );
                             })
                         ) : (
-                            <div className="col-span-full py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
-                                <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
-                                <p className="text-slate-500 font-bold tracking-wide italic">No discussion links curated for this tool yet.</p>
-                            </div>
+                            !tool.links?.some(l => l.platform.toLowerCase() === 'instagram') && (
+                                <div className="col-span-full py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
+                                    <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
+                                    <p className="text-slate-500 font-bold tracking-wide italic">No discussion links curated for this tool yet.</p>
+                                </div>
+                            )
                         )}
                     </div>
 

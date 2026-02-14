@@ -196,6 +196,49 @@ const tools = [
         icon: 'Search',
         tags: ['Science', 'Academic', 'Papers'],
         pricing: 'Freemium'
+    },
+    {
+        id: 'nano-banna',
+        name: 'Nano Banna',
+        description: 'Revolutionary AI tool for creating high-quality, professional product images and marketing visuals.',
+        category: 'Image',
+        url: 'https://nanobanna.com',
+        icon: 'Image',
+        tags: ['Marketing', 'Product Photography', 'Design'],
+        pricing: 'Paid'
+    },
+    {
+        id: 'chatgpt-image',
+        name: 'ChatGPT Image Generator',
+        description: 'DALL-E 3 integration within ChatGPT for seamless architectural and artistic image generation.',
+        category: 'Image',
+        url: 'https://chatgpt.com/images',
+        icon: 'Paintbrush',
+        tags: ['DALL-E', 'Generative AI', 'Art'],
+        pricing: 'Paid'
+    },
+    {
+        id: 'grok',
+        name: 'Grok',
+        description: 'Elon Musk\'s xAI model with real-time access to X (Twitter) and advanced multi-modal capabilities including image generation.',
+        category: 'Image',
+        url: 'https://x.ai',
+        icon: 'Zap',
+        tags: ['Real-time', 'xAI', 'Multimodal'],
+        pricing: 'Paid'
+    },
+    {
+        id: 'seedance',
+        name: 'Seedance',
+        description: 'Cutting-edge AI video generation platform for creators and filmmakers.',
+        category: 'Video',
+        url: 'https://www.seedance.ai/',
+        icon: 'Video',
+        tags: ['Generative Video', 'Cinematography', 'AI Film'],
+        pricing: 'Paid',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/p/DUm_lt0iEAL/?img_index=3' }
+        ]
     }
 ];
 
