@@ -39,7 +39,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
         </div>
       )}
 
-      <div className="p-6 flex-1 flex flex-col">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col">
         <div className="flex justify-between items-start mb-5">
           <div className={`p-3.5 bg-slate-700/30 rounded-xl group-hover:bg-${colors.secondary} group-hover:text-${colors.text} transition-all duration-300 border border-transparent group-hover:border-${colors.border}`}>
             <IconComponent size={24} strokeWidth={2.5} />

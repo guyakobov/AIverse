@@ -289,11 +289,11 @@ const App: React.FC = () => {
                         {view === 'home' ? (
                             <>
                                 {/* Hero Section */}
-                                <div className="text-center max-w-3xl mx-auto mb-16 mt-8 animate-fade-in">
-                                    <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight leading-tight">
+                                <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 mt-4 sm:mt-8 animate-fade-in px-4">
+                                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 sm:mb-8 tracking-tight leading-tight sm:leading-tight">
                                         The <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-emerald-400">Expanding Universe</span> of AI Tools
                                     </h1>
-                                    <p className="text-xl text-slate-400 mb-10 leading-relaxed font-medium">
+                                    <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-10 leading-relaxed font-medium">
                                         Your curated directory for the most powerful AI software on the planet. Search, discover, and build your perfect workflow.
                                     </p>
 
