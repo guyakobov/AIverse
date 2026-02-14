@@ -1,11 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { CATEGORIES } from './constants';
+import { CATEGORIES, CATEGORY_COLORS, CATEGORY_ICONS } from './constants';
 import { Tool, Category, RecommendationResult } from './types';
 import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
 import { SubmitToolForm } from './components/SubmitToolForm';
-// Removed Gemini import
-import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2 } from 'lucide-react';
+import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
 type View = 'home' | 'favorites' | 'submit';
@@ -76,13 +75,10 @@ const App: React.FC = () => {
         let result: { tool: Tool, reason?: string }[] = [];
 
         if (view === 'favorites') {
-            // Favorites View: Show only favorites
             const favTools = tools.filter(t => favorites.includes(t.id));
             result = favTools.map(t => ({ tool: t, reason: undefined }));
         } else {
-            // Home View: Standard logic
             if (searchQuery.length > 0) {
-                // Local Search Logic
                 const lowerQuery = searchQuery.toLowerCase();
                 const matchedTools = tools.filter(t =>
                     t.name.toLowerCase().includes(lowerQuery) ||
@@ -101,14 +97,12 @@ const App: React.FC = () => {
             }
         }
 
-        // Common: Filter by Selected Tags
         if (selectedTags.length > 0) {
             result = result.filter(item =>
                 selectedTags.every(tag => item.tool.tags.includes(tag))
             );
         }
 
-        // Common: Sort
         return [...result].sort((a, b) => {
             switch (sortBy) {
                 case 'name':
@@ -124,13 +118,22 @@ const App: React.FC = () => {
         });
     }, [view, activeCategory, recommendations, sortBy, selectedTags, favorites, tools]);
 
+    // Grouping tools by category for the "All" view
+    const groupedTools = useMemo<Record<string, { tool: Tool, reason?: string }[]> | null>(() => {
+        if (activeCategory !== 'All' || searchQuery.length > 0 || view !== 'home') return null;
+
+        const groups: Record<string, { tool: Tool, reason?: string }[]> = {};
+        CATEGORIES.filter(c => c !== 'All').forEach(cat => {
+            groups[cat] = displayedTools.filter(item => item.tool.category === cat);
+        });
+        return groups;
+    }, [displayedTools, activeCategory, searchQuery, view]);
+
     const handleAISearch = async (query: string) => {
         setSearchQuery(query);
         setActiveCategory('All');
         setSortBy('default');
         setSelectedTags([]);
-
-        // Automatically switch to home view if searching
         if (view !== 'home') setView('home');
     };
 
@@ -151,13 +154,11 @@ const App: React.FC = () => {
         );
     };
 
-    // Check if any filters are active (Home view only)
     const hasActiveFilters = useMemo(() => {
         if (view !== 'home') return false;
         return searchQuery.length > 0 || activeCategory !== 'All' || selectedTags.length > 0;
     }, [view, searchQuery, activeCategory, selectedTags]);
 
-    // View Navigation
     const goHome = () => {
         setView('home');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -175,24 +176,24 @@ const App: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 flex flex-col">
+        <div className="min-h-screen bg-[#020617] text-slate-200 flex flex-col font-sans">
             {/* Navbar */}
-            <nav className="sticky top-0 z-50 bg-[#0f172a]/80 backdrop-blur-lg border-b border-slate-800">
+            <nav className="sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
+                    <div className="flex items-center justify-between h-20">
                         <button
                             onClick={goHome}
-                            className="flex items-center gap-2 focus:outline-none hover:opacity-80 transition-opacity"
+                            className="flex items-center gap-3 focus:outline-none group"
                         >
-                            <div className="bg-indigo-600 p-1.5 rounded-lg">
+                            <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-2 rounded-xl group-hover:scale-110 transition-transform shadow-lg shadow-indigo-500/20">
                                 <Cpu size={24} className="text-white" />
                             </div>
-                            <span className="font-bold text-xl tracking-tight">AI<span className="text-indigo-400">verse</span></span>
+                            <span className="font-extrabold text-2xl tracking-tight text-white">AI<span className="text-indigo-400">verse</span></span>
                         </button>
-                        <div className="flex items-center gap-2 sm:gap-4">
+                        <div className="flex items-center gap-2 sm:gap-6">
                             <button
                                 onClick={goHome}
-                                className={`text-sm px-3 py-2 rounded-lg transition-colors flex items-center gap-2 ${view === 'home' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
+                                className={`text-sm font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center gap-2.5 ${view === 'home' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'}`}
                             >
                                 <LayoutGrid size={18} />
                                 <span className="hidden sm:inline">Directory</span>
@@ -200,34 +201,32 @@ const App: React.FC = () => {
 
                             <button
                                 onClick={goFavorites}
-                                className={`text-sm px-3 py-2 rounded-lg transition-colors flex items-center gap-2 ${view === 'favorites' ? 'bg-pink-500/10 text-pink-400 border border-pink-500/20' : 'text-slate-400 hover:text-pink-300 hover:bg-slate-800/50'}`}
+                                className={`text-sm font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center gap-2.5 ${view === 'favorites' ? 'bg-pink-500/10 text-pink-500 border border-pink-500/20 shadow-lg shadow-pink-500/10' : 'text-slate-400 hover:text-pink-400 hover:bg-pink-500/5'}`}
                             >
-                                <Heart size={18} className={view === 'favorites' ? "fill-pink-500/20" : ""} />
+                                <Heart size={18} className={view === 'favorites' ? "fill-pink-500" : ""} />
                                 <span className="hidden sm:inline">Favorites</span>
                                 {favorites.length > 0 && (
-                                    <span className="bg-pink-500 text-white text-[10px] font-bold px-1.5 rounded-full min-w-[18px] text-center">
+                                    <span className="bg-pink-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] shadow-sm">
                                         {favorites.length}
                                     </span>
                                 )}
                             </button>
 
-                            <div className="h-6 w-px bg-slate-700 mx-1 hidden sm:block"></div>
+                            <div className="h-8 w-px bg-slate-800 mx-2 hidden sm:block"></div>
 
                             <button
                                 onClick={goSubmit}
-                                className={`text-sm px-2 py-1 hover:text-white transition-colors ${view === 'submit' ? 'text-white font-medium' : 'text-slate-400'}`}
+                                className={`text-sm font-bold px-4 py-2.5 rounded-xl border transition-all ${view === 'submit' ? 'border-indigo-500 text-white' : 'border-slate-800 text-slate-400 hover:text-white hover:border-slate-600'}`}
                             >
                                 Submit Tool
                             </button>
-
-
                         </div>
                     </div>
                 </div>
             </nav>
 
             {/* Main Content */}
-            <main className="flex-grow flex flex-col items-center pt-12 px-4 pb-20">
+            <main className="flex-grow flex flex-col items-center pt-8 px-4 pb-20 max-w-7xl mx-auto w-full">
 
                 {view === 'submit' ? (
                     <SubmitToolForm onBack={goHome} />
@@ -236,123 +235,121 @@ const App: React.FC = () => {
                         {view === 'home' ? (
                             <>
                                 {/* Hero Section */}
-                                <div className="text-center max-w-2xl mx-auto mb-10 animate-fade-in">
-                                    <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-indigo-200 mb-6">
-                                        Find the Perfect AI Tool <br /> for Any Task
+                                <div className="text-center max-w-3xl mx-auto mb-16 mt-8 animate-fade-in">
+                                    <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight leading-tight">
+                                        The <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-emerald-400">Expanding Universe</span> of AI Tools
                                     </h1>
-                                    <p className="text-lg text-slate-400 mb-8">
-                                        Navigate the expanding universe of Artificial Intelligence.
-                                        Search for the best tools to enhance your workflow.
+                                    <p className="text-xl text-slate-400 mb-10 leading-relaxed font-medium">
+                                        Your curated directory for the most powerful AI software on the planet. Search, discover, and build your perfect workflow.
                                     </p>
-                                </div>
 
-                                {/* AI Search */}
-                                <div className="animate-fade-in animation-delay-100 w-full flex justify-center">
-                                    <AIRecommender
-                                        onSearch={handleAISearch}
-                                        isSearching={false}
-                                        onClear={resetFilters}
-                                        hasResults={searchQuery.length > 0}
-                                    />
+                                    {/* AI Search */}
+                                    <div className="w-full flex justify-center">
+                                        <AIRecommender
+                                            onSearch={handleAISearch}
+                                            isSearching={false}
+                                            onClear={resetFilters}
+                                            hasResults={searchQuery.length > 0}
+                                        />
+                                    </div>
                                 </div>
                             </>
                         ) : (
                             /* Favorites Header */
-                            <div className="text-center max-w-2xl mx-auto mb-10 animate-fade-in">
-                                <div className="inline-flex items-center justify-center p-3 bg-pink-500/10 rounded-full mb-4">
-                                    <Heart size={32} className="text-pink-500 fill-pink-500/20" />
+                            <div className="text-center max-w-2xl mx-auto mb-16 mt-8 animate-fade-in">
+                                <div className="inline-flex items-center justify-center p-5 bg-pink-500/10 rounded-2xl mb-6 border border-pink-500/20 shadow-xl shadow-pink-500/5">
+                                    <Heart size={44} className="text-pink-500 fill-pink-500/20" />
                                 </div>
-                                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                                <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
                                     My Saved Tools
                                 </h1>
-                                <p className="text-slate-400">
-                                    Your personal collection of {favorites.length} AI resources.
+                                <p className="text-lg text-slate-400 font-medium">
+                                    Your personal collection of <span className="text-pink-400 font-bold">{favorites.length}</span> high-performance tools.
                                 </p>
                             </div>
                         )}
 
-                        {/* Section Divider / Filters */}
-                        <div className="w-full max-w-7xl mb-8 animate-fade-in">
-
-                            {/* Loading & Error States */}
+                        <div className="w-full mb-12 animate-fade-in px-4">
                             {isLoading ? (
-                                <div className="flex flex-col items-center py-20 text-slate-400">
-                                    <Loader2 size={40} className="animate-spin text-indigo-500 mb-4" />
-                                    <p>Loading tools...</p>
+                                <div className="flex flex-col items-center py-32 text-slate-500">
+                                    <Loader2 size={48} className="animate-spin text-indigo-500 mb-6" />
+                                    <p className="text-lg font-medium">Initializing AI directory...</p>
                                 </div>
                             ) : error ? (
-                                <div className="flex flex-col items-center py-20 text-red-400">
-                                    <p>{error}</p>
+                                <div className="flex flex-col items-center py-32 text-red-500">
+                                    <p className="text-xl font-bold mb-6">{error}</p>
                                     <button
                                         onClick={() => window.location.reload()}
-                                        className="mt-4 px-4 py-2 bg-slate-800 rounded-lg text-white hover:bg-slate-700 transition-colors"
+                                        className="px-8 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all font-bold"
                                     >
-                                        Retry
+                                        Retry Connection
                                     </button>
                                 </div>
                             ) : (
                                 <>
-                                    {/* Filters are only shown on Home view OR if we are in favorites but have items */}
                                     {(view === 'home' || (view === 'favorites' && displayedTools.length > 0)) && (
                                         <>
-                                            {/* Header for Search Results */}
-                                            {view === 'home' && recommendations.length > 0 && (
-                                                <div className="flex items-center justify-between mb-6">
-                                                    <h2 className="text-2xl font-bold flex items-center gap-2">
-                                                        Search Results for "{searchQuery}"
+                                            {view === 'home' && searchQuery.length > 0 && recommendations.length > 0 && (
+                                                <div className="flex items-center justify-between mb-10 bg-slate-900/40 p-6 rounded-2xl border border-slate-800/50 backdrop-blur-sm">
+                                                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                                                        Results for <span className="text-indigo-400 italic">"{searchQuery}"</span>
                                                     </h2>
                                                     <button
                                                         onClick={resetFilters}
-                                                        className="text-sm text-slate-400 hover:text-white underline"
+                                                        className="text-sm font-bold text-slate-400 hover:text-white transition-colors bg-slate-800/80 px-4 py-2 rounded-lg"
                                                     >
-                                                        Back to Directory
+                                                        Directory Root
                                                     </button>
                                                 </div>
                                             )}
 
-                                            {/* Category Filters (Only on Home when not searching) */}
                                             {view === 'home' && searchQuery.length === 0 && (
-                                                <div className="flex flex-col items-center gap-6 mb-10">
-                                                    {/* Category Filters */}
-                                                    <div className="flex flex-wrap justify-center gap-3">
-                                                        {CATEGORIES.map((cat) => (
-                                                            <button
-                                                                key={cat}
-                                                                onClick={() => setActiveCategory(cat)}
-                                                                className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out transform flex items-center gap-2 active:scale-95 ${activeCategory === cat
-                                                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-105 ring-1 ring-indigo-400'
-                                                                    : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 border border-slate-700/50'
-                                                                    }`}
-                                                            >
-                                                                {cat}
-                                                            </button>
-                                                        ))}
+                                                <div className="flex flex-col items-center gap-8 mb-16">
+                                                    {/* Category Tabs */}
+                                                    <div className="flex flex-wrap justify-center gap-3 bg-slate-900/30 p-2 rounded-2xl border border-slate-800/50 backdrop-blur-sm">
+                                                        {CATEGORIES.map((cat) => {
+                                                            const colorSet = CATEGORY_COLORS[cat] || CATEGORY_COLORS['All'];
+                                                            const CatIcon = CATEGORY_ICONS[cat] || LayoutGrid;
+                                                            return (
+                                                                <button
+                                                                    key={cat}
+                                                                    onClick={() => setActiveCategory(cat)}
+                                                                    className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2.5 active:scale-95 ${activeCategory === cat
+                                                                        ? `bg-${colorSet.primary} text-white shadow-lg shadow-${colorSet.primary}/30`
+                                                                        : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'
+                                                                        }`}
+                                                                >
+                                                                    <CatIcon size={16} />
+                                                                    {cat}
+                                                                </button>
+                                                            );
+                                                        })}
                                                     </div>
 
-                                                    {/* Tag Filters */}
-                                                    <div className="w-full max-w-3xl">
-                                                        <div className="flex flex-wrap justify-center gap-2">
+                                                    {/* Popular Tags */}
+                                                    <div className="w-full max-w-4xl">
+                                                        <div className="flex flex-wrap justify-center gap-2.5">
                                                             {popularTags.slice(0, 15).map(tag => (
                                                                 <button
                                                                     key={tag}
                                                                     onClick={() => toggleTag(tag)}
-                                                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ease-in-out transform active:scale-95 ${selectedTags.includes(tag)
-                                                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/50 hover:bg-indigo-500/30 scale-105 shadow-sm shadow-indigo-500/20'
-                                                                        : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:border-slate-600 hover:text-slate-300 hover:scale-105'
+                                                                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 border ${selectedTags.includes(tag)
+                                                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-400 shadow-lg shadow-indigo-500/10'
+                                                                        : 'bg-slate-900/50 text-slate-500 border-slate-800/50 hover:border-slate-600 hover:text-slate-300'
                                                                         }`}
                                                                 >
-                                                                    <TagIcon size={10} className={`transition-colors duration-200 ${selectedTags.includes(tag) ? 'text-indigo-400' : 'text-slate-500'}`} />
+                                                                    <TagIcon size={12} className={selectedTags.includes(tag) ? 'text-indigo-400' : 'text-slate-600'} />
                                                                     {tag}
                                                                 </button>
                                                             ))}
                                                         </div>
                                                         {selectedTags.length > 0 && (
-                                                            <div className="flex justify-center mt-3">
+                                                            <div className="flex justify-center mt-6">
                                                                 <button
                                                                     onClick={() => setSelectedTags([])}
-                                                                    className="text-xs text-slate-500 hover:text-slate-300 flex items-center gap-1 transition-colors"
+                                                                    className="text-xs font-bold text-slate-500 hover:text-indigo-400 flex items-center gap-2 transition-colors uppercase tracking-widest bg-slate-900/30 px-4 py-2 rounded-lg border border-slate-800/50"
                                                                 >
-                                                                    <X size={12} /> Clear all tags
+                                                                    <X size={14} /> Clear Selection
                                                                 </button>
                                                             </div>
                                                         )}
@@ -362,69 +359,117 @@ const App: React.FC = () => {
                                         </>
                                     )}
 
-                                    {/* Controls Bar: Clear Filters & Sorting */}
+                                    {/* Tools List Header */}
                                     {displayedTools.length > 0 && (
-                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 border-b border-slate-800/50 pb-8">
+                                            <div className="flex items-center gap-4">
+                                                <h3 className="text-xl font-bold text-white uppercase tracking-wider">
+                                                    {view === 'favorites' ? 'Saved Resources' : activeCategory === 'All' ? 'Complete Directory' : activeCategory}
+                                                </h3>
+                                                <span className="text-slate-500 font-mono text-sm bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+                                                    {displayedTools.length} Tools
+                                                </span>
+                                            </div>
 
-                                            {/* Clear Filters (Left aligned on desktop) */}
-                                            <div className="flex-1">
+                                            <div className="flex items-center gap-4">
                                                 {hasActiveFilters && (
                                                     <button
                                                         onClick={resetFilters}
-                                                        className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors bg-slate-800/50 hover:bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-700/50 group"
+                                                        className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest"
                                                     >
-                                                        <X size={14} className="group-hover:rotate-90 transition-transform" />
-                                                        <span>Clear All Filters</span>
+                                                        <X size={14} /> Reset
                                                     </button>
                                                 )}
-                                            </div>
-
-                                            {/* Sort (Right aligned) */}
-                                            <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 shadow-sm transition-colors hover:border-slate-600 self-end sm:self-auto">
-                                                <ArrowUpDown size={14} className="text-slate-400" />
-                                                <span className="text-xs text-slate-500 font-medium mr-1">Sort by:</span>
-                                                <select
-                                                    value={sortBy}
-                                                    onChange={(e) => setSortBy(e.target.value as SortOption)}
-                                                    className="bg-transparent text-sm text-slate-200 font-medium focus:outline-none cursor-pointer"
-                                                >
-                                                    <option value="default" className="bg-slate-800">Default</option>
-                                                    <option value="name" className="bg-slate-800">Name (A-Z)</option>
-                                                    <option value="category" className="bg-slate-800">Category</option>
-                                                    <option value="pricing" className="bg-slate-800">Pricing (Free First)</option>
-                                                </select>
+                                                <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 shadow-sm transition-colors hover:border-slate-700">
+                                                    <ArrowUpDown size={14} className="text-slate-500" />
+                                                    <select
+                                                        value={sortBy}
+                                                        onChange={(e) => setSortBy(e.target.value as SortOption)}
+                                                        className="bg-transparent text-sm text-slate-300 font-bold focus:outline-none cursor-pointer appearance-none pr-4"
+                                                    >
+                                                        <option value="default" className="bg-slate-900">Recommended</option>
+                                                        <option value="name" className="bg-slate-900">Name (A-Z)</option>
+                                                        <option value="category" className="bg-slate-900">Category Wise</option>
+                                                        <option value="pricing" className="bg-slate-900">Price Model</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     )}
 
-                                    {/* Grid */}
+                                    {/* Grid Layout */}
                                     {displayedTools.length === 0 ? (
-                                        <div className="text-center py-20 bg-slate-800/30 rounded-2xl border border-slate-800 border-dashed">
+                                        <div className="text-center py-32 bg-slate-900/20 rounded-3xl border border-slate-800/50 border-dashed backdrop-blur-sm">
                                             {view === 'favorites' ? (
                                                 <div className="flex flex-col items-center">
-                                                    <div className="p-4 bg-slate-700/30 rounded-full mb-4">
-                                                        <Bookmark size={32} className="text-slate-500" />
+                                                    <div className="p-6 bg-slate-800/50 rounded-3xl mb-6 shadow-xl border border-slate-700/50">
+                                                        <Bookmark size={48} className="text-slate-600" />
                                                     </div>
-                                                    <h3 className="text-xl font-medium text-white mb-2">No favorites yet</h3>
-                                                    <p className="text-slate-500 max-w-sm mb-6">
-                                                        Click the heart icon on any tool to save it to your personal collection for quick access.
+                                                    <h3 className="text-2xl font-bold text-white mb-3">Your library is empty</h3>
+                                                    <p className="text-slate-500 max-w-sm mb-10 font-medium">
+                                                        Heart your favorite tools to building your custom AI toolkit for high-performance work.
                                                     </p>
                                                     <button
                                                         onClick={goHome}
-                                                        className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors font-medium"
+                                                        className="px-10 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl transition-all font-bold shadow-lg shadow-indigo-500/25"
                                                     >
-                                                        Browse Tools
+                                                        Explore the Directory
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <>
-                                                    <p className="text-slate-500 text-lg">No tools found matching your criteria.</p>
-                                                    <button onClick={resetFilters} className="mt-4 text-indigo-400 hover:text-indigo-300">Clear all filters</button>
-                                                </>
+                                                <div className="flex flex-col items-center">
+                                                    <div className="p-6 bg-slate-800/50 rounded-3xl mb-6 shadow-xl border border-slate-700/50">
+                                                        <X size={48} className="text-red-500/50" />
+                                                    </div>
+                                                    <h3 className="text-2xl font-bold text-white mb-3">No tools found</h3>
+                                                    <p className="text-slate-500 mb-8 font-medium">Try adjusting your filters or search query.</p>
+                                                    <button onClick={resetFilters} className="px-8 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700 transition-all font-bold">Clear all filters</button>
+                                                </div>
                                             )}
                                         </div>
+                                    ) : groupedTools ? (
+                                        /* Grouped View (Category sections) */
+                                        <div className="space-y-20">
+                                            {Object.entries(groupedTools).map(([cat, toolsInCategory]) => {
+                                                if (toolsInCategory.length === 0) return null;
+                                                const colorSet = CATEGORY_COLORS[cat as Category] || CATEGORY_COLORS['All'];
+                                                const CatIcon = CATEGORY_ICONS[cat as Category] || LayoutGrid;
+                                                return (
+                                                    <section key={cat} className="animate-fade-in">
+                                                        <div className="flex items-center gap-4 mb-8">
+                                                            <div className={`p-3 rounded-2xl bg-${colorSet.primary}/10 border border-${colorSet.primary}/20 shadow-sm shadow-${colorSet.primary}/5`}>
+                                                                <CatIcon size={28} className={`text-${colorSet.text}`} />
+                                                            </div>
+                                                            <div>
+                                                                <h2 className="text-3xl font-black text-white leading-none mb-1">{cat}</h2>
+                                                                <p className="text-slate-500 text-sm font-bold uppercase tracking-[0.2em]">{toolsInCategory.length} Available Tools</p>
+                                                            </div>
+                                                            <div className="flex-grow h-px bg-slate-800/50 ml-4"></div>
+                                                            <button
+                                                                onClick={() => setActiveCategory(cat as Category)}
+                                                                className="flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-white transition-all uppercase tracking-widest group"
+                                                            >
+                                                                View All <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                                            </button>
+                                                        </div>
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                                            {toolsInCategory.map((item) => (
+                                                                <ToolCard
+                                                                    key={item.tool.id}
+                                                                    tool={item.tool}
+                                                                    recommendationReason={item.reason}
+                                                                    isFavorite={favorites.includes(item.tool.id)}
+                                                                    onToggleFavorite={() => toggleFavorite(item.tool.id)}
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </section>
+                                                );
+                                            })}
+                                        </div>
                                     ) : (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        /* Standard Grid View */
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                             {displayedTools.map((item) => (
                                                 <ToolCard
                                                     key={item.tool.id}
@@ -444,11 +489,16 @@ const App: React.FC = () => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-slate-900 border-t border-slate-800 py-12">
+            <footer className="bg-slate-950 border-t border-slate-900 py-16">
                 <div className="max-w-7xl mx-auto px-4 text-center">
-                    <p className="text-slate-500 mb-4">Powered by Neon Postgres</p>
-                    <p className="text-slate-600 text-sm">
-                        © {new Date().getFullYear()} AIverse Directory. All rights reserved.
+                    <div className="mb-8 flex justify-center items-center gap-6">
+                        <div className="h-px w-12 bg-slate-800"></div>
+                        <Cpu size={32} className="text-slate-700" />
+                        <div className="h-px w-12 bg-slate-800"></div>
+                    </div>
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mb-4">Architecture optimized with Neon Postgres</p>
+                    <p className="text-slate-600 text-sm font-medium">
+                        © {new Date().getFullYear()} AIverse Executive Directory. Professional tools for the next generation.
                     </p>
                 </div>
             </footer>

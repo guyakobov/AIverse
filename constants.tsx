@@ -1,16 +1,16 @@
 import React from 'react';
-import { 
-  Code, 
-  PenTool, 
-  Image as ImageIcon, 
-  Video, 
-  Mic, 
-  Zap, 
-  Search, 
-  Cpu, 
-  MessageSquare, 
-  Music, 
-  Layout, 
+import {
+  Code,
+  PenTool,
+  Image as ImageIcon,
+  Video,
+  Mic,
+  Zap,
+  Search,
+  Cpu,
+  MessageSquare,
+  Music,
+  Layout,
   Terminal,
   FileText,
   Briefcase
@@ -18,6 +18,28 @@ import {
 import { Tool, Category } from './types';
 
 export const CATEGORIES: Category[] = ['All', 'Coding', 'Writing', 'Image', 'Video', 'Audio', 'Productivity', 'Research'];
+
+export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: string, border: string, text: string }> = {
+  'All': { primary: 'indigo-600', secondary: 'indigo-500/10', border: 'indigo-500/20', text: 'indigo-400' },
+  'Coding': { primary: 'blue-600', secondary: 'blue-500/10', border: 'blue-500/20', text: 'blue-400' },
+  'Writing': { primary: 'emerald-600', secondary: 'emerald-500/10', border: 'emerald-500/20', text: 'emerald-400' },
+  'Image': { primary: 'violet-600', secondary: 'violet-500/10', border: 'violet-500/20', text: 'violet-400' },
+  'Video': { primary: 'rose-600', secondary: 'rose-500/10', border: 'rose-500/20', text: 'rose-400' },
+  'Audio': { primary: 'amber-600', secondary: 'amber-500/10', border: 'amber-500/20', text: 'amber-400' },
+  'Productivity': { primary: 'cyan-600', secondary: 'cyan-500/10', border: 'cyan-500/20', text: 'cyan-400' },
+  'Research': { primary: 'fuchsia-600', secondary: 'fuchsia-500/10', border: 'fuchsia-500/20', text: 'fuchsia-400' },
+};
+
+export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
+  'All': Layout,
+  'Coding': Code,
+  'Writing': PenTool,
+  'Image': ImageIcon,
+  'Video': Video,
+  'Audio': Mic,
+  'Productivity': Zap,
+  'Research': Search,
+};
 
 export const ICON_MAP: Record<string, React.FC<any>> = {
   Code,

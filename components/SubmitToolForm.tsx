@@ -9,15 +9,44 @@ interface SubmitToolFormProps {
 export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate network request
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMessage(null);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name') as string,
+      category: formData.get('category') as string,
+      url: formData.get('url') as string,
+      description: formData.get('description') as string,
+      pricing: 'Freemium', // Default for now
+      tags: [] // Default empty array
+    };
+
+    try {
+      const response = await fetch('/api/submit-suggestion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || 'Failed to submit suggestion');
+      }
+
       setIsSuccess(true);
-    }, 1500);
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      setErrorMessage(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(true);
+      // Wait a bit to show the "Submitting..." state
+      setTimeout(() => setIsSubmitting(false), 800);
+    }
   };
 
   if (isSuccess) {
@@ -28,7 +57,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
         </div>
         <h2 className="text-3xl font-bold text-white mb-4">Thank You!</h2>
         <p className="text-slate-400 text-lg mb-8">
-          Your recommendation has been submitted successfully. We'll review it and add it to the directory soon.
+          Your recommendation has been submitted successfully to our database. We'll review it and add it to the directory soon.
         </p>
         <button
           onClick={onBack}
@@ -42,7 +71,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
 
   return (
     <div className="max-w-2xl mx-auto w-full animate-fade-in">
-      <button 
+      <button
         onClick={onBack}
         className="flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group"
       >
@@ -57,6 +86,12 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
           </p>
         </div>
 
+        {errorMessage && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+            {errorMessage}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -64,6 +99,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
               <input
                 type="text"
                 id="name"
+                name="name"
                 required
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none placeholder-slate-600"
                 placeholder="e.g. ChatGPT"
@@ -73,6 +109,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
               <label htmlFor="category" className="text-sm font-medium text-slate-300">Category</label>
               <select
                 id="category"
+                name="category"
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none appearance-none cursor-pointer"
               >
                 {CATEGORIES.filter(c => c !== 'All').map(cat => (
@@ -87,6 +124,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
             <input
               type="url"
               id="url"
+              name="url"
               required
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none placeholder-slate-600"
               placeholder="https://example.com"
@@ -97,6 +135,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
             <label htmlFor="description" className="text-sm font-medium text-slate-300">Description</label>
             <textarea
               id="description"
+              name="description"
               required
               rows={4}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none resize-none placeholder-slate-600"
