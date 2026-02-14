@@ -185,111 +185,77 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                         </p>
                     </div>
 
-                    {/* Instagram Highlights style section */}
-                    {tool.links && tool.links.some(l => l.platform.toLowerCase() === 'instagram') && (
-                        <div className="mb-12">
-                            <h3 className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-6 border-b border-slate-800/50 pb-2 flex items-center gap-2">
-                                <Instagram size={14} className="text-pink-500" /> Instagram Highlights
-                            </h3>
-                            <div className="flex flex-wrap gap-8">
-                                {tool.links.filter(l => l.platform.toLowerCase() === 'instagram').map((link, idx) => (
-                                    <a
-                                        key={`ig-${idx}`}
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="group flex flex-col items-center gap-3 w-20"
-                                    >
-                                        <div className="relative">
-                                            <div className="absolute -inset-[3px] bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#bc1888] rounded-full blur-[1px] opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                                            <div className="relative w-[70px] h-[70px] bg-slate-950 rounded-full p-[3px] border-2 border-slate-950">
-                                                <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center group-hover:bg-slate-800 transition-colors overflow-hidden">
-                                                    <Instagram size={32} className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
+                    {/* Highlights style section for ALL links */}
+                    <div className="space-y-12">
+                        {tool.links && tool.links.length > 0 ? (
+                            <div className="flex flex-wrap gap-x-10 gap-y-12">
+                                {tool.links.map((link, idx) => {
+                                    const platform = link.platform.toLowerCase();
+
+                                    const configs: Record<string, { icon: React.ReactNode, gradient: string, label: string }> = {
+                                        instagram: {
+                                            icon: <Instagram size={32} />,
+                                            gradient: 'from-[#f09433] via-[#e6683c] to-[#bc1888]',
+                                            label: `Post ${idx + 1}`
+                                        },
+                                        twitter: {
+                                            icon: <Twitter size={30} />,
+                                            gradient: 'from-blue-400 to-blue-600',
+                                            label: 'Thread'
+                                        },
+                                        youtube: {
+                                            icon: <Globe size={30} />,
+                                            gradient: 'from-red-500 to-red-700',
+                                            label: 'Video'
+                                        },
+                                        podcast: {
+                                            icon: <Mic2 size={30} />,
+                                            gradient: 'from-emerald-400 to-teal-600',
+                                            label: 'Audio'
+                                        },
+                                        article: {
+                                            icon: <FileText size={30} />,
+                                            gradient: 'from-indigo-400 to-purple-600',
+                                            label: 'Review'
+                                        }
+                                    };
+
+                                    const config = configs[platform] || {
+                                        icon: <Share2 size={30} />,
+                                        gradient: 'from-slate-400 to-slate-600',
+                                        label: 'Link'
+                                    };
+
+                                    return (
+                                        <a
+                                            key={idx}
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group flex flex-col items-center gap-3 w-20"
+                                        >
+                                            <div className="relative">
+                                                <div className={`absolute -inset-[3px] bg-gradient-to-tr ${config.gradient} rounded-full blur-[1px] opacity-70 group-hover:opacity-100 transition-opacity`}></div>
+                                                <div className="relative w-[70px] h-[70px] bg-slate-950 rounded-full p-[3px] border-2 border-slate-950">
+                                                    <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center group-hover:bg-slate-800 transition-colors overflow-hidden">
+                                                        <div className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                                                            {config.icon}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <span className="text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight text-center truncate w-full">
-                                            Community {idx + 1}
-                                        </span>
-                                    </a>
-                                ))}
+                                            <span className="text-[10px] font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight text-center truncate w-full">
+                                                {platform === 'instagram' ? config.label : (configs[platform]?.label || platform)}
+                                            </span>
+                                        </a>
+                                    );
+                                })}
                             </div>
-                        </div>
-                    )}
-
-                    {/* Other Links section */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {tool.links && tool.links.filter(l => l.platform.toLowerCase() !== 'instagram').length > 0 ? (
-                            tool.links.filter(l => l.platform.toLowerCase() !== 'instagram').map((link, idx) => {
-                                const platformConfig: Record<string, { label: string, icon: React.ReactNode, color: string, border: string, bg: string, text: string }> = {
-                                    twitter: {
-                                        label: 'X / Twitter',
-                                        icon: <Twitter size={20} className="text-white" />,
-                                        color: 'bg-blue-500',
-                                        border: 'border-blue-500/20',
-                                        bg: 'bg-blue-600/5',
-                                        text: 'group-hover:text-blue-400'
-                                    },
-                                    podcast: {
-                                        label: 'Podcast',
-                                        icon: <Mic2 size={20} className="text-white" />,
-                                        color: 'bg-emerald-500',
-                                        border: 'border-emerald-500/20',
-                                        bg: 'bg-emerald-600/5',
-                                        text: 'group-hover:text-emerald-400'
-                                    },
-                                    article: {
-                                        label: 'Review',
-                                        icon: <FileText size={20} className="text-white" />,
-                                        color: 'bg-indigo-500',
-                                        border: 'border-indigo-500/20',
-                                        bg: 'bg-indigo-600/5',
-                                        text: 'group-hover:text-indigo-400'
-                                    },
-                                    youtube: {
-                                        label: 'YouTube',
-                                        icon: <Globe size={20} className="text-white" />,
-                                        color: 'bg-red-500',
-                                        border: 'border-red-500/20',
-                                        bg: 'bg-red-600/5',
-                                        text: 'group-hover:text-red-400'
-                                    }
-                                };
-
-                                const config = platformConfig[link.platform.toLowerCase()] || {
-                                    label: link.platform,
-                                    icon: <Share2 size={20} className="text-white" />,
-                                    color: 'bg-slate-600',
-                                    border: 'border-slate-500/20',
-                                    bg: 'bg-slate-600/5',
-                                    text: 'group-hover:text-white'
-                                };
-
-                                return (
-                                    <a
-                                        key={idx}
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`flex items-center justify-between p-5 ${config.bg} border ${config.border} rounded-3xl hover:bg-slate-800/40 hover:scale-[1.02] active:scale-[0.98] transition-all group`}
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`p-3 ${config.color} rounded-2xl shadow-lg ring-4 ring-white/5`}>
-                                                {config.icon}
-                                            </div>
-                                            <span className="font-bold text-slate-200 group-hover:text-white transition-colors">{config.label}</span>
-                                        </div>
-                                        <ExternalLink size={16} className={`text-slate-600 ${config.text} transition-colors`} />
-                                    </a>
-                                );
-                            })
                         ) : (
-                            !tool.links?.some(l => l.platform.toLowerCase() === 'instagram') && (
-                                <div className="col-span-full py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
-                                    <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
-                                    <p className="text-slate-500 font-bold tracking-wide italic">No discussion links curated for this tool yet.</p>
-                                </div>
-                            )
+                            <div className="py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
+                                <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
+                                <p className="text-slate-500 font-bold tracking-wide italic">No discussion links curated for this tool yet.</p>
+                            </div>
                         )}
                     </div>
 

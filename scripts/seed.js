@@ -237,7 +237,11 @@ const tools = [
         tags: ['Generative Video', 'Cinematography', 'AI Film'],
         pricing: 'Paid',
         links: [
-            { platform: 'instagram', url: 'https://www.instagram.com/p/DUm_lt0iEAL/?img_index=3' }
+            { platform: 'instagram', url: 'https://www.instagram.com/p/DUm_lt0iEAL/?img_index=3' },
+            { platform: 'instagram', url: 'https://www.instagram.com/p/C6_3N-Yx1_Y/' },
+            { platform: 'instagram', url: 'https://www.instagram.com/p/C7A8z8-S5kG/' },
+            { platform: 'twitter', url: 'https://twitter.com/seedance_ai' },
+            { platform: 'youtube', url: 'https://www.youtube.com/watch?v=seedance-demo' }
         ]
     }
 ];
