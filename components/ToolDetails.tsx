@@ -38,9 +38,10 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
             {/* Back Button */}
             <button
                 onClick={onBack}
-                className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 sm:mb-8 transition-colors group px-4 sm:px-0"
+                className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 sm:mb-8 transition-colors group px-4 sm:px-0 focus:outline-none"
+                aria-label="Back to Tool Directory"
             >
-                <div className="p-1.5 sm:p-2 bg-slate-900 rounded-lg group-hover:bg-slate-800 border border-slate-800">
+                <div className="p-1.5 sm:p-2 bg-slate-900 rounded-lg group-hover:bg-slate-800 border border-slate-800" aria-hidden="true">
                     <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                 </div>
                 <span className="font-bold uppercase tracking-widest text-[10px] sm:text-xs">Back to Directory</span>
@@ -51,19 +52,19 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                 <div className="lg:col-span-2 space-y-8">
                     {/* Header Card */}
                     <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden h-full flex flex-col justify-between">
-                        <div className={`absolute top-0 right-0 w-64 h-64 bg-${colors.primary}/10 blur-[100px] -mr-32 -mt-32`}></div>
+                        <div className={`absolute top-0 right-0 w-64 h-64 bg-${colors.primary}/10 blur-[100px] -mr-32 -mt-32`} aria-hidden="true"></div>
 
                         <div className="relative z-10">
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
                                 <div className="flex items-center gap-4 sm:gap-6">
-                                    <div className={`p-4 sm:p-5 bg-${colors.secondary} border border-${colors.border} rounded-2xl shadow-lg`}>
+                                    <div className={`p-4 sm:p-5 bg-${colors.secondary} border border-${colors.border} rounded-2xl shadow-lg`} aria-hidden="true">
                                         <IconComponent size={36} className={`sm:w-12 sm:h-12 text-${colors.text}`} strokeWidth={1.5} />
                                     </div>
-                                    <div>
-                                        <h1 className="text-3xl sm:text-5xl font-black text-white mb-2 tracking-tight">{tool.name}</h1>
+                                    <div className="min-w-0">
+                                        <h1 className="text-3xl sm:text-5xl font-black text-white mb-2 tracking-tight truncate">{tool.name}</h1>
                                         <div className="flex flex-wrap items-center gap-3">
                                             <span className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-${colors.primary}/20 text-${colors.text} border border-${colors.border}`}>
-                                                <CategoryIcon size={12} /> {tool.category}
+                                                <CategoryIcon size={12} aria-hidden="true" /> {tool.category}
                                             </span>
                                             <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-lg border ${pricingColor}`}>
                                                 {tool.pricing}
@@ -76,18 +77,24 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                     <button
                                         onClick={onToggleFavorite}
                                         className={`p-3.5 sm:p-4 rounded-2xl transition-all duration-300 border ${isFavorite ? 'bg-pink-500/10 border-pink-500/30 text-pink-500 shadow-lg shadow-pink-500/5' : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:text-pink-400 hover:border-pink-500/30'}`}
+                                        aria-label={isFavorite ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
+                                        aria-pressed={isFavorite}
+                                        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
                                     >
-                                        <Heart size={20} className={isFavorite ? 'fill-pink-500' : 'sm:w-6 sm:h-6'} />
+                                        <Heart size={20} className={isFavorite ? 'fill-pink-500' : 'sm:w-6 sm:h-6'} aria-hidden="true" />
                                     </button>
-                                    <button className="p-3.5 sm:p-4 bg-slate-800/50 border border-slate-700 rounded-2xl text-slate-400 hover:text-white transition-all">
-                                        <Share2 size={20} className="sm:w-6 sm:h-6" />
+                                    <button
+                                        className="p-3.5 sm:p-4 bg-slate-800/50 border border-slate-700 rounded-2xl text-slate-400 hover:text-white transition-all"
+                                        aria-label={`Share ${tool.name}`}
+                                    >
+                                        <Share2 size={20} className="sm:w-6 sm:h-6" aria-hidden="true" />
                                     </button>
                                 </div>
                             </div>
 
                             <div className="space-y-6">
                                 <div>
-                                    <h3 className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-4">About the Tool</h3>
+                                    <h2 className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-4">About the Tool</h2>
                                     <p className="text-lg sm:text-xl text-slate-300 leading-relaxed font-medium">
                                         {tool.description}
                                     </p>
@@ -98,7 +105,7 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                     <div className="flex flex-wrap gap-2">
                                         {tool.tags.map(tag => (
                                             <span key={tag} className="flex items-center gap-2 px-3 py-1.5 bg-slate-900/60 border border-slate-800 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:border-slate-600 hover:text-slate-200 transition-all cursor-default">
-                                                <Tag size={12} className="opacity-50" /> {tag}
+                                                <Tag size={12} className="opacity-50" aria-hidden="true" /> {tag}
                                             </span>
                                         ))}
                                     </div>
@@ -113,7 +120,9 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                 rel="noopener noreferrer"
                                 className={`w-full inline-flex justify-center items-center gap-3 py-4 sm:py-5 px-8 bg-${colors.primary} hover:scale-[1.02] active:scale-[0.98] text-white rounded-2xl transition-all text-base sm:text-lg font-black shadow-xl shadow-${colors.primary}/20`}
                             >
-                                Visit Official Website <ExternalLink size={18} className="sm:w-5 sm:h-5" />
+                                Visit Official Website
+                                <span className="sr-only"> (opens in new tab)</span>
+                                <ExternalLink size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                             </a>
                         </div>
                     </div>
@@ -122,9 +131,9 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                 {/* Sidebar */}
                 <div className="space-y-6">
                     {/* Key Features */}
-                    <div className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl">
-                        <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`}>
+                    <aside className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl" aria-labelledby="features-title">
+                        <h3 id="features-title" className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
+                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`} aria-hidden="true">
                                 <Calendar size={18} className={`text-${colors.text}`} />
                             </div>
                             Key Features
@@ -136,17 +145,17 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                 "Seamless workflow integration"
                             ].map((feature, i) => (
                                 <li key={i} className="flex items-start gap-3 group">
-                                    <div className={`mt-1.5 w-1.5 h-1.5 rounded-full bg-${colors.primary} flex-shrink-0 group-hover:scale-150 transition-transform`}></div>
+                                    <div className={`mt-1.5 w-1.5 h-1.5 rounded-full bg-${colors.primary} flex-shrink-0 group-hover:scale-150 transition-transform`} aria-hidden="true"></div>
                                     <span className="text-slate-400 text-sm font-bold leading-tight group-hover:text-slate-200 transition-colors">{feature}</span>
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </aside>
 
                     {/* Compatibility */}
-                    <div className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl">
-                        <h3 className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`}>
+                    <aside className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl" aria-labelledby="compatibility-title">
+                        <h3 id="compatibility-title" className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
+                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`} aria-hidden="true">
                                 <Globe size={18} className={`text-${colors.text}`} />
                             </div>
                             Compatibility
@@ -162,21 +171,21 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </aside>
                 </div>
             </div>
 
             {/* Bottom Section: Tool Talk */}
-            <div className="mt-8 px-4 sm:px-0">
+            <section className="mt-8 px-4 sm:px-0" aria-labelledby="tool-talk-title">
                 <div className="bg-slate-900/40 border border-slate-800/50 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-12 shadow-2xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent"></div>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" aria-hidden="true"></div>
 
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
                         <div>
                             <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] mb-4">
                                 Community & Resources
                             </div>
-                            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+                            <h2 id="tool-talk-title" className="text-2xl sm:text-4xl font-black text-white tracking-tight">
                                 Tool <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">Talk</span>
                             </h2>
                         </div>
@@ -250,7 +259,7 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                                 <h3 className={`text-xl sm:text-2xl font-black uppercase tracking-tight ${config.titleColor}`}>
                                                     {config.headerLabel}
                                                 </h3>
-                                                <div className="flex-grow h-px bg-slate-800/30"></div>
+                                                <div className="flex-grow h-px bg-slate-800/30" aria-hidden="true"></div>
                                             </div>
 
                                             <div className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-8 sm:gap-y-10 justify-center sm:justify-start">
@@ -261,8 +270,9 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="group flex flex-col items-center gap-2.5 sm:gap-3 w-16 sm:w-20"
+                                                        aria-label={`${config.label} on ${platform} (opens in new tab)`}
                                                     >
-                                                        <div className="relative">
+                                                        <div className="relative" aria-hidden="true">
                                                             <div className={`absolute -inset-[2px] sm:-inset-[3px] bg-gradient-to-tr ${config.gradient} rounded-full blur-[1px] opacity-60 group-hover:opacity-100 transition-opacity`}></div>
                                                             <div className="relative w-14 h-14 sm:w-[70px] sm:h-[70px] bg-slate-950 rounded-full p-[2px] sm:p-[3px] border-2 border-slate-950">
                                                                 <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center group-hover:bg-slate-800 transition-colors overflow-hidden">
@@ -284,14 +294,14 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                             })()
                         ) : (
                             <div className="py-12 sm:py-16 text-center bg-slate-950/30 rounded-3xl border border-slate-800/50 border-dashed">
-                                <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" />
+                                <Share2 size={32} className="text-slate-700 mx-auto mb-4 opacity-50" aria-hidden="true" />
                                 <p className="text-slate-500 font-bold tracking-wide italic">No discussion links curated for this tool yet.</p>
                             </div>
                         )}
                     </div>
 
                     <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-800/30 flex items-center gap-3 sm:gap-4">
-                        <div className="p-1.5 sm:p-2 bg-indigo-500/10 rounded-lg">
+                        <div className="p-1.5 sm:p-2 bg-indigo-500/10 rounded-lg" aria-hidden="true">
                             <Globe size={14} className="sm:w-4 sm:h-4 text-indigo-400" />
                         </div>
                         <p className="text-[8px] sm:text-[10px] text-slate-500 font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] leading-tight">
@@ -300,7 +310,7 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                         </p>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };

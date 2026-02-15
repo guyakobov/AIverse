@@ -23,7 +23,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
   }[tool.pricing];
 
   return (
-    <div
+    <article
       onClick={onClick}
       className={`relative group flex flex-col h-full bg-[#030712]/60 backdrop-blur-xl border rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-${colors.primary}/10 hover:border-${colors.border}/50 cursor-pointer ${recommendationReason ? `border-${colors.border} ring-1 ring-${colors.primary}/50` : 'border-slate-800/50'}`}
       style={{
@@ -41,7 +41,10 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
 
       <div className="p-5 sm:p-6 flex-1 flex flex-col">
         <div className="flex justify-between items-start mb-5">
-          <div className={`p-3.5 bg-slate-700/30 rounded-xl group-hover:bg-${colors.secondary} group-hover:text-${colors.text} transition-all duration-300 border border-transparent group-hover:border-${colors.border}`}>
+          <div
+            className={`p-3.5 bg-slate-700/30 rounded-xl group-hover:bg-${colors.secondary} group-hover:text-${colors.text} transition-all duration-300 border border-transparent group-hover:border-${colors.border}`}
+            aria-hidden="true"
+          >
             <IconComponent size={24} strokeWidth={2.5} />
           </div>
 
@@ -56,6 +59,8 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
                 onToggleFavorite();
               }}
               className="p-2 hover:bg-slate-700/50 rounded-full transition-colors focus:outline-none group/fav"
+              aria-label={isFavorite ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
+              aria-pressed={isFavorite}
               title={isFavorite ? "Remove from favorites" : "Add to favorites"}
             >
               <Heart
@@ -69,9 +74,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-300">
+        <h2 className="text-xl font-bold text-white mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-300">
           {tool.name}
-        </h3>
+        </h2>
         <p className="text-slate-400 text-sm mb-5 line-clamp-2 flex-1 leading-relaxed">
           {tool.description}
         </p>
@@ -89,10 +94,14 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
           target="_blank"
           rel="noopener noreferrer"
           className={`mt-auto w-full inline-flex justify-center items-center gap-2 py-3 px-4 bg-slate-700/50 hover:bg-${colors.primary} text-slate-200 hover:text-white rounded-xl transition-all duration-300 text-sm font-semibold shadow-inner group-hover:shadow-lg group-hover:shadow-${colors.primary}/20`}
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`Explore ${tool.name} (opens in new tab)`}
         >
-          Explore {tool.name} <ExternalLink size={14} />
+          Explore {tool.name}
+          <span className="sr-only"> (opens in new tab)</span>
+          <ExternalLink size={14} aria-hidden="true" />
         </a>
       </div>
-    </div>
+    </article>
   );
 };

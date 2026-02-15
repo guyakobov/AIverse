@@ -29,16 +29,19 @@ export const AIRecommender: React.FC<AIRecommenderProps> = ({ onSearch, isSearch
         <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-20 animate-pulse"></div>
         <div className="relative bg-slate-900 rounded-2xl border border-slate-700/50 shadow-2xl p-1">
           <form onSubmit={handleSubmit} className="flex items-center gap-1 sm:gap-2">
-            <div className="pl-3 sm:pl-4 text-indigo-400">
+            <div className="pl-3 sm:pl-4 text-indigo-400" aria-hidden="true">
               {isSearching ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} className="sm:w-6 sm:h-6" />}
             </div>
+            <label htmlFor="ai-search" className="sr-only">Describe your task for AI recommendations</label>
             <input
               type="text"
+              id="ai-search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Describe your task..."
               className="flex-1 bg-transparent border-none text-white placeholder-slate-500 focus:ring-0 focus:outline-none py-3 sm:py-4 px-1 sm:px-2 text-sm sm:text-lg w-full"
               disabled={isSearching}
+              aria-label="AI Search Query"
             />
 
             {hasResults && !isSearching && (
@@ -46,8 +49,9 @@ export const AIRecommender: React.FC<AIRecommenderProps> = ({ onSearch, isSearch
                 type="button"
                 onClick={handleClear}
                 className="p-1.5 sm:p-2 text-slate-400 hover:text-white transition-colors"
+                aria-label="Clear search"
               >
-                <X size={18} />
+                <X size={18} aria-hidden="true" />
               </button>
             )}
 
@@ -55,11 +59,12 @@ export const AIRecommender: React.FC<AIRecommenderProps> = ({ onSearch, isSearch
               type="submit"
               disabled={!query.trim() || isSearching}
               className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-3 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold transition-all flex items-center gap-2 m-1 text-xs sm:text-base whitespace-nowrap"
+              aria-label={isSearching ? "Searching recommendations..." : "Find AI Tools"}
             >
-              {isSearching ? '...' : (
+              {isSearching ? <span aria-hidden="true">...</span> : (
                 <>
                   <span className="hidden sm:inline">Find Tools</span>
-                  <ArrowRight size={16} />
+                  <ArrowRight size={16} aria-hidden="true" />
                 </>
               )}
             </button>

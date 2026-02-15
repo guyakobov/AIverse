@@ -6,11 +6,12 @@ import { AIRecommender } from './components/AIRecommender';
 import { SubmitToolForm } from './components/SubmitToolForm';
 import { ToolDetails } from './components/ToolDetails';
 import { LegalPage } from './components/LegalPage';
+import { CookieConsent } from './components/CookieConsent';
 import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
 type View = 'home' | 'favorites' | 'submit' | 'tool-details' | 'legal';
-type LegalType = 'terms' | 'privacy' | 'disclaimer' | 'accessibility';
+type LegalType = 'terms' | 'privacy' | 'disclaimer' | 'accessibility' | 'dmca' | 'cookies' | 'imprint' | 'contact';
 
 const App: React.FC = () => {
     const [tools, setTools] = useState<Tool[]>([]);
@@ -27,25 +28,32 @@ const App: React.FC = () => {
     const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
     const [legalType, setLegalType] = useState<LegalType | null>(null);
 
-    // Hash routing for tool details
+    // Dynamic Page Title & Hash routing
     useEffect(() => {
         const handleHashChange = () => {
             const hash = window.location.hash;
+            let title = 'AIverse - Best AI Tools Directory';
+
             if (hash.startsWith('#tool/')) {
                 const id = hash.replace('#tool/', '');
                 setSelectedToolId(id);
                 setView('tool-details');
+                // Title will be updated in ToolDetails or after tool fetch
             } else if (hash.startsWith('#legal/')) {
                 const type = hash.replace('#legal/', '') as LegalType;
                 setLegalType(type);
                 setView('legal');
+                title = `${type.charAt(0).toUpperCase() + type.slice(1)} - AIverse`;
             } else if (hash === '#favorites') {
                 setView('favorites');
+                title = 'My Favorites - AIverse';
             } else if (hash === '#submit') {
                 setView('submit');
+                title = 'Submit a Tool - AIverse';
             } else {
                 setView('home');
             }
+            document.title = title;
         };
 
         window.addEventListener('hashchange', handleHashChange);
@@ -53,6 +61,16 @@ const App: React.FC = () => {
 
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
+
+    // Update title when tool is selected
+    useEffect(() => {
+        if (view === 'tool-details' && selectedToolId) {
+            const tool = tools.find(t => t.id === selectedToolId);
+            if (tool) {
+                document.title = `${tool.name} - AIverse Executive Directory`;
+            }
+        }
+    }, [view, selectedToolId, tools]);
 
     const fetchTools = async () => {
         try {
@@ -226,11 +244,26 @@ const App: React.FC = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const FooterLink = ({ type, label }: { type: LegalType, label: string }) => (
+        <li>
+            <button
+                onClick={() => openLegalPage(type)}
+                className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium border-none bg-transparent cursor-pointer"
+            >
+                {label}
+            </button>
+        </li>
+    );
+
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 flex flex-col font-sans">
+            <a href="#main-content" className="skip-link">
+                Skip to content
+            </a>
+            <CookieConsent />
             {/* Navbar */}
-            <nav className="sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800/50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <header className="sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800/50">
+                <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main Navigation">
                     <div className="flex items-center justify-between h-20">
                         <button
                             onClick={goHome}
@@ -273,11 +306,11 @@ const App: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </header>
 
             {/* Main Content */}
-            <main className="flex-grow flex flex-col items-center pt-8 px-4 pb-20 max-w-7xl mx-auto w-full">
+            <main id="main-content" className="flex-grow flex flex-col items-center pt-8 px-4 pb-20 max-w-7xl mx-auto w-full" tabIndex={-1}>
 
                 {view === 'tool-details' && selectedToolId ? (
                     (() => {
@@ -330,9 +363,9 @@ const App: React.FC = () => {
                                 <div className="inline-flex items-center justify-center p-5 bg-pink-500/10 rounded-2xl mb-6 border border-pink-500/20 shadow-xl shadow-pink-500/5">
                                     <Heart size={44} className="text-pink-500 fill-pink-500/20" />
                                 </div>
-                                <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
+                                <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
                                     My Saved Tools
-                                </h1>
+                                </h2>
                                 <p className="text-lg text-slate-400 font-medium">
                                     Your personal collection of <span className="text-pink-400 font-bold">{favorites.length}</span> high-performance tools.
                                 </p>
@@ -376,7 +409,11 @@ const App: React.FC = () => {
                                             {view === 'home' && searchQuery.length === 0 && (
                                                 <div className="flex flex-col items-center gap-8 mb-16">
                                                     {/* Category Tabs */}
-                                                    <div className="flex flex-wrap justify-center gap-3 bg-slate-900/30 p-2 rounded-2xl border border-slate-800/50 backdrop-blur-sm">
+                                                    <div
+                                                        className="flex flex-wrap justify-center gap-3 bg-slate-900/30 p-2 rounded-2xl border border-slate-800/50 backdrop-blur-sm"
+                                                        role="tablist"
+                                                        aria-label="Filter by Tool Category"
+                                                    >
                                                         {CATEGORIES.map((cat) => {
                                                             const colorSet = CATEGORY_COLORS[cat] || CATEGORY_COLORS['All'];
                                                             const CatIcon = CATEGORY_ICONS[cat] || LayoutGrid;
@@ -388,6 +425,10 @@ const App: React.FC = () => {
                                                                         ? `bg-${colorSet.primary} text-white shadow-lg shadow-${colorSet.primary}/30`
                                                                         : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'
                                                                         }`}
+                                                                    role="tab"
+                                                                    aria-selected={activeCategory === cat}
+                                                                    aria-pressed={activeCategory === cat}
+                                                                    aria-controls={`category-panel-${cat}`}
                                                                 >
                                                                     <CatIcon size={16} />
                                                                     {cat}
@@ -403,6 +444,7 @@ const App: React.FC = () => {
                                                                 <button
                                                                     key={tag}
                                                                     onClick={() => toggleTag(tag)}
+                                                                    aria-pressed={selectedTags.includes(tag)}
                                                                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 border ${selectedTags.includes(tag)
                                                                         ? 'bg-indigo-500/20 text-indigo-300 border-indigo-400 shadow-lg shadow-indigo-500/10'
                                                                         : 'bg-slate-900/50 text-slate-500 border-slate-800/50 hover:border-slate-600 hover:text-slate-300'
@@ -588,11 +630,11 @@ const App: React.FC = () => {
                         <div>
                             <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">Legal & Support</h4>
                             <ul className="space-y-4">
-                                <li><button onClick={() => openLegalPage('terms')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Terms of Use</button></li>
-                                <li><button onClick={() => openLegalPage('privacy')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Privacy Policy</button></li>
-                                <li><button onClick={() => openLegalPage('disclaimer')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Disclaimer</button></li>
-                                <li><button onClick={() => openLegalPage('accessibility')} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Accessibility</button></li>
-                                <li><a href="mailto:support@ai-verse.com" className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Contact Support</a></li>
+                                <FooterLink type="terms" label="Terms of Use" />
+                                <FooterLink type="privacy" label="Privacy Policy" />
+                                <FooterLink type="accessibility" label="Accessibility Statement" />
+                                <FooterLink type="disclaimer" label="AI Disclaimer" />
+                                <FooterLink type="contact" label="Contact" />
                             </ul>
                         </div>
                     </div>
@@ -602,12 +644,12 @@ const App: React.FC = () => {
                             Architecture optimized with Neon Postgres
                         </div>
                         <p className="text-slate-500 text-xs font-medium">
-                            © {new Date().getFullYear()} AIverse Executive Directory. All rights reserved.
+                            © 2026 AIverse. All rights reserved.
                         </p>
                     </div>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 };
 

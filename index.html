@@ -16,6 +16,48 @@
       /* Slate 50 */
     }
 
+    /* Global Focus Styles */
+    :focus-visible {
+      outline: 2px solid #7c3aed;
+      /* Violet 600 */
+      outline-offset: 2px;
+    }
+
+    /* Skip to Content Link */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #7c3aed;
+      color: white;
+      padding: 12px 24px;
+      z-index: 1000;
+      border-radius: 0 0 12px 12px;
+      font-weight: bold;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Accessibility: Respect Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      ::before,
+      ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+    }
+
     /* Custom scrollbar for webkit */
     ::-webkit-scrollbar {
       width: 8px;

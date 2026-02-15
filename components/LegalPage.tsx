@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArrowLeft, Scale, ShieldCheck, FileText, Accessibility } from 'lucide-react';
+import { ArrowLeft, Scale, ShieldCheck, FileText, Accessibility, Copyright, Cookie, Info, Mail, Send } from 'lucide-react';
 import { LEGAL_CONTENT } from '../constants';
 
 interface LegalPageProps {
-    type: 'terms' | 'privacy' | 'disclaimer' | 'accessibility';
+    type: 'terms' | 'privacy' | 'disclaimer' | 'accessibility' | 'dmca' | 'cookies' | 'imprint' | 'contact';
     onBack: () => void;
 }
 
@@ -14,7 +14,11 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onBack }) => {
         terms: <Scale size={32} className="text-indigo-400" />,
         privacy: <ShieldCheck size={32} className="text-emerald-400" />,
         disclaimer: <FileText size={32} className="text-amber-400" />,
-        accessibility: <Accessibility size={32} className="text-fuchsia-400" />
+        accessibility: <Accessibility size={32} className="text-fuchsia-400" />,
+        dmca: <Copyright size={32} className="text-rose-400" />,
+        cookies: <Cookie size={32} className="text-amber-400" />,
+        imprint: <Info size={32} className="text-blue-400" />,
+        contact: <Mail size={32} className="text-indigo-400" />
     };
 
     return (
@@ -22,9 +26,10 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onBack }) => {
             {/* Back Button */}
             <button
                 onClick={onBack}
-                className="flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group"
+                className="flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group focus:outline-none"
+                aria-label="Back to Tool Directory"
             >
-                <div className="p-2 bg-slate-900 rounded-lg group-hover:bg-slate-800 border border-slate-800">
+                <div className="p-2 bg-slate-900 rounded-lg group-hover:bg-slate-800 border border-slate-800" aria-hidden="true">
                     <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
                 </div>
                 <span className="font-bold uppercase tracking-widest text-xs">Back to Directory</span>
@@ -35,7 +40,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onBack }) => {
 
                 <div className="relative z-10">
                     <div className="flex items-center gap-6 mb-10">
-                        <div className="p-5 bg-slate-800/50 border border-slate-700 rounded-2xl shadow-lg">
+                        <div className="p-5 bg-slate-800/50 border border-slate-700 rounded-2xl shadow-lg" aria-hidden="true">
                             {icons[type]}
                         </div>
                         <div>
@@ -52,6 +57,56 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onBack }) => {
                                 <p key={idx}>{paragraph}</p>
                             ))}
                         </div>
+
+                        {type === 'contact' && (
+                            <div className="mt-12 p-8 bg-slate-800/30 border border-slate-700/50 rounded-3xl">
+                                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label htmlFor="full-name" className="text-xs font-bold text-slate-500 uppercase tracking-widest px-1">Full Name</label>
+                                            <input
+                                                type="text"
+                                                id="full-name"
+                                                name="full-name"
+                                                placeholder="John Doe"
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="email" className="text-xs font-bold text-slate-500 uppercase tracking-widest px-1">Email Address</label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                placeholder="john@example.com"
+                                                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label htmlFor="message" className="text-xs font-bold text-slate-500 uppercase tracking-widest px-1">Message</label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            rows={5}
+                                            placeholder="What's on your mind?"
+                                            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none"
+                                            required
+                                        ></textarea>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-3 shadow-lg shadow-indigo-500/20"
+                                        aria-label="Send message"
+                                    >
+                                        <Send size={18} aria-hidden="true" />
+                                        Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        )}
                     </div>
                 </div>
 

@@ -87,7 +87,12 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
         </div>
 
         {errorMessage && (
-          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+          <div
+            id="form-error"
+            className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm"
+            role="alert"
+            aria-live="assertive"
+          >
             {errorMessage}
           </div>
         )}
@@ -101,6 +106,8 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
                 id="name"
                 name="name"
                 required
+                aria-required="true"
+                aria-describedby={errorMessage ? "form-error" : undefined}
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none placeholder-slate-600"
                 placeholder="e.g. ChatGPT"
               />
@@ -110,6 +117,8 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
               <select
                 id="category"
                 name="category"
+                required
+                aria-required="true"
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none appearance-none cursor-pointer"
               >
                 {CATEGORIES.filter(c => c !== 'All').map(cat => (
@@ -126,6 +135,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
               id="url"
               name="url"
               required
+              aria-required="true"
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none placeholder-slate-600"
               placeholder="https://example.com"
             />
@@ -137,6 +147,7 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
               id="description"
               name="description"
               required
+              aria-required="true"
               rows={4}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none resize-none placeholder-slate-600"
               placeholder="Briefly describe what this tool does..."
@@ -146,15 +157,18 @@ export const SubmitToolForm: React.FC<SubmitToolFormProps> = ({ onBack }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
+            className="w-full inline-flex justify-center items-center gap-3 py-4 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20"
+            aria-live="polite"
           >
             {isSubmitting ? (
               <>
-                <Loader2 size={20} className="animate-spin" /> Submitting...
+                <Loader2 size={20} className="animate-spin" aria-hidden="true" />
+                <span>Submitting Tool Suggestions...</span>
               </>
             ) : (
               <>
-                <Send size={20} /> Submit Recommendation
+                <Send size={20} aria-hidden="true" />
+                <span>Submit Recommendation</span>
               </>
             )}
           </button>

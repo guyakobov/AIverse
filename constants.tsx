@@ -228,63 +228,135 @@ export const TOOLS: Tool[] = [
 export const LEGAL_CONTENT = {
   terms: {
     title: 'Terms of Use',
-    lastUpdated: 'February 14, 2026',
+    lastUpdated: 'February 15, 2026',
     content: `
-Welcome to AIverse (the "Website"). By accessing or using this Website, you agree to comply with and be bound by these Terms of Use. If you do not agree, please do not use the Website.
+Welcome to AIverse. By accessing or using this website, you agree to the following terms and conditions.
 
-**2. Disclaimer of Warranties**
-The Website is an aggregation platform that provides links to third-party artificial intelligence tools and media content ("Third-Party Services"). We do not own, operate, or control these Third-Party Services. The content provided on this Website is for informational purposes only. We make no representations or warranties of any kind, express or implied, regarding the accuracy, reliability, or availability of any Third-Party Services.
+**1. Informational Purpose**
+AIverse provides information about artificial intelligence tools for general informational purposes only. The content on this website does not constitute legal, financial, business, or professional advice.
 
-**3. Third-Party Links and Content**
-Our Website contains links to external websites, social media content (e.g., TikTok, Podcasts), and third-party tools. We are not responsible for the content, privacy policies, or practices of any third-party websites. You acknowledge and agree that AIverse shall not be responsible or liable, directly or indirectly, for any damage or loss caused by or in connection with the use of such content or services.
+**2. No Warranties**
+All content is provided "as is" without warranties of any kind. AIverse does not guarantee the accuracy, completeness, or reliability of any information listed.
 
-**4. Intellectual Property**
-All original content, design, and layout of this Website are the property of AIverse. All trademarks, logos, and brand names of the AI tools mentioned are the property of their respective owners.
+**3. Third-Party Links**
+This website contains links to third-party websites and social media platforms. AIverse has no control over the content or policies of those external websites and assumes no responsibility for them.
 
-**5. Limitation of Liability**
-To the fullest extent permitted by law, AIverse shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of the Website.`
+**4. Limitation of Liability**
+AIverse shall not be liable for any direct or indirect damages arising from the use of this website or any linked third-party services.
+
+**5. User Submissions**
+If you submit tool suggestions or other content, you confirm that you have the right to share that information. You grant AIverse permission to review, modify, and publish such submissions.
+
+**6. Intellectual Property**
+All trademarks, logos, and brand names displayed on this website belong to their respective owners. Their inclusion does not imply affiliation or endorsement.
+
+AIverse reserves the right to update these Terms at any time.`
   },
   privacy: {
     title: 'Privacy Policy',
-    lastUpdated: 'February 14, 2026',
+    lastUpdated: 'February 15, 2026',
     content: `
+AIverse respects your privacy.
+
 **1. Information We Collect**
-We may collect non-personal information about your visit, such as your IP address, browser type, and the pages you visited, to help us analyze traffic and improve the Website.
+We only collect information that users voluntarily submit through forms, such as tool suggestions or contact messages.
 
-**2. Cookies**
-This Website uses cookies to enhance user experience. By using our Website, you consent to the use of cookies in accordance with this Privacy Policy.
+**2. How We Use Information**
+Submitted information is used solely for reviewing tool suggestions and improving the website.
 
-**3. Third-Party Links**
-Once you click a link to an external AI tool or media platform, this Privacy Policy no longer applies. We encourage you to read the privacy policies of any site you visit.`
+**3. Data Sharing**
+We do not sell, rent, or trade personal information to third parties.
+
+**4. Data Security**
+We take reasonable measures to protect submitted information. However, no method of transmission over the internet is completely secure.
+
+**5. Contact**
+If you would like your submitted information removed, please contact us at: support@ai-verse.com`
   },
   disclaimer: {
-    title: 'Disclaimer',
-    lastUpdated: 'February 14, 2026',
+    title: 'AI Tools Disclaimer',
+    lastUpdated: 'February 15, 2026',
     content: `
-The information provided on this Website is for general informational purposes only. All information is provided in good faith; however, we make no representation or warranty regarding the accuracy or completeness of any information on the Site.
+AIverse is a curated directory of artificial intelligence tools.
 
-**External Links Disclaimer:**
-The Site contains links to other websites or content belonging to or originating from third parties. Such external links are not investigated, monitored, or checked for accuracy or validity by us.
+We do not develop, operate, or control the tools listed on this website. We are not responsible for their functionality, performance, data handling practices, or any outcomes resulting from their use.
 
-**No Professional Advice:**
-The use or reliance of any information contained on the Site is solely at your own risk.`
+Users should review each tool’s official website, terms, and privacy policies before using their services.
+
+Use of any third-party tool is at your own discretion and risk.`
   },
   accessibility: {
     title: 'Accessibility Statement',
-    lastUpdated: 'February 14, 2026',
+    lastUpdated: 'February 15, 2026',
     content: `
-**General**
-AIverse strives to ensure that its services are accessible to people with disabilities. We have invested resources to help ensure that our website is made easier to use and more accessible for people with disabilities, with the strong belief that every person has the right to live with dignity, equality, comfort, and independence.
+AIverse is committed to providing an accessible and user-friendly experience for all visitors.
 
-**Accessibility on This Website**
-We make efforts to comply with the Web Content Accessibility Guidelines (WCAG 2.1) at the AA level.
+We strive to follow recognized accessibility standards and continuously improve the usability of this website.
 
-**Disclaimer**
-Despite our efforts to make all pages and content fully accessible, some content may not have yet been fully adapted to the strictest accessibility standards. This may be a result of not having found or identified the most appropriate technological solution.
+If you experience any difficulty accessing content, please contact us at: support@ai-verse.com and we will do our best to assist you.`
+  },
+  contact: {
+    title: 'Contact Us',
+    lastUpdated: 'February 15, 2026',
+    content: `
+We welcome feedback, suggestions, and accessibility requests.
 
-**Contact Us**
-If you are experiencing difficulty with any content on AIverse or require assistance with any part of our site, please contact us and we will be happy to assist.
+**Email:** support@ai-verse.com
 
-**Email:** legal@ai-verse.com`
+Feel free to reach out to us with any questions or comments regarding the AIverse directory.`
+  },
+  dmca: {
+    title: 'DMCA / Copyright Policy',
+    lastUpdated: 'February 15, 2026',
+    content: `
+**Notification of Copyright Infringement**
+AIverse respects the intellectual property rights of others. In accordance with the Digital Millennium Copyright Act ("DMCA"), we will respond promptly to notices of alleged infringement that are reported to our Designated Copyright Agent.
+
+**How to File a Notice**
+If you believe that your work has been copied in a way that constitutes copyright infringement, please provide our Copyright Agent with a written notice containing:
+1. A description of the copyrighted work you claim has been infringed.
+2. A description of where the material you claim is infringing is located on the Site.
+3. Your address, telephone number, and email address.
+4. A statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law.
+5. A statement by you, made under penalty of perjury, that the info in your notice is accurate and that you are the copyright owner or authorized to act on their behalf.
+6. An electronic or physical signature of the person authorized to act on behalf of the owner of the copyright interest.
+
+**Designated Copyright Agent**
+Copyright Manager
+AIverse Executive Directory
+Email: dmca@ai-verse.com`
+  },
+  cookies: {
+    title: 'Cookie Policy',
+    lastUpdated: 'February 15, 2026',
+    content: `
+**1. What are Cookies?**
+Cookies are small text files that are stored on your computer or mobile device when you visit a website. They are widely used to make websites work, or work more efficiently, as well as to provide info to the owners of the site.
+
+**2. How we use Cookies**
+We use cookies for the following purposes:
+- **Essential Cookies**: Necessary for the website to function.
+- **Analytics Cookies**: To understand how visitors interact with the website (e.g., page views, traffic sources).
+- **Preference Cookies**: To remember your settings and choices (e.g., favorites).
+
+**3. Your Choices**
+You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. However, this may prevent you from taking full advantage of the website.`
+  },
+  imprint: {
+    title: 'Imprint / Legal Notice',
+    lastUpdated: 'February 15, 2026',
+    content: `
+**Legal Information**
+AIverse Executive Directory
+Represented by: Guy Akavia
+Address: Tel Aviv, Israel
+Email: contact@ai-verse.com
+
+**Responsible for Content**
+Owner of AIverse
+Tel Aviv, Israel
+
+**Dispute Resolution**
+The European Commission provides a platform for online dispute resolution (OS): https://ec.europa.eu/consumers/odr. We are not jumpy or obligated to participate in dispute resolution proceedings before a consumer arbitration board.`
   }
 };
