@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { CATEGORIES, CATEGORY_COLORS, CATEGORY_ICONS } from './constants';
+import { CATEGORIES, CATEGORY_COLORS, CATEGORY_ICONS, TOOLS } from './constants';
 import { Tool, Category, RecommendationResult } from './types';
 import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
@@ -80,7 +80,10 @@ const App: React.FC = () => {
             setTools(data);
         } catch (err) {
             console.error("Error fetching tools:", err);
-            setError("Failed to load tools. Please try again later.");
+            // Fallback to static tools if API fails
+            setTools(TOOLS);
+            // We don't set an error message if we have fallback data
+            setError(null);
         } finally {
             setIsLoading(false);
         }
@@ -436,78 +439,11 @@ const App: React.FC = () => {
                                                             );
                                                         })}
                                                     </div>
-
-                                                    {/* Popular Tags */}
-                                                    <div className="w-full max-w-4xl">
-                                                        <div className="flex flex-wrap justify-center gap-2.5">
-                                                            {popularTags.slice(0, 15).map(tag => (
-                                                                <button
-                                                                    key={tag}
-                                                                    onClick={() => toggleTag(tag)}
-                                                                    aria-pressed={selectedTags.includes(tag)}
-                                                                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 border ${selectedTags.includes(tag)
-                                                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-400 shadow-lg shadow-indigo-500/10'
-                                                                        : 'bg-slate-900/50 text-slate-500 border-slate-800/50 hover:border-slate-600 hover:text-slate-300'
-                                                                        }`}
-                                                                >
-                                                                    <TagIcon size={12} className={selectedTags.includes(tag) ? 'text-indigo-400' : 'text-slate-600'} />
-                                                                    {tag}
-                                                                </button>
-                                                            ))}
-                                                        </div>
-                                                        {selectedTags.length > 0 && (
-                                                            <div className="flex justify-center mt-6">
-                                                                <button
-                                                                    onClick={() => setSelectedTags([])}
-                                                                    className="text-xs font-bold text-slate-500 hover:text-indigo-400 flex items-center gap-2 transition-colors uppercase tracking-widest bg-slate-900/30 px-4 py-2 rounded-lg border border-slate-800/50"
-                                                                >
-                                                                    <X size={14} /> Clear Selection
-                                                                </button>
-                                                            </div>
-                                                        )}
-                                                    </div>
                                                 </div>
                                             )}
                                         </>
                                     )}
 
-                                    {/* Tools List Header */}
-                                    {displayedTools.length > 0 && (
-                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 border-b border-slate-800/50 pb-8">
-                                            <div className="flex items-center gap-4">
-                                                <h3 className="text-xl font-bold text-white uppercase tracking-wider">
-                                                    {view === 'favorites' ? 'Saved Resources' : activeCategory === 'All' ? 'Complete Directory' : activeCategory}
-                                                </h3>
-                                                <span className="text-slate-500 font-mono text-sm bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
-                                                    {displayedTools.length} Tools
-                                                </span>
-                                            </div>
-
-                                            <div className="flex items-center gap-4">
-                                                {hasActiveFilters && (
-                                                    <button
-                                                        onClick={resetFilters}
-                                                        className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest"
-                                                    >
-                                                        <X size={14} /> Reset
-                                                    </button>
-                                                )}
-                                                <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 shadow-sm transition-colors hover:border-slate-700">
-                                                    <ArrowUpDown size={14} className="text-slate-500" />
-                                                    <select
-                                                        value={sortBy}
-                                                        onChange={(e) => setSortBy(e.target.value as SortOption)}
-                                                        className="bg-transparent text-sm text-slate-300 font-bold focus:outline-none cursor-pointer appearance-none pr-4"
-                                                    >
-                                                        <option value="default" className="bg-slate-900">Recommended</option>
-                                                        <option value="name" className="bg-slate-900">Name (A-Z)</option>
-                                                        <option value="category" className="bg-slate-900">Category Wise</option>
-                                                        <option value="pricing" className="bg-slate-900">Price Model</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
 
                                     {/* Grid Layout */}
                                     {displayedTools.length === 0 ? (

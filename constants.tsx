@@ -17,28 +17,24 @@ import {
 } from 'lucide-react';
 import { Tool, Category } from './types';
 
-export const CATEGORIES: Category[] = ['All', 'Coding', 'Writing', 'Image', 'Video', 'Audio', 'Productivity', 'Research'];
+export const CATEGORIES: Category[] = ['All', 'Video', 'Image', 'Coding', 'Audio', 'Writing'];
 
 export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: string, border: string, text: string }> = {
   'All': { primary: 'indigo-600', secondary: 'indigo-500/10', border: 'indigo-500/20', text: 'indigo-400' },
-  'Coding': { primary: 'blue-600', secondary: 'blue-500/10', border: 'blue-500/20', text: 'blue-400' },
-  'Writing': { primary: 'emerald-600', secondary: 'emerald-500/10', border: 'emerald-500/20', text: 'emerald-400' },
-  'Image': { primary: 'violet-600', secondary: 'violet-500/10', border: 'violet-500/20', text: 'violet-400' },
   'Video': { primary: 'rose-600', secondary: 'rose-500/10', border: 'rose-500/20', text: 'rose-400' },
+  'Image': { primary: 'violet-600', secondary: 'violet-500/10', border: 'violet-500/20', text: 'violet-400' },
+  'Coding': { primary: 'blue-600', secondary: 'blue-500/10', border: 'blue-500/20', text: 'blue-400' },
   'Audio': { primary: 'amber-600', secondary: 'amber-500/10', border: 'amber-500/20', text: 'amber-400' },
-  'Productivity': { primary: 'cyan-600', secondary: 'cyan-500/10', border: 'cyan-500/20', text: 'cyan-400' },
-  'Research': { primary: 'fuchsia-600', secondary: 'fuchsia-500/10', border: 'fuchsia-500/20', text: 'fuchsia-400' },
+  'Writing': { primary: 'emerald-600', secondary: 'emerald-500/10', border: 'emerald-500/20', text: 'emerald-400' },
 };
 
 export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
   'All': Layout,
-  'Coding': Code,
-  'Writing': PenTool,
-  'Image': ImageIcon,
   'Video': Video,
+  'Image': ImageIcon,
+  'Coding': Code,
   'Audio': Mic,
-  'Productivity': Zap,
-  'Research': Search,
+  'Writing': PenTool,
 };
 
 export const ICON_MAP: Record<string, React.FC<any>> = {
@@ -129,7 +125,7 @@ export const TOOLS: Tool[] = [
     id: 'perplexity',
     name: 'Perplexity',
     description: 'AI-powered search engine that provides direct answers with citations.',
-    category: 'Research',
+    category: 'Writing',
     url: 'https://perplexity.ai',
     icon: 'Search',
     tags: ['Search', 'Academic', 'News'],
@@ -140,7 +136,7 @@ export const TOOLS: Tool[] = [
     id: 'notion-ai',
     name: 'Notion AI',
     description: 'Integrated AI assistant for summarizing, writing, and brainstorming within Notion.',
-    category: 'Productivity',
+    category: 'Writing',
     url: 'https://notion.so',
     icon: 'Briefcase',
     tags: ['Notes', 'Workspace', 'Organization'],
@@ -184,7 +180,7 @@ export const TOOLS: Tool[] = [
     id: 'gemini',
     name: 'Google Gemini',
     description: 'Google’s most capable AI model built for multimodality.',
-    category: 'Productivity',
+    category: 'Writing',
     url: 'https://gemini.google.com',
     icon: 'Zap',
     tags: ['Multimodal', 'Google', 'Assistant'],
@@ -206,7 +202,7 @@ export const TOOLS: Tool[] = [
     id: 'tldv',
     name: 'tl;dv',
     description: 'AI meeting recorder that transcribes and summarizes calls.',
-    category: 'Productivity',
+    category: 'Audio',
     url: 'https://tldv.io',
     icon: 'Mic',
     tags: ['Meetings', 'Summarization', 'Remote Work'],
@@ -217,7 +213,7 @@ export const TOOLS: Tool[] = [
     id: 'consensus',
     name: 'Consensus',
     description: 'AI search engine for research papers and scientific evidence.',
-    category: 'Research',
+    category: 'Writing',
     url: 'https://consensus.app',
     icon: 'Search',
     tags: ['Science', 'Academic', 'Papers'],
