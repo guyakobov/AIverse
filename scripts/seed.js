@@ -21,7 +21,7 @@ const pool = new Pool({
 
 const tools = [
     {
-        id: 'chatgpt',
+        id: 1,
         name: 'ChatGPT',
         description: 'Advanced conversational AI for writing, coding, and problem-solving.',
         category: 'Writing',
@@ -36,7 +36,7 @@ const tools = [
         ]
     },
     {
-        id: 'midjourney',
+        id: 2,
         name: 'Midjourney',
         description: 'Generates high-quality, artistic images from text descriptions via Discord.',
         category: 'Image',
@@ -50,7 +50,7 @@ const tools = [
         ]
     },
     {
-        id: 'github-copilot',
+        id: 3,
         name: 'GitHub Copilot',
         description: 'AI pair programmer that helps you write code faster with autocomplete.',
         category: 'Coding',
@@ -63,7 +63,7 @@ const tools = [
         ]
     },
     {
-        id: 'jasper',
+        id: 4,
         name: 'Jasper',
         description: 'AI copywriter to create high-quality content for marketing and blogs.',
         category: 'Writing',
@@ -76,7 +76,7 @@ const tools = [
         ]
     },
     {
-        id: 'runway',
+        id: 5,
         name: 'Runway',
         description: 'AI magic tools for video editing, generation, and VFX.',
         category: 'Video',
@@ -89,7 +89,7 @@ const tools = [
         ]
     },
     {
-        id: 'elevenlabs',
+        id: 6,
         name: 'ElevenLabs',
         description: 'Realistic AI voice generator and text-to-speech software.',
         category: 'Audio',
@@ -102,7 +102,7 @@ const tools = [
         ]
     },
     {
-        id: 'perplexity',
+        id: 7,
         name: 'Perplexity',
         description: 'AI-powered search engine that provides direct answers with citations.',
         category: 'Research',
@@ -115,7 +115,7 @@ const tools = [
         ]
     },
     {
-        id: 'notion-ai',
+        id: 8,
         name: 'Notion AI',
         description: 'Integrated AI assistant for summarizing, writing, and brainstorming within Notion.',
         category: 'Productivity',
@@ -125,7 +125,7 @@ const tools = [
         pricing: 'Paid'
     },
     {
-        id: 'stable-diffusion',
+        id: 9,
         name: 'Stable Diffusion',
         description: 'Open-source latent text-to-image diffusion model.',
         category: 'Image',
@@ -135,7 +135,7 @@ const tools = [
         pricing: 'Free'
     },
     {
-        id: 'cursor',
+        id: 10,
         name: 'Cursor',
         description: 'An AI-first code editor designed to make you extraordinarily productive.',
         category: 'Coding',
@@ -145,7 +145,7 @@ const tools = [
         pricing: 'Freemium'
     },
     {
-        id: 'suno',
+        id: 11,
         name: 'Suno',
         description: 'Create full songs with lyrics and vocals using simple text prompts.',
         category: 'Audio',
@@ -158,7 +158,7 @@ const tools = [
         ]
     },
     {
-        id: 'gemini',
+        id: 12,
         name: 'Google Gemini',
         description: 'Google’s most capable AI model built for multimodality.',
         category: 'Productivity',
@@ -168,7 +168,7 @@ const tools = [
         pricing: 'Freemium'
     },
     {
-        id: 'canva-magic',
+        id: 13,
         name: 'Canva Magic Studio',
         description: 'A suite of AI tools for design, including magic edit, erase, and expand.',
         category: 'Image',
@@ -178,7 +178,7 @@ const tools = [
         pricing: 'Freemium'
     },
     {
-        id: 'tldv',
+        id: 14,
         name: 'tl;dv',
         description: 'AI meeting recorder that transcribes and summarizes calls.',
         category: 'Productivity',
@@ -188,7 +188,7 @@ const tools = [
         pricing: 'Freemium'
     },
     {
-        id: 'consensus',
+        id: 15,
         name: 'Consensus',
         description: 'AI search engine for research papers and scientific evidence.',
         category: 'Research',
@@ -198,7 +198,7 @@ const tools = [
         pricing: 'Freemium'
     },
     {
-        id: 'nano-banna',
+        id: 16,
         name: 'Nano Banna',
         description: 'Revolutionary AI tool for creating high-quality, professional product images and marketing visuals.',
         category: 'Image',
@@ -208,7 +208,7 @@ const tools = [
         pricing: 'Paid'
     },
     {
-        id: 'chatgpt-image',
+        id: 17,
         name: 'ChatGPT Image Generator',
         description: 'DALL-E 3 integration within ChatGPT for seamless architectural and artistic image generation.',
         category: 'Image',
@@ -218,7 +218,7 @@ const tools = [
         pricing: 'Paid'
     },
     {
-        id: 'grok',
+        id: 18,
         name: 'Grok',
         description: 'Elon Musk\'s xAI model with real-time access to X (Twitter) and advanced multi-modal capabilities including image generation.',
         category: 'Image',
@@ -228,7 +228,7 @@ const tools = [
         pricing: 'Paid'
     },
     {
-        id: 'seedance',
+        id: 19,
         name: 'Seedance',
         description: 'Cutting-edge AI video generation platform for creators and filmmakers.',
         category: 'Video',
@@ -247,10 +247,16 @@ const tools = [
 async function seed() {
     try {
         console.log('Connecting to database...');
+
+        // Drop tables to ensure clean migration from TEXT to INT IDs
+        console.log('Dropping existing tables for clean migration...');
+        await pool.query('DROP TABLE IF EXISTS tool_links CASCADE');
+        await pool.query('DROP TABLE IF EXISTS tools CASCADE');
+
         // Create table if not exists with correct schema
         await pool.query(`
-      CREATE TABLE IF NOT EXISTS tools (
-        id TEXT PRIMARY KEY,
+      CREATE TABLE tools (
+        id INT PRIMARY KEY,
         name TEXT NOT NULL,
         description TEXT NOT NULL,
         category TEXT NOT NULL,
@@ -262,14 +268,14 @@ async function seed() {
     `);
 
         await pool.query(`
-      CREATE TABLE IF NOT EXISTS tool_links (
+      CREATE TABLE tool_links (
         id SERIAL PRIMARY KEY,
-        tool_id TEXT REFERENCES tools(id) ON DELETE CASCADE,
+        tool_id INT REFERENCES tools(id) ON DELETE CASCADE,
         platform TEXT NOT NULL,
         url TEXT NOT NULL
       );
     `);
-        console.log('Tables created or already exists.');
+        console.log('Tables created.');
 
         console.log('Cleaning up old links...');
         await pool.query('DELETE FROM tool_links');

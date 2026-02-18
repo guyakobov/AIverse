@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { CATEGORIES, CATEGORY_COLORS, CATEGORY_ICONS, TOOLS } from './constants';
+import { CATEGORIES, CATEGORY_COLORS, CATEGORY_ICONS } from './constants';
 import { Tool, Category, RecommendationResult } from './types';
 import { ToolCard } from './components/ToolCard';
 import { AIRecommender } from './components/AIRecommender';
@@ -25,7 +25,7 @@ const App: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState<SortOption>('default');
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
+    const [selectedToolId, setSelectedToolId] = useState<number | null>(null);
     const [legalType, setLegalType] = useState<LegalType | null>(null);
 
     // Dynamic Page Title & Hash routing
@@ -35,9 +35,12 @@ const App: React.FC = () => {
             let title = 'AIverse - Best AI Tools Directory';
 
             if (hash.startsWith('#tool/')) {
-                const id = hash.replace('#tool/', '');
-                setSelectedToolId(id);
-                setView('tool-details');
+                const idString = hash.replace('#tool/', '');
+                const id = parseInt(idString, 10);
+                if (!isNaN(id)) {
+                    setSelectedToolId(id);
+                    setView('tool-details');
+                }
                 // Title will be updated in ToolDetails or after tool fetch
             } else if (hash.startsWith('#legal/')) {
                 const type = hash.replace('#legal/', '') as LegalType;
@@ -81,9 +84,8 @@ const App: React.FC = () => {
         } catch (err) {
             console.error("Error fetching tools:", err);
             // Fallback to static tools if API fails
-            setTools(TOOLS);
-            // We don't set an error message if we have fallback data
-            setError(null);
+            // setTools(TOOLS); // REMOVED: We only want real data
+            setError('Failed to load tools. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -94,17 +96,17 @@ const App: React.FC = () => {
     }, []);
 
     // Favorites State
-    const [favorites, setFavorites] = useState<string[]>(() => {
+    const [favorites, setFavorites] = useState<number[]>(() => {
         try {
             const saved = localStorage.getItem('aiverse-favorites');
-            return saved ? JSON.parse(saved) : [];
+            return saved ? JSON.parse(saved).map((id: any) => typeof id === 'string' ? parseInt(id, 10) : id).filter((id: any) => !isNaN(id)) : [];
         } catch (e) {
             console.error("Failed to load favorites", e);
             return [];
         }
     });
 
-    const toggleFavorite = (id: string) => {
+    const toggleFavorite = (id: number) => {
         setFavorites(prev => {
             const newFavorites = prev.includes(id)
                 ? prev.filter(favId => favId !== id)
@@ -233,7 +235,7 @@ const App: React.FC = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    const openToolDetails = (id: string) => {
+    const openToolDetails = (id: number) => {
         window.location.hash = `tool/${id}`;
         setSelectedToolId(id);
         setView('tool-details');

@@ -6,7 +6,7 @@ export interface ToolLink {
 }
 
 export interface Tool {
-  id: string;
+  id: number;
   name: string;
   description: string;
   category: Category;
@@ -18,6 +18,6 @@ export interface Tool {
 }
 
 export interface RecommendationResult {
-  toolId: string;
+  toolId: number;
   reason: string;
 }
