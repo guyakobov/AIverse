@@ -25,20 +25,16 @@ export default async function handler(req, res) {
         const queryParams = [];
 
         if (q) {
-            const words = q.trim().split(/\s+/).filter(Boolean);
-            if (words.length > 0) {
-                const conditions = words.map((word, index) => {
-                    const paramIndex = index + 1;
-                    queryParams.push(`%${word}%`);
-                    return `(
-                        t.name ILIKE $${paramIndex} OR 
-                        t.description ILIKE $${paramIndex} OR 
-                        t.category ILIKE $${paramIndex} OR 
-                        EXISTS (SELECT 1 FROM unnest(t.tags) tag WHERE tag ILIKE $${paramIndex})
-                    )`;
-                });
-                queryText += ` WHERE ${conditions.join(' AND ')} `;
-            }
+            queryText += `
+            WHERE 
+                to_tsvector('english', 
+                    t.name || ' ' || 
+                    t.description || ' ' || 
+                    t.category || ' ' || 
+                    array_to_string(t.tags, ' ')
+                ) @@ plainto_tsquery('english', $1)
+            `;
+            queryParams.push(q);
         }
 
         queryText += `
