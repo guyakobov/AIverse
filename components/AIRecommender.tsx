@@ -37,7 +37,11 @@ export const AIRecommender: React.FC<AIRecommenderProps> = ({ onSearch, isSearch
               type="text"
               id="ai-search"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setQuery(val);
+                onSearch(val);
+              }}
               placeholder="Describe your task..."
               className="flex-1 bg-transparent border-none text-white placeholder-slate-500 focus:ring-0 focus:outline-none py-3 sm:py-4 px-1 sm:px-2 text-sm sm:text-lg w-full"
               disabled={isSearching}

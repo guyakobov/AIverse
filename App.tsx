@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { CATEGORIES, CATEGORY_COLORS, CATEGORY_ICONS } from './constants';
 import { Tool, Category, RecommendationResult } from './types';
 import { ToolCard } from './components/ToolCard';
@@ -27,6 +27,7 @@ const App: React.FC = () => {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [selectedToolId, setSelectedToolId] = useState<number | null>(null);
     const [legalType, setLegalType] = useState<LegalType | null>(null);
+    const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     // Dynamic Page Title & Hash routing
     useEffect(() => {
@@ -75,16 +76,16 @@ const App: React.FC = () => {
         }
     }, [view, selectedToolId, tools]);
 
-    const fetchTools = async () => {
+    const fetchTools = async (search?: string) => {
+        setIsLoading(true);
         try {
-            const response = await fetch('/api/tools');
+            const url = search ? `/api/tools?q=${encodeURIComponent(search)}` : '/api/tools';
+            const response = await fetch(url);
             if (!response.ok) throw new Error('Failed to fetch tools');
             const data = await response.json();
             setTools(data);
         } catch (err) {
             console.error("Error fetching tools:", err);
-            // Fallback to static tools if API fails
-            // setTools(TOOLS); // REMOVED: We only want real data
             setError('Failed to load tools. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -192,6 +193,15 @@ const App: React.FC = () => {
         setSortBy('default');
         setSelectedTags([]);
         if (view !== 'home') setView('home');
+
+        // Debounce search
+        if (searchTimeoutRef.current) {
+            clearTimeout(searchTimeoutRef.current);
+        }
+
+        searchTimeoutRef.current = setTimeout(() => {
+            fetchTools(query);
+        }, 300); // 300ms debounce
     };
 
     const resetFilters = () => {
@@ -201,6 +211,7 @@ const App: React.FC = () => {
         setSelectedTags([]);
         setActiveCategory('All');
         if (view !== 'home') setView('home');
+        fetchTools();
     };
 
     const toggleTag = (tag: string) => {
