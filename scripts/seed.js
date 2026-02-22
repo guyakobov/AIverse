@@ -27,7 +27,7 @@ const tools = [
         category: 'Writing',
         url: 'https://chat.openai.com',
         icon: 'MessageSquare',
-        tags: ['Chatbot', 'LLM', 'General'],
+        tags: ['Chatbot', 'LLM', 'Writing Assistant', 'Coding Help', 'Brainstorming', 'Text Generation'],
         pricing: 'Freemium',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/openai/' },
@@ -42,7 +42,7 @@ const tools = [
         category: 'Image',
         url: 'https://midjourney.com',
         icon: 'Image',
-        tags: ['Art', 'Generative', 'Creative'],
+        tags: ['AI Art', 'Image Generation', 'Digital Painting', 'Creative Design', 'Graphic Tool'],
         pricing: 'Paid',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/midjourney/' },
@@ -56,7 +56,7 @@ const tools = [
         category: 'Coding',
         url: 'https://github.com/features/copilot',
         icon: 'Terminal',
-        tags: ['Development', 'Autocomplete', 'Productivity'],
+        tags: ['Coding Assistant', 'Autocomplete', 'Programming', 'Developer Tools', 'Software Engineering'],
         pricing: 'Paid',
         links: [
             { platform: 'article', url: 'https://github.blog/2021-06-29-introducing-github-copilot-ai-pair-programmer/' }
@@ -69,7 +69,7 @@ const tools = [
         category: 'Writing',
         url: 'https://jasper.ai',
         icon: 'FileText',
-        tags: ['Marketing', 'Copywriting', 'SEO'],
+        tags: ['Copywriting', 'Content Marketing', 'SEO Writing', 'Blog Post', 'Ad Copy'],
         pricing: 'Paid',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/jasper.ai/' }
@@ -82,7 +82,7 @@ const tools = [
         category: 'Video',
         url: 'https://runwayml.com',
         icon: 'Video',
-        tags: ['Editor', 'VFX', 'Generative Video'],
+        tags: ['Video Editor', 'Video Generation', 'VFX', 'Motion Graphics', 'Cinematography', 'Movie Maker'],
         pricing: 'Freemium',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/runwayml/' }
@@ -95,7 +95,7 @@ const tools = [
         category: 'Audio',
         url: 'https://elevenlabs.io',
         icon: 'Mic',
-        tags: ['TTS', 'Voice Cloning', 'Audio'],
+        tags: ['Text to Speech', 'Voice Cloning', 'AI Voice', 'Narration', 'Podcast Tool', 'Dubbing'],
         pricing: 'Freemium',
         links: [
             { platform: 'youtube', url: 'https://www.youtube.com/@elevenlabs' }
@@ -108,7 +108,7 @@ const tools = [
         category: 'Research',
         url: 'https://perplexity.ai',
         icon: 'Search',
-        tags: ['Search', 'Academic', 'News'],
+        tags: ['AI Search', 'Information Retrieval', 'Fact Checking', 'Citations', 'Knowledge Engine'],
         pricing: 'Freemium',
         links: [
             { platform: 'twitter', url: 'https://twitter.com/perplexity_ai' }
@@ -121,7 +121,7 @@ const tools = [
         category: 'Productivity',
         url: 'https://notion.so',
         icon: 'Briefcase',
-        tags: ['Notes', 'Workspace', 'Organization'],
+        tags: ['Workspace Assistant', 'Notes Summarization', 'Project Management', 'Organization'],
         pricing: 'Paid'
     },
     {
@@ -131,7 +131,7 @@ const tools = [
         category: 'Image',
         url: 'https://stability.ai',
         icon: 'Image',
-        tags: ['Open Source', 'Art', 'Generation'],
+        tags: ['Open Source AI', 'Image Generation', 'Local Image Model', 'Generative Art'],
         pricing: 'Free'
     },
     {
@@ -141,7 +141,7 @@ const tools = [
         category: 'Coding',
         url: 'https://cursor.sh',
         icon: 'Code',
-        tags: ['IDE', 'Editor', 'Debugging'],
+        tags: ['AI Code Editor', 'IDE', 'Software Development', 'Debugging Assistant'],
         pricing: 'Freemium'
     },
     {
@@ -151,7 +151,7 @@ const tools = [
         category: 'Audio',
         url: 'https://suno.com',
         icon: 'Music',
-        tags: ['Music', 'Song Generation', 'Creative'],
+        tags: ['Music Generation', 'Song Creator', 'AI Singer', 'Melody Maker', 'Composer'],
         pricing: 'Freemium',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/suno_ai_/' }
@@ -164,7 +164,7 @@ const tools = [
         category: 'Productivity',
         url: 'https://gemini.google.com',
         icon: 'Zap',
-        tags: ['Multimodal', 'Google', 'Assistant'],
+        tags: ['Multimodal AI', 'Google Assistant', 'LLM', 'Creative Writing', 'Data Analysis'],
         pricing: 'Freemium'
     },
     {
@@ -174,7 +174,7 @@ const tools = [
         category: 'Image',
         url: 'https://canva.com',
         icon: 'Layout',
-        tags: ['Design', 'Social Media', 'Editor'],
+        tags: ['Graphic Design', 'Social Media Templates', 'Visual Content', 'Image Editing'],
         pricing: 'Freemium'
     },
     {
@@ -184,7 +184,7 @@ const tools = [
         category: 'Productivity',
         url: 'https://tldv.io',
         icon: 'Mic',
-        tags: ['Meetings', 'Summarization', 'Remote Work'],
+        tags: ['Meeting Minutes', 'Call Transcriber', 'Video Recording', 'Summarization Tool'],
         pricing: 'Freemium'
     },
     {
@@ -194,7 +194,7 @@ const tools = [
         category: 'Research',
         url: 'https://consensus.app',
         icon: 'Search',
-        tags: ['Science', 'Academic', 'Papers'],
+        tags: ['Scientific Research', 'Peer Reviewed Papers', 'Evidence Based Search'],
         pricing: 'Freemium'
     },
     {
@@ -204,7 +204,7 @@ const tools = [
         category: 'Image',
         url: 'https://nanobanna.com',
         icon: 'Image',
-        tags: ['Marketing', 'Product Photography', 'Design'],
+        tags: ['Product Photography', 'E-commerce Photos', 'Marketing Visuals', 'Studio Lighting AI'],
         pricing: 'Paid'
     },
     {
@@ -214,7 +214,7 @@ const tools = [
         category: 'Image',
         url: 'https://chatgpt.com/images',
         icon: 'Paintbrush',
-        tags: ['DALL-E', 'Generative AI', 'Art'],
+        tags: ['DALL-E 3', 'AI Image Creator', 'Architectural Design', 'Concept Art'],
         pricing: 'Paid'
     },
     {
@@ -224,7 +224,7 @@ const tools = [
         category: 'Image',
         url: 'https://x.ai',
         icon: 'Zap',
-        tags: ['Real-time', 'xAI', 'Multimodal'],
+        tags: ['Real-time News', 'X Integration', 'Multimodal LLM', 'Unfiltered AI'],
         pricing: 'Paid'
     },
     {
@@ -234,7 +234,7 @@ const tools = [
         category: 'Video',
         url: 'https://www.seedance.ai/',
         icon: 'Video',
-        tags: ['Generative Video', 'Cinematography', 'AI Film'],
+        tags: ['AI Film', 'Cinematic Video Generation', 'Creative Video Tool', 'Movie Creation'],
         pricing: 'Paid',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/p/DUm_lt0iEAL/?img_index=3' },
