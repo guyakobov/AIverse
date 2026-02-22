@@ -27,19 +27,30 @@ export default async function handler(req, res) {
         if (q) {
             queryText += `
             WHERE 
-                to_tsvector('english', 
-                    t.name || ' ' || 
-                    t.description || ' ' || 
-                    t.category || ' ' || 
-                    array_to_string(t.tags, ' ')
-                ) @@ plainto_tsquery('english', $1)
+                similarity(t.name, $1) > 0.2 OR 
+                similarity(t.description, $1) > 0.1 OR 
+                similarity(t.category, $1) > 0.2 OR 
+                EXISTS (SELECT 1 FROM unnest(t.tags) tag WHERE similarity(tag, $1) > 0.3)
             `;
             queryParams.push(q);
         }
 
-        queryText += `
-            GROUP BY t.id
-        `;
+        if (q) {
+            queryText += `
+                GROUP BY t.id
+                ORDER BY GREATEST(
+                    similarity(t.name, $1), 
+                    similarity(t.description, $1) * 0.8, 
+                    similarity(t.category, $1),
+                    (SELECT COALESCE(MAX(similarity(tag, $1)), 0) FROM unnest(t.tags) tag)
+                ) DESC
+            `;
+        } else {
+            queryText += `
+                GROUP BY t.id
+            `;
+        }
+
         const { rows } = await pool.query(queryText, queryParams);
         res.status(200).json(rows);
     } catch (error) {

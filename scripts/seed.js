@@ -248,6 +248,10 @@ async function seed() {
     try {
         console.log('Connecting to database...');
 
+        // Enable pg_trgm extension for similarity search
+        console.log('Enabling pg_trgm extension...');
+        await pool.query('CREATE EXTENSION IF NOT EXISTS pg_trgm');
+
         // Drop tables to ensure clean migration from TEXT to INT IDs
         console.log('Dropping existing tables for clean migration...');
         await pool.query('DROP TABLE IF EXISTS tool_links CASCADE');
