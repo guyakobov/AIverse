@@ -250,7 +250,10 @@ const tools = [
         url: 'https://aistudio.google.com',
         icon: 'Cpu',
         tags: ['AI Platform', 'Developer Console', 'Gemini API', 'Prototyping'],
-        pricing: 'Freemium'
+        pricing: 'Freemium',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/p/DUxeZJhiKi7/?img_index=7' }
+        ]
     },
     {
         id: 21,
