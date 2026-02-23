@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { Tool, Category } from './types';
 
-export const CATEGORIES: Category[] = ['All', 'Video', 'Image', 'Coding', 'Audio', 'Writing', 'Ecosystem'];
+export const CATEGORIES: Category[] = ['All', 'Ecosystem', 'Video', 'Image', 'Coding', 'Audio', 'Writing'];
 
 export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: string, border: string, text: string }> = {
   'All': { primary: 'indigo-600', secondary: 'indigo-500/10', border: 'indigo-500/20', text: 'indigo-400' },
