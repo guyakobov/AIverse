@@ -83,12 +83,6 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                                     >
                                         <Heart size={20} className={isFavorite ? 'fill-pink-500' : 'sm:w-6 sm:h-6'} aria-hidden="true" />
                                     </button>
-                                    <button
-                                        className="p-3.5 sm:p-4 bg-slate-800/50 border border-slate-700 rounded-2xl text-slate-400 hover:text-white transition-all"
-                                        aria-label={`Share ${tool.name}`}
-                                    >
-                                        <Share2 size={20} className="sm:w-6 sm:h-6" aria-hidden="true" />
-                                    </button>
                                 </div>
                             </div>
 
