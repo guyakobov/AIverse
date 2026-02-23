@@ -105,7 +105,7 @@ const tools = [
         id: 7,
         name: 'Perplexity',
         description: 'AI-powered search engine that provides direct answers with citations.',
-        category: 'Research',
+        category: 'Writing',
         url: 'https://perplexity.ai',
         icon: 'Search',
         tags: ['AI Search', 'Information Retrieval', 'Fact Checking', 'Citations', 'Knowledge Engine'],
@@ -118,7 +118,7 @@ const tools = [
         id: 8,
         name: 'Notion AI',
         description: 'Integrated AI assistant for summarizing, writing, and brainstorming within Notion.',
-        category: 'Productivity',
+        category: 'Writing',
         url: 'https://notion.so',
         icon: 'Briefcase',
         tags: ['Workspace Assistant', 'Notes Summarization', 'Project Management', 'Organization'],
@@ -161,7 +161,7 @@ const tools = [
         id: 12,
         name: 'Google Gemini',
         description: 'Google’s most capable AI model built for multimodality.',
-        category: 'Productivity',
+        category: 'Writing',
         url: 'https://gemini.google.com',
         icon: 'Zap',
         tags: ['Multimodal AI', 'Google Assistant', 'LLM', 'Creative Writing', 'Data Analysis'],
@@ -181,7 +181,7 @@ const tools = [
         id: 14,
         name: 'tl;dv',
         description: 'AI meeting recorder that transcribes and summarizes calls.',
-        category: 'Productivity',
+        category: 'Video',
         url: 'https://tldv.io',
         icon: 'Mic',
         tags: ['Meeting Minutes', 'Call Transcriber', 'Video Recording', 'Summarization Tool'],
@@ -191,7 +191,7 @@ const tools = [
         id: 15,
         name: 'Consensus',
         description: 'AI search engine for research papers and scientific evidence.',
-        category: 'Research',
+        category: 'Writing',
         url: 'https://consensus.app',
         icon: 'Search',
         tags: ['Scientific Research', 'Peer Reviewed Papers', 'Evidence Based Search'],
@@ -241,6 +241,46 @@ const tools = [
             { platform: 'instagram', url: 'https://www.instagram.com/p/C6_3N-Yx1_Y/' },
             { platform: 'instagram', url: 'https://www.instagram.com/p/C7A8z8-S5kG/' }
         ]
+    },
+    {
+        id: 20,
+        name: 'Google AI Studio',
+        description: 'Fastest way to build with Gemini models. Prototype and manage your API keys.',
+        category: 'Ecosystem',
+        url: 'https://aistudio.google.com',
+        icon: 'Cpu',
+        tags: ['AI Platform', 'Developer Console', 'Gemini API', 'Prototyping'],
+        pricing: 'Freemium'
+    },
+    {
+        id: 21,
+        name: 'OpenAI Platform',
+        description: 'Developer platform for integrating OpenAI models like GPT-4 and DALL-E into applications.',
+        category: 'Ecosystem',
+        url: 'https://platform.openai.com',
+        icon: 'Zap',
+        tags: ['AI Tools Integration', 'API Access', 'Model Management', 'Developer Ecosystem'],
+        pricing: 'Paid'
+    },
+    {
+        id: 22,
+        name: 'Hugging Face',
+        description: 'The AI community building the future. Home to thousands of open-source models and datasets.',
+        category: 'Ecosystem',
+        url: 'https://huggingface.co',
+        icon: 'Box',
+        tags: ['Open Source', 'Model Repository', 'NLP', 'Computer Vision', 'Collaborative AI'],
+        pricing: 'Freemium'
+    },
+    {
+        id: 23,
+        name: 'Anthropic Console',
+        description: 'Interface for managing Claude API keys and testing prompts in the workbench.',
+        category: 'Ecosystem',
+        url: 'https://console.anthropic.com',
+        icon: 'Terminal',
+        tags: ['AI Safety', 'Claude API', 'Prompt Engineering', 'Platform'],
+        pricing: 'Paid'
     }
 ];
 

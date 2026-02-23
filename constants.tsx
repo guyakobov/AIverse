@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { Tool, Category } from './types';
 
-export const CATEGORIES: Category[] = ['All', 'Video', 'Image', 'Coding', 'Audio', 'Writing'];
+export const CATEGORIES: Category[] = ['All', 'Video', 'Image', 'Coding', 'Audio', 'Writing', 'Ecosystem'];
 
 export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: string, border: string, text: string }> = {
   'All': { primary: 'indigo-600', secondary: 'indigo-500/10', border: 'indigo-500/20', text: 'indigo-400' },
@@ -26,6 +26,7 @@ export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: str
   'Coding': { primary: 'blue-600', secondary: 'blue-500/10', border: 'blue-500/20', text: 'blue-400' },
   'Audio': { primary: 'amber-600', secondary: 'amber-500/10', border: 'amber-500/20', text: 'amber-400' },
   'Writing': { primary: 'emerald-600', secondary: 'emerald-500/10', border: 'emerald-500/20', text: 'emerald-400' },
+  'Ecosystem': { primary: 'slate-600', secondary: 'slate-500/10', border: 'slate-500/20', text: 'slate-400' },
 };
 
 export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
@@ -35,6 +36,7 @@ export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
   'Coding': Code,
   'Audio': Mic,
   'Writing': PenTool,
+  'Ecosystem': Cpu,
 };
 
 export const ICON_MAP: Record<string, React.FC<any>> = {
