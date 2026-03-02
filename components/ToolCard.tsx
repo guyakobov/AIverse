@@ -24,8 +24,17 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
 
   return (
     <article
+      tabIndex={0}
+      role="button"
+      aria-label={`View details for ${tool.name}`}
       onClick={onClick}
-      className={`relative group flex flex-col h-full bg-[#030712]/60 backdrop-blur-xl border rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-${colors.primary}/10 hover:border-${colors.border}/50 cursor-pointer ${recommendationReason ? `border-${colors.border} ring-1 ring-${colors.primary}/50` : 'border-slate-800/50'}`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className={`relative group flex flex-col h-full bg-[#030712]/60 backdrop-blur-xl border rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-${colors.primary}/10 hover:border-${colors.border}/50 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] ${recommendationReason ? `border-${colors.border} ring-1 ring-${colors.primary}/50` : 'border-slate-800/50'}`}
       style={{
         boxShadow: isFavorite ? '0 0 20px -5px rgba(236, 72, 153, 0.2)' : 'none'
       }}>
