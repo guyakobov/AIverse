@@ -26,14 +26,24 @@ export default async function handler(req, res) {
 
         if (q) {
             const lowQ = q.toLowerCase();
+            const words = lowQ.split(/\s+/).filter(w => w.length > 0);
+
+            // Generate ILIKE conditions for each word across name, description, tags, and category
+            const ilikeConditions = words.map((w, i) =>
+                `(t.name ILIKE $${i + 2} OR t.description ILIKE $${i + 2} OR t.category ILIKE $${i + 2} OR EXISTS (SELECT 1 FROM unnest(t.tags) tag WHERE tag ILIKE $${i + 2}))`
+            ).join(' AND ');
+
             queryText += `
             WHERE 
+                (${ilikeConditions}) OR
                 similarity(LOWER(t.name), $1) > 0.1 OR 
                 word_similarity($1, LOWER(t.description)) > 0.3 OR 
                 similarity(LOWER(t.category), $1) > 0.1 OR 
                 EXISTS (SELECT 1 FROM unnest(t.tags) tag WHERE word_similarity($1, LOWER(tag)) > 0.4)
             `;
+
             queryParams.push(lowQ);
+            words.forEach(w => queryParams.push(`%${w}%`));
         }
 
         if (q) {
