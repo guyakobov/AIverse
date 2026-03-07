@@ -13,11 +13,12 @@ import {
   Layout,
   Terminal,
   FileText,
-  Briefcase
+  Briefcase,
+  BookOpen
 } from 'lucide-react';
 import { Tool, Category } from './types';
 
-export const CATEGORIES: Category[] = ['All', 'Ecosystem', 'Video', 'Image', 'Coding', 'Audio', 'Writing', 'Open Source'];
+export const CATEGORIES: Category[] = ['All', 'Ecosystem', 'Video', 'Image', 'Coding', 'Audio', 'Writing', 'Open Source', 'AI Courses'];
 
 export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: string, border: string, text: string }> = {
   'All': { primary: 'indigo-600', secondary: 'indigo-500/10', border: 'indigo-500/20', text: 'indigo-400' },
@@ -28,6 +29,7 @@ export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: str
   'Writing': { primary: 'emerald-600', secondary: 'emerald-500/10', border: 'emerald-500/20', text: 'emerald-400' },
   'Ecosystem': { primary: 'slate-600', secondary: 'slate-500/10', border: 'slate-500/20', text: 'slate-400' },
   'Open Source': { primary: 'cyan-600', secondary: 'cyan-500/10', border: 'cyan-500/20', text: 'cyan-400' },
+  'AI Courses': { primary: 'orange-600', secondary: 'orange-500/10', border: 'orange-500/20', text: 'orange-400' },
 };
 
 export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
@@ -39,6 +41,7 @@ export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
   'Writing': PenTool,
   'Ecosystem': Cpu,
   'Open Source': Terminal,
+  'AI Courses': BookOpen,
 };
 
 export const ICON_MAP: Record<string, React.FC<any>> = {
@@ -55,7 +58,8 @@ export const ICON_MAP: Record<string, React.FC<any>> = {
   Layout,
   Terminal,
   FileText,
-  Briefcase
+  Briefcase,
+  BookOpen
 };
 
 export const LEGAL_CONTENT = {

@@ -297,6 +297,19 @@ const tools = [
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/reel/DVcbEr-iJVx/' }
         ]
+    },
+    {
+        id: 25,
+        name: 'Anthropic Courses',
+        description: 'Official educational platform for learning how to build with Anthropic models like Claude.',
+        category: 'AI Courses',
+        url: 'https://anthropic.skilljar.com/',
+        icon: 'BookOpen',
+        tags: ['Claude', 'Prompt Engineering', 'AI Development', 'Official Course', 'Education'],
+        pricing: 'Free',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/p/DVizhDoCPA7/?img_index=8' }
+        ]
     }
 ];
 
