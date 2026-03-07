@@ -146,26 +146,7 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                         </ul>
                     </aside>
 
-                    {/* Compatibility */}
-                    <aside className="bg-slate-900/40 border border-slate-800/50 rounded-3xl p-8 shadow-xl" aria-labelledby="compatibility-title">
-                        <h3 id="compatibility-title" className="text-white font-black text-sm uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <div className={`p-2 rounded-lg bg-${colors.primary}/10 border border-${colors.border}`} aria-hidden="true">
-                                <Globe size={18} className={`text-${colors.text}`} />
-                            </div>
-                            Compatibility
-                        </h3>
-                        <div className="space-y-3">
-                            {[
-                                "Web Browser Support",
-                                "API Access Available",
-                                "Mobile Responsive"
-                            ].map((item, i) => (
-                                <div key={i} className="px-4 py-3 bg-slate-950/50 border border-slate-800/50 rounded-xl text-slate-400 text-xs font-bold leading-none hover:border-slate-700 hover:text-white transition-all">
-                                    {item}
-                                </div>
-                            ))}
-                        </div>
-                    </aside>
+
                 </div>
             </div>
 
