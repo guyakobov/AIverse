@@ -48,7 +48,50 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, recommendationReason, 
         </div>
       )}
 
-      <div className="p-5 sm:p-6 flex-1 flex flex-col">
+      {/* Mobile Layout (Compact List View) */}
+      <div className="p-3.5 flex sm:hidden flex-row items-center gap-3 w-full">
+        <div
+          className={`shrink-0 p-3 bg-slate-700/30 rounded-[14px] group-hover:bg-${colors.secondary} group-hover:text-${colors.text} transition-all duration-300 border border-transparent group-hover:border-${colors.border}`}
+          aria-hidden="true"
+        >
+          <IconComponent size={22} strokeWidth={2.5} />
+        </div>
+
+        <div className="flex-1 min-w-0 flex flex-col justify-center gap-0.5">
+          <h2 className="text-base font-bold text-white truncate leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-300">
+            {tool.name}
+          </h2>
+          <div className="flex items-center gap-2">
+            <span className={`shrink-0 text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${pricingColor}`}>
+              {tool.pricing}
+            </span>
+            <span className="text-xs text-slate-400 truncate leading-tight">
+              {tool.category}
+            </span>
+          </div>
+        </div>
+
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleFavorite();
+          }}
+          className="shrink-0 rounded-full transition-colors focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center group/fav"
+          aria-label={isFavorite ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
+        >
+          <Heart
+            size={22}
+            className={`transition-all duration-300 ${isFavorite
+              ? 'fill-pink-500 text-pink-500 scale-110 filter drop-shadow-[0_0_8px_rgba(236,72,153,0.5)]'
+              : 'text-slate-400 group-hover/fav:text-pink-400'
+              }`}
+          />
+        </button>
+      </div>
+
+      {/* Desktop Layout (Original Grid Card) */}
+      <div className="hidden sm:flex p-6 flex-1 flex-col">
         <div className="flex justify-between items-start mb-5">
           <div
             className={`p-3.5 bg-slate-700/30 rounded-xl group-hover:bg-${colors.secondary} group-hover:text-${colors.text} transition-all duration-300 border border-transparent group-hover:border-${colors.border}`}

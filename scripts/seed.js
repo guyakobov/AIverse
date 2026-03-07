@@ -181,7 +181,7 @@ const tools = [
         id: 14,
         name: 'tl;dv',
         description: 'AI meeting recorder that transcribes and summarizes calls.',
-        category: 'Video',
+        category: 'Audio',
         url: 'https://tldv.io',
         icon: 'Mic',
         tags: ['Meeting Minutes', 'Call Transcriber', 'Video Recording', 'Summarization Tool'],
