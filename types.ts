@@ -1,4 +1,4 @@
-export type Category = 'All' | 'Video' | 'Image' | 'Coding' | 'Audio' | 'Writing' | 'Ecosystem';
+export type Category = 'All' | 'Video' | 'Image' | 'Coding' | 'Audio' | 'Writing' | 'Ecosystem' | 'Open Source';
 
 export interface ToolLink {
   platform: string;

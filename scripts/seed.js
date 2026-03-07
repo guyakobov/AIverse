@@ -284,6 +284,19 @@ const tools = [
         icon: 'Terminal',
         tags: ['AI Safety', 'Claude API', 'Prompt Engineering', 'Platform'],
         pricing: 'Paid'
+    },
+    {
+        id: 24,
+        name: 'Pixel Agents',
+        description: 'Turns AI agent interactions in the terminal into a visual board like a SIMS or pixel game.',
+        category: 'Open Source',
+        url: 'https://github.com/pablodelucca/pixel-agents',
+        icon: 'Terminal',
+        tags: ['Open Source', 'AI Agents', 'Visualization', 'Simulation'],
+        pricing: 'Free',
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/reel/DVcbEr-iJVx/' }
+        ]
     }
 ];
 
