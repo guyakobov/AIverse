@@ -6,7 +6,6 @@ type AccessibilityState = {
     highContrast: boolean;
     textToSpeech: boolean;
     screenReader: boolean;
-    voiceCommands: boolean;
     textSize: number; // 0 is default, >0 is larger
 };
 
@@ -15,7 +14,6 @@ const initialState: AccessibilityState = {
     highContrast: false,
     textToSpeech: false,
     screenReader: false,
-    voiceCommands: false,
     textSize: 0,
 };
 
@@ -49,13 +47,40 @@ export const AccessibilityWidget: React.FC = () => {
 
         // Apply text size
         document.documentElement.style.setProperty('--a11y-zoom', `${1 + (state.textSize * 0.1)}`);
-        if (state.textSize > 0) {
-            document.documentElement.classList.add('accessibility-text-zoom');
+        // Apply screen reader profile (high visibility focus)
+        if (state.screenReader) {
+            document.documentElement.classList.add('accessibility-screen-reader');
         } else {
-            document.documentElement.classList.remove('accessibility-text-zoom');
+            document.documentElement.classList.remove('accessibility-screen-reader');
         }
 
     }, [state]);
+
+    // Text to Speech Logic
+    useEffect(() => {
+        const handleMouseUp = () => {
+            if (!state.textToSpeech) return;
+            const text = window.getSelection()?.toString().trim();
+            if (text && text.length > 0) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'he-IL'; // Default to Hebrew, OS will try its best for English mix
+                window.speechSynthesis.speak(utterance);
+            }
+        };
+
+        if (state.textToSpeech) {
+            document.addEventListener('mouseup', handleMouseUp);
+        } else {
+            window.speechSynthesis.cancel();
+            document.removeEventListener('mouseup', handleMouseUp);
+        }
+
+        return () => {
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [state.textToSpeech]);
 
     const toggle = (key: keyof typeof state) => {
         if (typeof state[key] === 'boolean') {
@@ -152,12 +177,6 @@ export const AccessibilityWidget: React.FC = () => {
                                     onClick={() => toggle('screenReader')}
                                     icon={<Ear size={32} strokeWidth={1.5} />}
                                     label="התאמה לקורא-מסך"
-                                />
-                                <AccessButton
-                                    active={state.voiceCommands}
-                                    onClick={() => toggle('voiceCommands')}
-                                    icon={<Mic size={32} strokeWidth={1.5} />}
-                                    label="פקודות קוליות"
                                 />
                             </div>
                         </div>

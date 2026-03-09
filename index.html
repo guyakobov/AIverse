@@ -102,7 +102,7 @@
       background-color: #000 !important;
       color: #0f0 !important;
     }
-    
+
     html.accessibility-high-contrast * {
       background-color: #000 !important;
       color: #0f0 !important;
@@ -110,7 +110,14 @@
     }
 
     html.accessibility-text-zoom {
-       font-size: calc(16px * var(--a11y-zoom, 1)) !important;
+      font-size: calc(16px * var(--a11y-zoom, 1)) !important;
+    }
+
+    html.accessibility-screen-reader *:focus {
+      outline: 4px solid #facc15 !important;
+      /* High visibility yellow */
+      outline-offset: 4px !important;
+      transition: outline 0.1s;
     }
   </style>
   <script type="importmap">
