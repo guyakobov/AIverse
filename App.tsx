@@ -7,6 +7,7 @@ import { SubmitToolForm } from './components/SubmitToolForm';
 import { ToolDetails } from './components/ToolDetails';
 import { LegalPage } from './components/LegalPage';
 import { CookieConsent } from './components/CookieConsent';
+import { AccessibilityWidget } from './components/AccessibilityWidget';
 import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
@@ -277,6 +278,7 @@ const App: React.FC = () => {
                 Skip to content
             </a>
             <CookieConsent />
+            <AccessibilityWidget />
             {/* Navbar */}
             <header className="sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800/50">
                 <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main Navigation">

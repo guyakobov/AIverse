@@ -91,6 +91,27 @@
     .animate-fade-in {
       animation: fadeIn 0.5s ease-out forwards;
     }
+
+    /* Accessibility Overrides */
+    html.accessibility-monochrome {
+      filter: grayscale(100%) !important;
+    }
+
+    html.accessibility-high-contrast body,
+    html.accessibility-high-contrast {
+      background-color: #000 !important;
+      color: #0f0 !important;
+    }
+    
+    html.accessibility-high-contrast * {
+      background-color: #000 !important;
+      color: #0f0 !important;
+      border-color: #0f0 !important;
+    }
+
+    html.accessibility-text-zoom {
+       font-size: calc(16px * var(--a11y-zoom, 1)) !important;
+    }
   </style>
   <script type="importmap">
 {
