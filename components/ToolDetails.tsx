@@ -133,11 +133,11 @@ export const ToolDetails: React.FC<ToolDetailsProps> = ({ tool, onBack, isFavori
                             Key Features
                         </h3>
                         <ul className="space-y-4">
-                            {[
-                                "High-performance AI model architecture",
-                                "Real-time processing and generation",
-                                "Seamless workflow integration"
-                            ].map((feature, i) => (
+                            {(tool.features && tool.features.length > 0 ? tool.features : [
+                                "Loading features from AI database...",
+                                "Optimizing ecosystem capabilities",
+                                "Syncing latest AI tools"
+                            ]).map((feature, i) => (
                                 <li key={i} className="flex items-start gap-3 group">
                                     <div className={`mt-1.5 w-1.5 h-1.5 rounded-full bg-${colors.primary} flex-shrink-0 group-hover:scale-150 transition-transform`} aria-hidden="true"></div>
                                     <span className="text-slate-400 text-sm font-bold leading-tight group-hover:text-slate-200 transition-colors">{feature}</span>

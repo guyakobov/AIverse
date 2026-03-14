@@ -15,6 +15,7 @@ export interface Tool {
   tags: string[];
   pricing: 'Free' | 'Freemium' | 'Paid';
   links: ToolLink[];
+  features?: string[];
 }
 
 export interface RecommendationResult {

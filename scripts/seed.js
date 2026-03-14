@@ -103,7 +103,7 @@ const tools = [
     },
     {
         id: 7,
-        name: 'Perplexity',
+        name: 'Perplexity Search',
         description: 'AI-powered search engine that provides direct answers with citations.',
         category: 'Writing',
         url: 'https://perplexity.ai',
@@ -244,15 +244,23 @@ const tools = [
     },
     {
         id: 20,
-        name: 'Google AI Studio',
-        description: 'Fastest way to build with Gemini models. Prototype and manage your API keys.',
+        name: 'Google',
+        description: 'Major AI ecosystem featuring the Gemini model family (3.1 Flash, Pro, Reasoning), design tools like Stitch and Whisk, coding agents, and cross-platform communication protocols.',
         category: 'Ecosystem',
-        url: 'https://aistudio.google.com',
+        url: 'https://gemini.google.com',
         icon: 'Cpu',
-        tags: ['AI Platform', 'Developer Console', 'Gemini API', 'Prototyping'],
+        tags: ['AI Ecosystem', 'Gemini', 'Google AI', 'Multi-modal'],
         pricing: 'Freemium',
+        features: [
+            'Gemini 3.1 Flash Lite - Fastest efficient model',
+            'Gemini Reasoning - Deep reasoning for agents',
+            'Stitch & Whisk - Advanced AI design tools',
+            'Antigravity IDE - Agent-powered productivity',
+            'Veo 3.1 - High-quality cinematic video'
+        ],
         links: [
-            { platform: 'instagram', url: 'https://www.instagram.com/p/DUxeZJhiKi7/?img_index=7' }
+            { platform: 'instagram', url: 'https://www.instagram.com/p/DUxeZJhiKi7/?img_index=7' },
+            { platform: 'instagram', url: 'https://www.instagram.com/p/DVtuNJiiMF8/?img_index=1' }
         ]
     },
     {
@@ -299,6 +307,26 @@ const tools = [
         ]
     },
     {
+        id: 27,
+        name: 'AirLLM',
+        description: 'Open-source Python library that enables running large language models (LLMs) on consumer-grade hardware by using layer-by-layer weight streaming.',
+        category: 'Open Source',
+        url: 'https://github.com/lyogavin/airllm',
+        icon: 'Cpu',
+        tags: ['LLM', 'AI Inference', 'Memory Optimization', 'Open Source', 'Hugging Face'],
+        pricing: 'Free',
+        features: [
+            'Ultra-low GPU memory usage',
+            'Layer-by-layer weight streaming',
+            'Support for 70B and 405B models on single GPUs',
+            'CPU and Apple Silicon support',
+            'Seamless Hugging Face integration'
+        ],
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/reel/DVywlWPCVHN/' }
+        ]
+    },
+    {
         id: 25,
         name: 'Anthropic Courses',
         description: 'Official educational platform for learning how to build with Anthropic models like Claude.',
@@ -309,6 +337,36 @@ const tools = [
         pricing: 'Free',
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/p/DVizhDoCPA7/?img_index=8' }
+        ]
+    },
+    {
+        id: 26,
+        name: 'Replit Animation',
+        description: 'AI Agent that creates professional motion graphics through natural language conversation. Turn screenshots into React-based animations.',
+        category: 'Video',
+        url: 'https://replitanimation.com/',
+        icon: 'Video',
+        tags: ['AI Motion Graphics', 'React Animation', 'No-code Video', 'Screenshot-to-Video'],
+        pricing: 'Paid',
+        links: [{ platform: 'instagram', url: 'https://www.instagram.com/reel/DVyl--kDDu0/' }]
+    },
+    {
+        id: 28,
+        name: 'Perplexity AI',
+        description: 'The Perplexity AI ecosystem, featuring multi-agent capabilities and advanced search workflows.',
+        category: 'Ecosystem',
+        url: 'https://www.perplexity.ai/',
+        icon: 'Zap',
+        tags: ['AI Agents', 'Multi-agent', 'Search Ecosystem', 'Productivity'],
+        pricing: 'Freemium',
+        features: [
+            'Multi-agent orchestration',
+            'Advanced research workflows',
+            'Real-time web access',
+            'Source citations and grounding'
+        ],
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/reel/DV1wdtHAOKz/' }
         ]
     }
 ];
@@ -336,7 +394,8 @@ async function seed() {
         url TEXT NOT NULL,
         icon TEXT NOT NULL,
         tags TEXT[] NOT NULL,
-        pricing TEXT NOT NULL
+        pricing TEXT NOT NULL,
+        features TEXT[] DEFAULT '{}'
       );
     `);
 
@@ -356,8 +415,8 @@ async function seed() {
         console.log('Inserting tools...');
         for (const tool of tools) {
             await pool.query(`
-        INSERT INTO tools (id, name, description, category, url, icon, tags, pricing)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        INSERT INTO tools (id, name, description, category, url, icon, tags, pricing, features)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         ON CONFLICT (id) DO UPDATE SET
           name = EXCLUDED.name,
           description = EXCLUDED.description,
@@ -365,7 +424,8 @@ async function seed() {
           url = EXCLUDED.url,
           icon = EXCLUDED.icon,
           tags = EXCLUDED.tags,
-          pricing = EXCLUDED.pricing;
+          pricing = EXCLUDED.pricing,
+          features = EXCLUDED.features;
       `, [
                 tool.id,
                 tool.name,
@@ -374,7 +434,8 @@ async function seed() {
                 tool.url,
                 tool.icon,
                 tool.tags,
-                tool.pricing
+                tool.pricing,
+                tool.features || []
             ]);
 
             if (tool.links && tool.links.length > 0) {
@@ -384,6 +445,9 @@ async function seed() {
             VALUES ($1, $2, $3);
           `, [tool.id, link.platform, link.url]);
                 }
+            }
+            if (tool.id === 20) {
+              console.log(`Tool 20 features: ${JSON.stringify(tool.features)}`);
             }
         }
         console.log(`Successfully inserted/updated ${tools.length} tools.`);
