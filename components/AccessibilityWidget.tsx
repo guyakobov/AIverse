@@ -7,6 +7,7 @@ type AccessibilityState = {
     textToSpeech: boolean;
     screenReader: boolean;
     textSize: number; // 0 is default, >0 is larger
+    isHidden: boolean;
 };
 
 const initialState: AccessibilityState = {
@@ -15,6 +16,7 @@ const initialState: AccessibilityState = {
     textToSpeech: false,
     screenReader: false,
     textSize: 0,
+    isHidden: false,
 };
 
 export const AccessibilityWidget: React.FC = () => {
@@ -53,8 +55,13 @@ export const AccessibilityWidget: React.FC = () => {
         } else {
             document.documentElement.classList.remove('accessibility-screen-reader');
         }
-
     }, [state]);
+
+    useEffect(() => {
+        const handleOpen = () => setIsOpen(true);
+        window.addEventListener('aiverse-open-accessibility', handleOpen);
+        return () => window.removeEventListener('aiverse-open-accessibility', handleOpen);
+    }, []);
 
     // Text to Speech Logic
     useEffect(() => {
@@ -102,17 +109,35 @@ export const AccessibilityWidget: React.FC = () => {
     return (
         <>
             {/* Floating Toggle Button */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={`fixed top-1/2 left-0 -translate-y-1/2 z-[9999] bg-black text-white p-3 rounded-r-xl shadow-2xl transition-transform border border-l-0 border-white/20 ${isOpen ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}
-                aria-label="Toggle Accessibility Menu"
-                aria-expanded={isOpen}
-            >
-                <div className="bg-white rounded-full p-2 mb-1">
-                    <Accessibility size={24} className="text-black" />
+            {!state.isHidden && (
+                <div className={`fixed top-1/2 left-0 -translate-y-1/2 z-[9999] flex flex-col items-start transition-all duration-300 ${isOpen ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
+                    {/* Hide Button (X) */}
+                    <button 
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setState(prev => ({ ...prev, isHidden: true }));
+                        }}
+                        className="bg-black/80 text-white p-1 rounded-tr-lg border border-l-0 border-b-0 border-white/20 hover:bg-red-500 transition-colors mb-[-1px] ml-0 shadow-lg"
+                        title="Hide Accessibility Button"
+                    >
+                        <X size={12} />
+                    </button>
+                    
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="bg-black text-white p-2 rounded-r-lg shadow-2xl border border-l-0 border-white/20 hover:bg-slate-900 transition-all group flex flex-col items-center min-w-[32px]"
+                        aria-label="Toggle Accessibility Menu"
+                        aria-expanded={isOpen}
+                    >
+                        <div className="bg-white rounded-full p-1.5 mb-1 group-hover:scale-110 transition-transform">
+                            <Accessibility size={18} className="text-black" />
+                        </div>
+                        <div className="text-[9px] font-black tracking-tighter uppercase writing-vertical-rl relative mx-auto left-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                            Accessibility
+                        </div>
+                    </button>
                 </div>
-                <div className="text-[10px] font-bold tracking-widest uppercase writing-vertical-rl relative mx-auto left-1">נגישות</div>
-            </button>
+            )}
 
             {/* Widget Modal */}
             {isOpen && (
@@ -131,9 +156,16 @@ export const AccessibilityWidget: React.FC = () => {
                             <div className="text-white text-xs font-bold border border-white/30 px-2 py-0.5 rounded flex items-center gap-1">
                                 <img src="https://flagcdn.com/w20/il.png" alt="Hebrew" className="w-4 h-3 object-cover" /> עברית
                             </div>
-                            <div className="p-1 hover:bg-white/20 rounded-full cursor-pointer transition-colors" title="Hide Button (Not Implemented Here)">
+                            <button 
+                                onClick={() => {
+                                    setState(prev => ({ ...prev, isHidden: true }));
+                                    setIsOpen(false);
+                                }}
+                                className="p-1 hover:bg-white/20 rounded-full cursor-pointer transition-colors" 
+                                title="Hide Accessibility Button"
+                            >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>
-                            </div>
+                            </button>
                         </div>
                     </div>
 

@@ -584,6 +584,16 @@ const App: React.FC = () => {
                                 <FooterLink type="terms" label="Terms of Use" />
                                 <FooterLink type="privacy" label="Privacy Policy" />
                                 <FooterLink type="accessibility" label="Accessibility Statement" />
+                                <li>
+                                    <button
+                                        onClick={() => {
+                                            window.dispatchEvent(new CustomEvent('aiverse-open-accessibility'));
+                                        }}
+                                        className="text-slate-500 hover:text-indigo-400 text-[10px] transition-colors font-bold uppercase tracking-wider bg-slate-900/50 px-2 py-0.5 rounded border border-slate-800"
+                                    >
+                                        Open Tool
+                                    </button>
+                                </li>
                                 <FooterLink type="disclaimer" label="AI Disclaimer" />
                                 <FooterLink type="contact" label="Contact" />
                             </ul>
