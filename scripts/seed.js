@@ -386,6 +386,24 @@ const tools = [
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/reel/DWCRZDHFV-f/' }
         ]
+    },
+    {
+        id: 30,
+        name: 'Google Disco',
+        description: 'Turn the tabs you have open into custom, interactive apps with GenTabs for web discovery.',
+        category: 'Ecosystem',
+        url: 'https://labs.google/disco',
+        icon: 'Layers',
+        tags: ['Google Labs', 'Web Apps', 'GenTabs', 'Browser AI', 'Productivity'],
+        pricing: 'Free',
+        features: [
+            'GenTabs turn open tabs into custom apps',
+            'Generates interactive apps based on specific goals',
+            'Experimental AI web discovery feature'
+        ],
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/reel/DWEeXoWjxZz/' }
+        ]
     }
 ];
 

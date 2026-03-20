@@ -15,7 +15,8 @@ import {
   FileText,
   Briefcase,
   BookOpen,
-  Wand2
+  Wand2,
+  Layers
 } from 'lucide-react';
 import { Tool, Category } from './types';
 export const CATEGORIES: Category[] = ['All', 'Ecosystem', 'Video', 'Image', 'Coding', 'Vibe Coding', 'Audio', 'Writing', 'Open Source', 'AI Courses'];
@@ -62,7 +63,8 @@ export const ICON_MAP: Record<string, React.FC<any>> = {
   FileText,
   Briefcase,
   BookOpen,
-  Wand2
+  Wand2,
+  Layers
 };
 
 export const LEGAL_CONTENT = {
