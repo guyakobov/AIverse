@@ -14,17 +14,18 @@ import {
   Terminal,
   FileText,
   Briefcase,
-  BookOpen
+  BookOpen,
+  Wand2
 } from 'lucide-react';
 import { Tool, Category } from './types';
-
-export const CATEGORIES: Category[] = ['All', 'Ecosystem', 'Video', 'Image', 'Coding', 'Audio', 'Writing', 'Open Source', 'AI Courses'];
+export const CATEGORIES: Category[] = ['All', 'Ecosystem', 'Video', 'Image', 'Coding', 'Vibe Coding', 'Audio', 'Writing', 'Open Source', 'AI Courses'];
 
 export const CATEGORY_COLORS: Record<Category, { primary: string, secondary: string, border: string, text: string }> = {
   'All': { primary: 'indigo-600', secondary: 'indigo-500/10', border: 'indigo-500/20', text: 'indigo-400' },
   'Video': { primary: 'rose-600', secondary: 'rose-500/10', border: 'rose-500/20', text: 'rose-400' },
   'Image': { primary: 'violet-600', secondary: 'violet-500/10', border: 'violet-500/20', text: 'violet-400' },
   'Coding': { primary: 'blue-600', secondary: 'blue-500/10', border: 'blue-500/20', text: 'blue-400' },
+  'Vibe Coding': { primary: 'fuchsia-600', secondary: 'fuchsia-500/10', border: 'fuchsia-500/20', text: 'fuchsia-400' },
   'Audio': { primary: 'amber-600', secondary: 'amber-500/10', border: 'amber-500/20', text: 'amber-400' },
   'Writing': { primary: 'emerald-600', secondary: 'emerald-500/10', border: 'emerald-500/20', text: 'emerald-400' },
   'Ecosystem': { primary: 'slate-600', secondary: 'slate-500/10', border: 'slate-500/20', text: 'slate-400' },
@@ -37,6 +38,7 @@ export const CATEGORY_ICONS: Record<Category, React.FC<any>> = {
   'Video': Video,
   'Image': ImageIcon,
   'Coding': Code,
+  'Vibe Coding': Wand2,
   'Audio': Mic,
   'Writing': PenTool,
   'Ecosystem': Cpu,
@@ -59,7 +61,8 @@ export const ICON_MAP: Record<string, React.FC<any>> = {
   Terminal,
   FileText,
   Briefcase,
-  BookOpen
+  BookOpen,
+  Wand2
 };
 
 export const LEGAL_CONTENT = {

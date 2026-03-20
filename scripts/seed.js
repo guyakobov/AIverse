@@ -368,6 +368,24 @@ const tools = [
         links: [
             { platform: 'instagram', url: 'https://www.instagram.com/reel/DV1wdtHAOKz/' }
         ]
+    },
+    {
+        id: 29,
+        name: 'Stitch',
+        description: 'Stitch generates UIs for mobile and web applications, making design ideation fast and easy.',
+        category: 'Vibe Coding',
+        url: 'https://stitch.withgoogle.com/',
+        icon: 'Wand2',
+        tags: ['Design UI', 'Rapid Ideation', 'Vibe Coding', 'Google Design'],
+        pricing: 'Free',
+        features: [
+            'Generates UIs for mobile and web',
+            'Fast design ideation',
+            'Google experimental design tool'
+        ],
+        links: [
+            { platform: 'instagram', url: 'https://www.instagram.com/reel/DWCRZDHFV-f/' }
+        ]
     }
 ];
 
