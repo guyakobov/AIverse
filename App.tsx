@@ -427,8 +427,8 @@ const App: React.FC = () => {
                                             {view === 'home' && searchQuery.length === 0 && (
                                                 <div className="flex flex-col items-center gap-8 mb-16">
                                                     {/* Category Tabs */}
-                                                    <div
-                                                        className="flex flex-wrap justify-center gap-3 bg-slate-900/30 p-2 rounded-2xl border border-slate-800/50 backdrop-blur-sm"
+                                                        <div
+                                                        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 w-full max-w-5xl bg-slate-900/30 p-2 rounded-2xl border border-slate-800/50 backdrop-blur-sm"
                                                         role="tablist"
                                                         aria-label="Filter by Tool Category"
                                                     >
@@ -439,7 +439,7 @@ const App: React.FC = () => {
                                                                 <button
                                                                     key={cat}
                                                                     onClick={() => setActiveCategory(cat)}
-                                                                    className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2.5 active:scale-95 ${activeCategory === cat
+                                                                    className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2.5 active:scale-95 w-full ${activeCategory === cat
                                                                         ? `bg-${colorSet.primary} text-white shadow-lg shadow-${colorSet.primary}/30`
                                                                         : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800/50'
                                                                         }`}
