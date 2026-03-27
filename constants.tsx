@@ -72,33 +72,39 @@ export const LEGAL_CONTENT = {
     title: 'Terms of Service',
     lastUpdated: 'March 27, 2026',
     content: `
-Welcome to AIverse. By accessing this website (ai-verse.com), you agree to be bound by these Terms of Service and all applicable laws and regulations.
+**1. Terms**
+By accessing this Website (ai-verse.com), you are agreeing to be bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing this site. The materials contained in this Website are protected by copyright and trademark law.
 
-**1. USE LICENSE**
-Permission is granted to temporarily view the materials on AIverse for personal, non-commercial transitory viewing only. Under this license, you may not:
+**2. Use License**
+Permission is granted to temporarily view one copy of the materials on AIverse's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license, you may not:
 - Modify or copy the materials.
-- Use the materials for any commercial purpose or public display.
-- Attempt to reverse engineer any software contained on the website.
-- Remove any copyright or proprietary notations.
-- "Mirror" the materials on any other server.
+- Use the materials for any commercial purpose or for any public display.
+- Attempt to reverse engineer any software contained on AIverse's Website.
+- Remove any copyright or other proprietary notations from the materials.
+- Transfer the materials to another person or "mirror" the materials on any other server.
 
-**2. DISCLAIMER**
-All materials on AIverse are provided "as is". AIverse makes no warranties, expressed or implied, and hereby negates all other warranties including, without limitation, implied warranties of merchantability or fitness for a particular purpose.
+AIverse reserves the right to terminate your viewing right upon violations of any of these restrictions. Upon termination, your viewing right will also be terminated and you should destroy any materials in your possession whether in print or electronic format.
 
-**3. LIMITATIONS**
-In no event shall AIverse or its suppliers be held accountable for any damages arising out of the use or inability to use the materials on the website, even if AIverse has been notified of the possibility of such damage.
+**3. Disclaimer**
+All the materials on AIverse's Website are provided "as is". AIverse makes no warranties, may it be expressed or implied, and therefore negates all other warranties. Furthermore, AIverse does not make any representations concerning the accuracy or reliability of the use of the materials on its Website or otherwise relating to such materials or any sites linked to this Website.
 
-**4. REVISIONS AND ERRATA**
-The materials appearing on AIverse could include technical, typographical, or photographic errors. AIverse does not warrant that any of the materials on its website are accurate, complete, or current. We may change the materials at any time without notice.
+**4. Limitations**
+AIverse or its suppliers will not be held accountable for any damages that will arise with the use or inability to use the materials on AIverse's Website, even if AIverse or an authorized representative of this Website has been notified, orally or written, of the possibility of such damage. Some jurisdictions do not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.
 
-**5. LINKS**
-AIverse has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by AIverse. Use of any linked website is at the user's own risk.
+**5. Revisions and Errata**
+The materials appearing on AIverse's Website may include technical, typographical, or photographic errors. AIverse will not promise that any of the materials on this Website are accurate, complete, or current. AIverse may change the materials contained on its Website at any time without notice. AIverse does not make any commitment to update the materials.
 
-**6. MODIFICATIONS**
-AIverse may revise these terms of service at any time without prior notice. By using this website, you are agreeing to be bound by the then current version of these Terms of Service.
+**6. Links**
+AIverse has not reviewed all of the sites linked to its Website and is not responsible for the contents of any such linked site. The presence of any link does not imply endorsement by AIverse of the site. The use of any linked website is at the user's own risk.
 
-**7. GOVERNING LAW**
-Any claim related to AIverse shall be governed by the laws of Israel without regard to its conflict of law provisions.`
+**7. Site Terms of Use Modifications**
+AIverse may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.
+
+**8. Your Privacy**
+Please read our [Privacy Policy](#legal/privacy).
+
+**9. Governing Law**
+Any claim related to AIverse's Website shall be governed by the laws of Israel without regard to its conflict of law provisions.`
   },
   privacy: {
     title: 'Privacy Policy',
