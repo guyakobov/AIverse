@@ -556,7 +556,7 @@ const App: React.FC = () => {
             {/* Footer */}
             <footer className="bg-slate-950 border-t border-slate-900 pt-20 pb-12">
                 <div className="max-w-7xl mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
                         <div className="md:col-span-1">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-1.5 rounded-lg">
@@ -568,32 +568,6 @@ const App: React.FC = () => {
                                 <span className="text-slate-300 font-bold block mb-2 underline decoration-indigo-500/30 underline-offset-4">Advertiser Disclosure</span>
                                 AIverse is committed to rigorous editorial standards for world-class technology. To keep our high-performance directory free, we may receive compensation when you click some links on our site.
                             </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Directories</h4>
-                            <ul className="space-y-4">
-                                {CATEGORIES.slice(1, 4).map(cat => (
-                                    <li key={cat}>
-                                        <button 
-                                            onClick={() => { setActiveCategory(cat); goHome(); }}
-                                            className="text-slate-400 hover:text-indigo-400 text-sm transition-colors font-semibold flex items-center gap-2 group"
-                                        >
-                                            <div className="w-1 h-1 bg-slate-800 rounded-full group-hover:bg-indigo-500 transition-colors"></div>
-                                            {cat} Solutions
-                                        </button>
-                                    </li>
-                                ))}
-                                <li>
-                                    <button 
-                                        onClick={() => { setActiveCategory('Vibe Coding'); goHome(); }}
-                                        className="text-slate-400 hover:text-fuchsia-400 text-sm transition-colors font-semibold flex items-center gap-2 group"
-                                    >
-                                        <div className="w-1 h-1 bg-slate-800 rounded-full group-hover:bg-fuchsia-500 transition-colors"></div>
-                                        Vibe Coding Hub
-                                    </button>
-                                </li>
-                            </ul>
                         </div>
 
                         <div>
