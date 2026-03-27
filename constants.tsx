@@ -73,7 +73,7 @@ export const LEGAL_CONTENT = {
     lastUpdated: 'March 27, 2026',
     content: `
 **1. Acceptance of Terms**
-Welcome to AIverse (ai-verse.com), a curated directory for executive-level AI technology. These Terms of Service ("Terms") govern your access to and use of our platform. By accessing or using AIverse, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you must not use our services.
+Welcome to AIverse (aiverse.site), a curated directory for executive-level AI technology. These Terms of Service ("Terms") govern your access to and use of our platform. By accessing or using AIverse, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you must not use our services.
 
 **2. Eligibility**
 The Site is intended for use by individuals at least 18 years old and by organizations with the authority to bind such entities to these Terms. By using AIverse, you represent and warrant that you meet these eligibility requirements.
@@ -120,7 +120,7 @@ These Terms shall be governed by the laws of Israel. Any disputes arising out of
     title: 'Privacy Policy',
     lastUpdated: 'March 27, 2026',
     content: `
-This Privacy Policy describes how AIverse ("we," "us," or "our") collects, stores, and uses your information when you use our directory services at ai-verse.com.
+This Privacy Policy describes how AIverse ("we," "us," or "our") collects, stores, and uses your information when you use our directory services at aiverse.site.
 
 **SUMMARY OF KEY POINTS**
 This summary provides the highlights of our privacy practices.
@@ -160,7 +160,7 @@ We keep your information for as long as necessary to fulfill the purposes outlin
 Depending on your location (e.g., EEA, UK, Canada), you have certain rights regarding access to and control over your personal information. You may request to review, update, or delete your data at any time.
 
 **7. HOW CAN YOU CONTACT US?**
-If you have questions about this policy, please contact us at: support@ai-verse.com`
+If you have questions about this policy, please contact us at: support@aiverse.site`
   },
   editorial: {
     title: 'Editorial Guidelines',
@@ -218,7 +218,7 @@ AIverse is committed to providing an accessible and user-friendly experience for
 
 We strive to follow recognized accessibility standards and continuously improve the usability of this website.
 
-If you experience any difficulty accessing content, please contact us at: support@ai-verse.com and we will do our best to assist you.`
+If you experience any difficulty accessing content, please contact us at: support@aiverse.site and we will do our best to assist you.`
   },
   contact: {
     title: 'Contact Us',
@@ -226,7 +226,7 @@ If you experience any difficulty accessing content, please contact us at: suppor
     content: `
 We welcome feedback, suggestions, and accessibility requests.
 
-**Email:** support@ai-verse.com
+**Email:** support@aiverse.site
 
 Feel free to reach out to us with any questions or comments regarding the AIverse directory.`
   },
@@ -249,7 +249,7 @@ If you believe that your work has been copied in a way that constitutes copyrigh
 **Designated Copyright Agent**
 Copyright Manager
 AIverse Executive Directory
-Email: dmca@ai-verse.com`
+Email: dmca@aiverse.site`
   },
   cookies: {
     title: 'Cookie Policy',
@@ -275,7 +275,7 @@ You can choose to accept or decline cookies. Most web browsers automatically acc
 AIverse Executive Directory
 Represented by: Guy Akavia
 Address: Tel Aviv, Israel
-Email: contact@ai-verse.com
+Email: contact@aiverse.site
 
 **Responsible for Content**
 Owner of AIverse
