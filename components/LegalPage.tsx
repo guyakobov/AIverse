@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArrowLeft, Scale, ShieldCheck, FileText, Accessibility, Copyright, Cookie, Info, Mail, Send } from 'lucide-react';
+import { ArrowLeft, Scale, ShieldCheck, FileText, Accessibility, Copyright, Cookie, Info, Mail, Send, BookOpen, Zap } from 'lucide-react';
 import { LEGAL_CONTENT } from '../constants';
 
 interface LegalPageProps {
-    type: 'terms' | 'privacy' | 'disclaimer' | 'accessibility' | 'dmca' | 'cookies' | 'imprint' | 'contact';
+    type: 'terms' | 'privacy' | 'disclaimer' | 'accessibility' | 'dmca' | 'cookies' | 'imprint' | 'contact' | 'editorial' | 'disclosure';
     onBack: () => void;
 }
 
@@ -18,7 +18,9 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onBack }) => {
         dmca: <Copyright size={32} className="text-rose-400" />,
         cookies: <Cookie size={32} className="text-amber-400" />,
         imprint: <Info size={32} className="text-blue-400" />,
-        contact: <Mail size={32} className="text-indigo-400" />
+        contact: <Mail size={32} className="text-indigo-400" />,
+        editorial: <BookOpen size={32} className="text-violet-400" />,
+        disclosure: <Zap size={32} className="text-yellow-400" />
     };
 
     return (

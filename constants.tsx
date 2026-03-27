@@ -69,55 +69,96 @@ export const ICON_MAP: Record<string, React.FC<any>> = {
 
 export const LEGAL_CONTENT = {
   terms: {
-    title: 'Terms of Use',
-    lastUpdated: 'February 15, 2026',
+    title: 'Terms of Service',
+    lastUpdated: 'March 27, 2026',
     content: `
 Welcome to AIverse. By accessing or using this website, you agree to the following terms and conditions.
 
-**1. Informational Purpose**
-AIverse provides information about artificial intelligence tools for general informational purposes only. The content on this website does not constitute legal, financial, business, or professional advice.
+**1. Personal, Non-Commercial Transitory License**
+AIverse grants you a temporary, personal license to view the materials on this website for non-commercial purposes. This license does not transfer any ownership and strictly prohibits:
+- Modifying or copying materials for commercial use.
+- Attempting to reverse engineer any software contained on AIverse’s website.
+- Removing any copyright or other proprietary notations from the materials.
+- Transferring the materials to another person or "mirroring" the materials on any other server.
 
-**2. No Warranties**
-All content is provided "as is" without warranties of any kind. AIverse does not guarantee the accuracy, completeness, or reliability of any information listed.
+**2. Accuracy of Materials**
+The materials appearing on AIverse’s website could include technical, typographical, or photographic errors. While we strive for excellence, AIverse does not warrant that any of the materials on its website are accurate, complete, or current. AIverse may make changes to the materials contained on its website at any time without notice.
 
-**3. Third-Party Links**
-This website contains links to third-party websites and social media platforms. AIverse has no control over the content or policies of those external websites and assumes no responsibility for them.
+**3. Disclaimer**
+The materials on AIverse’s website are provided on an 'as is' basis. AIverse makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
 
 **4. Limitation of Liability**
-AIverse shall not be liable for any direct or indirect damages arising from the use of this website or any linked third-party services.
+In no event shall AIverse or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on AIverse’s website, even if AIverse or an AIverse authorized representative has been notified orally or in writing of the possibility of such damage.
 
-**5. User Submissions**
-If you submit tool suggestions or other content, you confirm that you have the right to share that information. You grant AIverse permission to review, modify, and publish such submissions.
-
-**6. Intellectual Property**
-All trademarks, logos, and brand names displayed on this website belong to their respective owners. Their inclusion does not imply affiliation or endorsement.
-
-AIverse reserves the right to update these Terms at any time.`
+**5. Governing Law**
+These terms and conditions are governed by and construed in accordance with the laws of Israel and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.`
   },
   privacy: {
     title: 'Privacy Policy',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
-AIverse respects your privacy.
+AIverse is committed to protecting your privacy. This policy explains what information we collect and how we use it.
 
-**1. Information We Collect**
-We only collect information that users voluntarily submit through forms, such as tool suggestions or contact messages.
+**1. IN SHORT: What Information Do We Collect?**
+We collect personal information that you provide to us (e.g., name, email, suggestions) and certain information automatically when you visit our site (e.g., IP address, browser characteristics).
 
-**2. How We Use Information**
-Submitted information is used solely for reviewing tool suggestions and improving the website.
+**2. IN SHORT: How Do We Process Your Information?**
+We process your information to provide, improve, and administer our services, communicate with you, for security and fraud prevention, and to comply with law. We only process your information when we have a valid legal reason to do so.
 
-**3. Data Sharing**
-We do not sell, rent, or trade personal information to third parties.
+**3. IN SHORT: When and With Whom Do We Share Your Information?**
+We may share information in specific situations and with specific third parties, such as vendors, service providers, or in connection with a business transfer.
 
-**4. Data Security**
-We take reasonable measures to protect submitted information. However, no method of transmission over the internet is completely secure.
+**4. IN SHORT: What Are Your Rights?**
+Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information.
 
-**5. Contact**
-If you would like your submitted information removed, please contact us at: support@ai-verse.com`
+**5. Detailed Information Collection**
+We collect information that you voluntarily provide to us when you:
+- Submit a new tool to our directory.
+- Contact us through our support forms.
+- Sign up for our future newsletters.
+
+**6. Automated Data Collection**
+We automatically collect certain information when you visit, use, or navigate the Site. This information does not reveal your specific identity (like your name or contact information) but may include device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, and information about how and when you use our Site.`
+  },
+  editorial: {
+    title: 'Editorial Guidelines',
+    lastUpdated: 'March 27, 2026',
+    content: `
+At AIverse, our mission is to curate the ultimate executive directory of world-class AI technology, with a special focus on professional workflows and the emerging "Vibe Coding" paradigm.
+
+**1. Expert Selection for Executives**
+Every tool listed on AIverse is selected based on its utility in professional environments. We don't just list any AI tool; we prioritize software that offers genuine value, reliability, and modern efficiency for executives and high-performance teams.
+
+**2. Built by Humans, Powered by AI**
+Every tool in our directory undergoes a human-led review. While we leverage AI to assist in data aggregation and feature analysis, a human curator always makes the final decision on whether a tool meets our premium quality standards.
+
+**3. Independence & Integrity**
+Our rankings and "Executive Picks" are entirely independent. We do not sell rankings, and we do not allow tool providers to purchase their way into a top spot. If a tool is featured, it's because our team truly believes in its capabilities.
+
+**4. Commitment to Accuracy**
+The AI landscape moves fast. We strive to keep our descriptions, pricing tiers, and feature lists up-to-date. If you represent a tool listed here and wish to submit an update, please use our "Update a Tool" request system.
+
+**5. Transparency**
+We are fully transparent about our business model. To keep AIverse free for our users, we may earn referral fees from some partnerships. However, this has zero impact on our editorial stance or whether a tool is included in our curated selection.`
+  },
+  disclosure: {
+    title: 'Advertiser Disclosure',
+    lastUpdated: 'March 27, 2026',
+    content: `
+AIverse is free to use for all visitors. To keep our site free and maintain the quality of our content, we use a partnership-based business model.
+
+**1. Referral Fees**
+When you click on links to some tools in our directory and subsequently sign up or make a purchase, we may receive compensation (a referral fee) from the company that provides the tool.
+
+**2. Editorial Integrity**
+Compensation received does not influence our editorial content, tool reviews, or rankings. We are committed to providing an unbiased and comprehensive directory of AI tools, regardless of whether we have a partnership with the tool provider.
+
+**3. Affiliate Relationships**
+We identify affiliate links where possible, but you should assume that many links to third-party tools are affiliate links. This helps us continue to provide high-quality, curated AI content at no cost to our users.`
   },
   disclaimer: {
     title: 'AI Tools Disclaimer',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
 AIverse is a curated directory of artificial intelligence tools.
 
@@ -129,7 +170,7 @@ Use of any third-party tool is at your own discretion and risk.`
   },
   accessibility: {
     title: 'Accessibility Statement',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
 AIverse is committed to providing an accessible and user-friendly experience for all visitors.
 
@@ -139,7 +180,7 @@ If you experience any difficulty accessing content, please contact us at: suppor
   },
   contact: {
     title: 'Contact Us',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
 We welcome feedback, suggestions, and accessibility requests.
 
@@ -149,7 +190,7 @@ Feel free to reach out to us with any questions or comments regarding the AIvers
   },
   dmca: {
     title: 'DMCA / Copyright Policy',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
 **Notification of Copyright Infringement**
 AIverse respects the intellectual property rights of others. In accordance with the Digital Millennium Copyright Act ("DMCA"), we will respond promptly to notices of alleged infringement that are reported to our Designated Copyright Agent.
@@ -170,7 +211,7 @@ Email: dmca@ai-verse.com`
   },
   cookies: {
     title: 'Cookie Policy',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
 **1. What are Cookies?**
 Cookies are small text files that are stored on your computer or mobile device when you visit a website. They are widely used to make websites work, or work more efficiently, as well as to provide info to the owners of the site.
@@ -186,7 +227,7 @@ You can choose to accept or decline cookies. Most web browsers automatically acc
   },
   imprint: {
     title: 'Imprint / Legal Notice',
-    lastUpdated: 'February 15, 2026',
+    lastUpdated: 'March 27, 2026',
     content: `
 **Legal Information**
 AIverse Executive Directory
@@ -202,3 +243,4 @@ Tel Aviv, Israel
 The European Commission provides a platform for online dispute resolution (OS): https://ec.europa.eu/consumers/odr. We are not jumpy or obligated to participate in dispute resolution proceedings before a consumer arbitration board.`
   }
 };
+

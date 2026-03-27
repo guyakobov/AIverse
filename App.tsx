@@ -8,11 +8,11 @@ import { ToolDetails } from './components/ToolDetails';
 import { LegalPage } from './components/LegalPage';
 import { CookieConsent } from './components/CookieConsent';
 import { AccessibilityWidget } from './components/AccessibilityWidget';
-import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
+import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight, Linkedin, Twitter, Github, Mail } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
 type View = 'home' | 'favorites' | 'submit' | 'tool-details' | 'legal';
-type LegalType = 'terms' | 'privacy' | 'disclaimer' | 'accessibility' | 'dmca' | 'cookies' | 'imprint' | 'contact';
+type LegalType = 'terms' | 'privacy' | 'disclaimer' | 'accessibility' | 'dmca' | 'cookies' | 'imprint' | 'contact' | 'editorial' | 'disclosure';
 
 const App: React.FC = () => {
     const [tools, setTools] = useState<Tool[]>([]);
@@ -557,55 +557,93 @@ const App: React.FC = () => {
             <footer className="bg-slate-950 border-t border-slate-900 pt-20 pb-12">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                        <div className="md:col-span-2">
+                        <div className="md:col-span-1">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-1.5 rounded-lg">
                                     <Cpu size={20} className="text-white" />
                                 </div>
                                 <span className="font-extrabold text-xl tracking-tight text-white">AI<span className="text-indigo-400">verse</span></span>
                             </div>
-                            <p className="text-slate-500 text-sm leading-relaxed max-w-sm font-medium">
-                                The ultimate curated executive directory for professional AI tools. Build your future with verified, world-class technology.
+                            <p className="text-slate-500 text-xs leading-relaxed font-medium mb-8">
+                                <span className="text-slate-300 font-bold block mb-2 underline decoration-indigo-500/30 underline-offset-4">Advertiser Disclosure</span>
+                                AIverse is committed to rigorous editorial standards for world-class technology. To keep our high-performance directory free, we may receive compensation when you click some links on our site.
                             </p>
+                            <div className="flex items-center gap-4">
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg hover:bg-indigo-600 transition-all group" aria-label="LinkedIn">
+                                    <Linkedin size={18} className="text-slate-400 group-hover:text-white" />
+                                </a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg hover:bg-sky-500 transition-all group" aria-label="X (Twitter)">
+                                    <Twitter size={18} className="text-slate-400 group-hover:text-white" />
+                                </a>
+                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg hover:bg-slate-700 transition-all group" aria-label="GitHub">
+                                    <Github size={18} className="text-slate-400 group-hover:text-white" />
+                                </a>
+                                <button onClick={() => openLegalPage('contact')} className="p-2 bg-slate-900 rounded-lg hover:bg-emerald-600 transition-all group" aria-label="Contact Email">
+                                    <Mail size={18} className="text-slate-400 group-hover:text-white" />
+                                </button>
+                            </div>
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">Platform</h4>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Directories</h4>
                             <ul className="space-y-4">
-                                <li><button onClick={goHome} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Directory Root</button></li>
-                                <li><button onClick={goFavorites} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Saved Favorites</button></li>
-                                <li><button onClick={goSubmit} className="text-slate-500 hover:text-indigo-400 text-sm transition-colors font-medium">Submit New Tool</button></li>
+                                {CATEGORIES.slice(1, 4).map(cat => (
+                                    <li key={cat}>
+                                        <button 
+                                            onClick={() => { setActiveCategory(cat); goHome(); }}
+                                            className="text-slate-400 hover:text-indigo-400 text-sm transition-colors font-semibold flex items-center gap-2 group"
+                                        >
+                                            <div className="w-1 h-1 bg-slate-800 rounded-full group-hover:bg-indigo-500 transition-colors"></div>
+                                            {cat} Solutions
+                                        </button>
+                                    </li>
+                                ))}
+                                <li>
+                                    <button 
+                                        onClick={() => { setActiveCategory('Vibe Coding'); goHome(); }}
+                                        className="text-slate-400 hover:text-fuchsia-400 text-sm transition-colors font-semibold flex items-center gap-2 group"
+                                    >
+                                        <div className="w-1 h-1 bg-slate-800 rounded-full group-hover:bg-fuchsia-500 transition-colors"></div>
+                                        Vibe Coding Hub
+                                    </button>
+                                </li>
                             </ul>
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6">Legal & Support</h4>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Ecosystem</h4>
                             <ul className="space-y-4">
-                                <FooterLink type="terms" label="Terms of Use" />
-                                <FooterLink type="privacy" label="Privacy Policy" />
-                                <FooterLink type="accessibility" label="Accessibility Statement" />
-                                <li>
-                                    <button
-                                        onClick={() => {
-                                            window.dispatchEvent(new CustomEvent('aiverse-open-accessibility'));
-                                        }}
-                                        className="text-slate-500 hover:text-indigo-400 text-[10px] transition-colors font-bold uppercase tracking-wider bg-slate-900/50 px-2 py-0.5 rounded border border-slate-800"
-                                    >
-                                        Open Tool
-                                    </button>
-                                </li>
-                                <FooterLink type="disclaimer" label="AI Disclaimer" />
-                                <FooterLink type="contact" label="Contact" />
+                                <li><button onClick={goHome} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">Directory Home</button></li>
+                                <li><button onClick={goFavorites} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">My Saved Stack</button></li>
+                                <li><button onClick={goSubmit} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">Submit a Tool</button></li>
+                                <li><button onClick={() => openLegalPage('contact')} className="text-indigo-400/80 hover:text-indigo-300 text-sm transition-colors font-bold italic">Update Existing Tool</button></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Governance</h4>
+                            <ul className="space-y-4">
+                                <FooterLink type="editorial" label="Editorial Standards" />
+                                <FooterLink type="disclosure" label="Advertiser Disclosure" />
+                                <FooterLink type="terms" label="Terms of Service" />
+                                <FooterLink type="privacy" label="Privacy & Data" />
+                                <FooterLink type="imprint" label="Imprint / Legal" />
                             </ul>
                         </div>
                     </div>
 
-                    <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-                        <div className="text-slate-600 text-[10px] font-black uppercase tracking-[0.2em]">
-                            Architecture optimized with Neon Postgres
+                    <div className="pt-10 border-t border-slate-900/50 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="text-slate-700 text-[10px] font-black uppercase tracking-[0.3em]">
+                                Optimized with Neon
+                            </div>
+                            <div className="h-4 w-px bg-slate-900"></div>
+                            <div className="text-slate-700 text-[10px] font-black uppercase tracking-[0.3em]">
+                                Verified Directory
+                            </div>
                         </div>
-                        <p className="text-slate-500 text-xs font-medium">
-                            © 2026 AIverse. All rights reserved.
+                        <p className="text-slate-600 text-[11px] font-medium tracking-wide">
+                            © 2026 AIverse Executive Directory. Built with precision for the modern enterprise.
                         </p>
                     </div>
                 </div>
