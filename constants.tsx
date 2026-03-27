@@ -72,39 +72,49 @@ export const LEGAL_CONTENT = {
     title: 'Terms of Service',
     lastUpdated: 'March 27, 2026',
     content: `
-**1. Terms**
-By accessing this Website (ai-verse.com), you are agreeing to be bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing this site. The materials contained in this Website are protected by copyright and trademark law.
+**1. Acceptance of Terms**
+Welcome to AIverse (ai-verse.com), a curated directory for executive-level AI technology. These Terms of Service ("Terms") govern your access to and use of our platform. By accessing or using AIverse, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you must not use our services.
 
-**2. Use License**
-Permission is granted to temporarily view one copy of the materials on AIverse's Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license, you may not:
-- Modify or copy the materials.
-- Use the materials for any commercial purpose or for any public display.
-- Attempt to reverse engineer any software contained on AIverse's Website.
-- Remove any copyright or other proprietary notations from the materials.
-- Transfer the materials to another person or "mirror" the materials on any other server.
+**2. Eligibility**
+The Site is intended for use by individuals at least 18 years old and by organizations with the authority to bind such entities to these Terms. By using AIverse, you represent and warrant that you meet these eligibility requirements.
 
-AIverse reserves the right to terminate your viewing right upon violations of any of these restrictions. Upon termination, your viewing right will also be terminated and you should destroy any materials in your possession whether in print or electronic format.
+**3. User Conduct and Content Guidelines**
+As a condition of your use of AIverse, you agree not to:
+- Use the Site for any unlawful purpose or in violation of local, national, or international regulations.
+- Engage in any activity that could harm, disrupt, or impair the Site’s functionality or accessibility.
+- Upload or transmit any material that contains viruses, Trojan horses, or any other harmful programs.
+- Post, submit, or promote content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, or otherwise objectionable based on race, gender, or other protected characteristics.
+- Engage in spamming, mass or automated posting, or manual/automated manipulation of engagement (e.g., fake votes or saves).
+- Impersonate any person or entity, including AIverse employees or other users.
 
-**3. Disclaimer**
-All the materials on AIverse's Website are provided "as is". AIverse makes no warranties, may it be expressed or implied, and therefore negates all other warranties. Furthermore, AIverse does not make any representations concerning the accuracy or reliability of the use of the materials on its Website or otherwise relating to such materials or any sites linked to this Website.
+**4. Automated Data Extraction (Anti-Scraping)**
+AIverse’s database—including its collection, curation, organization, categorization, and rankings—constitutes our proprietary intellectual property. Without our prior express written consent, no person or entity may scrape, crawl, harvest, index, or systematically extract any data from the Site by any automated or manual means. This includes extraction for the purpose of training AI models or building competing products.
 
-**4. Limitations**
-AIverse or its suppliers will not be held accountable for any damages that will arise with the use or inability to use the materials on AIverse's Website, even if AIverse or an authorized representative of this Website has been notified, orally or written, of the possibility of such damage. Some jurisdictions do not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.
+**5. Intellectual Property and User Submissions**
+- **AIverse Content:** All text, graphics, logos, and software on the Site are the property of AIverse or its content suppliers and are protected by international copyright laws.
+- **User Submissions:** When you submit a tool or content to AIverse, you retain ownership of that content. However, you grant AIverse a worldwide, irrevocable, perpetual, non-exclusive, royalty-free license to use, copy, modify, distribute, and display such content in connection with providing and promoting our directory.
+- **Warranties:** You warrant that you own or have the necessary licenses for all content you submit and that it does not infringe on third-party intellectual property rights.
 
-**5. Revisions and Errata**
-The materials appearing on AIverse's Website may include technical, typographical, or photographic errors. AIverse will not promise that any of the materials on this Website are accurate, complete, or current. AIverse may change the materials contained on its Website at any time without notice. AIverse does not make any commitment to update the materials.
+**6. Commercial Services and Submissions**
+Certain services, such as "Executive Picks" or featured listings, may be subject to fees.
+- **Fees:** You agree to pay all associated charges in full through our accepted payment mechanisms.
+- **No Guarantees:** AIverse does not guarantee specific performance results (clicks, traffic, or conversions) for featured tools. All metric estimates are based on historical data and are provided for informational purposes only.
+- **Refund Policy:** Unless otherwise stated, all commercial payments are final and non-refundable once the service (e.g., tool listing) has been initiated or performed.
 
-**6. Links**
-AIverse has not reviewed all of the sites linked to its Website and is not responsible for the contents of any such linked site. The presence of any link does not imply endorsement by AIverse of the site. The use of any linked website is at the user's own risk.
+**7. Disclaimers and Warranties**
+AIverse is provided on an "as is" and "as available" basis. We make no warranties, express or implied, regarding the accuracy, reliability, or completeness of any content on the Site. The inclusion of a tool in our directory does not constitute an endorsement. AI-generated outputs and third-party tools listed here are unpredictable; we bear no responsibility for their content or consequences of use.
 
-**7. Site Terms of Use Modifications**
-AIverse may revise these Terms of Use for its Website at any time without prior notice. By using this Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.
+**8. Limitation of Liability**
+To the fullest extent permitted by law, AIverse and its affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from your use of, or inability to use, the platform. This includes, but is not limited to, loss of profits, data, or goodwill. In jurisdictions that do not allow the exclusion of certain warranties, our liability shall be limited to the maximum extent permitted.
 
-**8. Your Privacy**
-Please read our [Privacy Policy](#legal/privacy).
+**9. Indemnification**
+You agree to defend, indemnify, and hold harmless AIverse, its officers, and employees from any claims, damages, or expenses (including attorneys’ fees) arising from your violation of these Terms or your use of the Site.
 
-**9. Governing Law**
-Any claim related to AIverse's Website shall be governed by the laws of Israel without regard to its conflict of law provisions.`
+**10. Modifications to Service and Terms**
+AIverse reserves the right to modify, suspend, or discontinue any part of the Site or these Terms at any time without prior notice. Continued use of the Site after such changes constitutes your acceptance of the new Terms.
+
+**11. Governing Law and Dispute Resolution**
+These Terms shall be governed by the laws of Israel. Any disputes arising out of or related to these Terms that cannot be resolved informally shall be submitted to the exclusive jurisdiction of the courts of Israel.`
   },
   privacy: {
     title: 'Privacy Policy',
