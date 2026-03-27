@@ -97,28 +97,47 @@ These terms and conditions are governed by and construed in accordance with the 
     title: 'Privacy Policy',
     lastUpdated: 'March 27, 2026',
     content: `
-AIverse is committed to protecting your privacy. This policy explains what information we collect and how we use it.
+This Privacy Policy describes how AIverse ("we," "us," or "our") collects, stores, and uses your information when you use our directory services at ai-verse.com.
 
-**1. IN SHORT: What Information Do We Collect?**
-We collect personal information that you provide to us (e.g., name, email, suggestions) and certain information automatically when you visit our site (e.g., IP address, browser characteristics).
+**SUMMARY OF KEY POINTS**
+This summary provides the highlights of our privacy practices.
 
-**2. IN SHORT: How Do We Process Your Information?**
-We process your information to provide, improve, and administer our services, communicate with you, for security and fraud prevention, and to comply with law. We only process your information when we have a valid legal reason to do so.
+- **What personal information do we process?** We process information you voluntarily provide (like name and email when submitting a tool) and certain technical data collected automatically (like IP address and browser type).
+- **Do we process sensitive information?** No, we do not process any sensitive personal information.
+- **Do we receive information from third parties?** No, we only process information gathered directly from your use of our site.
+- **How do we keep your information safe?** We have technical procedures in place to protect your data, though no system is 100% secure.
 
-**3. IN SHORT: When and With Whom Do We Share Your Information?**
-We may share information in specific situations and with specific third parties, such as vendors, service providers, or in connection with a business transfer.
-
-**4. IN SHORT: What Are Your Rights?**
-Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information.
-
-**5. Detailed Information Collection**
-We collect information that you voluntarily provide to us when you:
-- Submit a new tool to our directory.
+**1. WHAT INFORMATION DO WE COLLECT?**
+We collect personal information that you voluntarily provide to us when you:
+- Submit a tool for review.
 - Contact us through our support forms.
-- Sign up for our future newsletters.
+- Save favorites to your local stack (stored in your browser).
 
-**6. Automated Data Collection**
-We automatically collect certain information when you visit, use, or navigate the Site. This information does not reveal your specific identity (like your name or contact information) but may include device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, and information about how and when you use our Site.`
+We also automatically collect technical data such as your IP address, browser characteristics, and operating system to help us understand how visitors use the directory and to maintain site security.
+
+**2. HOW DO WE PROCESS YOUR INFORMATION?**
+We process your information to:
+- Review and publish tool submissions.
+- Respond to your inquiries.
+- Improve the AIverse user experience.
+- Maintain the security and operation of our services.
+
+**3. WHEN AND WITH WHOM DO WE SHARE YOUR DATA?**
+We do not sell your data. We may share information only in specific situations, such as:
+- **Business Transfers:** In connection with any merger or sale of company assets.
+- **Service Providers:** With vendors who perform services for us (like hosting or analytics).
+
+**4. THIRD-PARTY WEBSITES**
+AIverse contains links to third-party tools. We are not responsible for the privacy practices of these external sites. We encourage you to review their policies directly.
+
+**5. HOW LONG DO WE KEEP YOUR DATA?**
+We keep your information for as long as necessary to fulfill the purposes outlined in this notice, or as required by law.
+
+**6. WHAT ARE YOUR PRIVACY RIGHTS?**
+Depending on your location (e.g., EEA, UK, Canada), you have certain rights regarding access to and control over your personal information. You may request to review, update, or delete your data at any time.
+
+**7. HOW CAN YOU CONTACT US?**
+If you have questions about this policy, please contact us at: support@ai-verse.com`
   },
   editorial: {
     title: 'Editorial Guidelines',
