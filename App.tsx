@@ -8,7 +8,7 @@ import { ToolDetails } from './components/ToolDetails';
 import { LegalPage } from './components/LegalPage';
 import { CookieConsent } from './components/CookieConsent';
 import { AccessibilityWidget } from './components/AccessibilityWidget';
-import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight, Linkedin, Twitter, Github, Mail } from 'lucide-react';
+import { Cpu, ArrowUpDown, Tag as TagIcon, X, Heart, LayoutGrid, Bookmark, Loader2, ChevronRight } from 'lucide-react';
 
 type SortOption = 'default' | 'name' | 'category' | 'pricing';
 type View = 'home' | 'favorites' | 'submit' | 'tool-details' | 'legal';
@@ -568,20 +568,6 @@ const App: React.FC = () => {
                                 <span className="text-slate-300 font-bold block mb-2 underline decoration-indigo-500/30 underline-offset-4">Advertiser Disclosure</span>
                                 AIverse is committed to rigorous editorial standards for world-class technology. To keep our high-performance directory free, we may receive compensation when you click some links on our site.
                             </p>
-                            <div className="flex items-center gap-4">
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg hover:bg-indigo-600 transition-all group" aria-label="LinkedIn">
-                                    <Linkedin size={18} className="text-slate-400 group-hover:text-white" />
-                                </a>
-                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg hover:bg-sky-500 transition-all group" aria-label="X (Twitter)">
-                                    <Twitter size={18} className="text-slate-400 group-hover:text-white" />
-                                </a>
-                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg hover:bg-slate-700 transition-all group" aria-label="GitHub">
-                                    <Github size={18} className="text-slate-400 group-hover:text-white" />
-                                </a>
-                                <button onClick={() => openLegalPage('contact')} className="p-2 bg-slate-900 rounded-lg hover:bg-emerald-600 transition-all group" aria-label="Contact Email">
-                                    <Mail size={18} className="text-slate-400 group-hover:text-white" />
-                                </button>
-                            </div>
                         </div>
 
                         <div>
