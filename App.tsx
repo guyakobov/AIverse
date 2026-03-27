@@ -571,23 +571,22 @@ const App: React.FC = () => {
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Ecosystem</h4>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Support</h4>
                             <ul className="space-y-4">
-                                <li><button onClick={goHome} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">Directory Home</button></li>
-                                <li><button onClick={goFavorites} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">My Saved Stack</button></li>
-                                <li><button onClick={goSubmit} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">Submit a Tool</button></li>
+                                <li><button onClick={() => openLegalPage('contact')} className="text-slate-400 hover:text-white text-sm transition-colors font-semibold">Contact Support</button></li>
                                 <li><button onClick={() => openLegalPage('contact')} className="text-indigo-400/80 hover:text-indigo-300 text-sm transition-colors font-bold italic">Update Existing Tool</button></li>
+                                <FooterLink type="editorial" label="Editorial Standards" />
+                                <FooterLink type="disclosure" label="Advertiser Disclosure" />
                             </ul>
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Governance</h4>
+                            <h4 className="text-white font-bold text-sm uppercase tracking-[0.2em] mb-8 opacity-50">Legal</h4>
                             <ul className="space-y-4">
-                                <FooterLink type="editorial" label="Editorial Standards" />
-                                <FooterLink type="disclosure" label="Advertiser Disclosure" />
                                 <FooterLink type="terms" label="Terms of Service" />
                                 <FooterLink type="privacy" label="Privacy & Data" />
                                 <FooterLink type="imprint" label="Imprint / Legal" />
+                                <FooterLink type="accessibility" label="Accessibility" />
                             </ul>
                         </div>
                     </div>
