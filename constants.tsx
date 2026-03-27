@@ -72,26 +72,33 @@ export const LEGAL_CONTENT = {
     title: 'Terms of Service',
     lastUpdated: 'March 27, 2026',
     content: `
-Welcome to AIverse. By accessing or using this website, you agree to the following terms and conditions.
+Welcome to AIverse. By accessing this website (ai-verse.com), you agree to be bound by these Terms of Service and all applicable laws and regulations.
 
-**1. Personal, Non-Commercial Transitory License**
-AIverse grants you a temporary, personal license to view the materials on this website for non-commercial purposes. This license does not transfer any ownership and strictly prohibits:
-- Modifying or copying materials for commercial use.
-- Attempting to reverse engineer any software contained on AIverse’s website.
-- Removing any copyright or other proprietary notations from the materials.
-- Transferring the materials to another person or "mirroring" the materials on any other server.
+**1. USE LICENSE**
+Permission is granted to temporarily view the materials on AIverse for personal, non-commercial transitory viewing only. Under this license, you may not:
+- Modify or copy the materials.
+- Use the materials for any commercial purpose or public display.
+- Attempt to reverse engineer any software contained on the website.
+- Remove any copyright or proprietary notations.
+- "Mirror" the materials on any other server.
 
-**2. Accuracy of Materials**
-The materials appearing on AIverse’s website could include technical, typographical, or photographic errors. While we strive for excellence, AIverse does not warrant that any of the materials on its website are accurate, complete, or current. AIverse may make changes to the materials contained on its website at any time without notice.
+**2. DISCLAIMER**
+All materials on AIverse are provided "as is". AIverse makes no warranties, expressed or implied, and hereby negates all other warranties including, without limitation, implied warranties of merchantability or fitness for a particular purpose.
 
-**3. Disclaimer**
-The materials on AIverse’s website are provided on an 'as is' basis. AIverse makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+**3. LIMITATIONS**
+In no event shall AIverse or its suppliers be held accountable for any damages arising out of the use or inability to use the materials on the website, even if AIverse has been notified of the possibility of such damage.
 
-**4. Limitation of Liability**
-In no event shall AIverse or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on AIverse’s website, even if AIverse or an AIverse authorized representative has been notified orally or in writing of the possibility of such damage.
+**4. REVISIONS AND ERRATA**
+The materials appearing on AIverse could include technical, typographical, or photographic errors. AIverse does not warrant that any of the materials on its website are accurate, complete, or current. We may change the materials at any time without notice.
 
-**5. Governing Law**
-These terms and conditions are governed by and construed in accordance with the laws of Israel and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.`
+**5. LINKS**
+AIverse has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by AIverse. Use of any linked website is at the user's own risk.
+
+**6. MODIFICATIONS**
+AIverse may revise these terms of service at any time without prior notice. By using this website, you are agreeing to be bound by the then current version of these Terms of Service.
+
+**7. GOVERNING LAW**
+Any claim related to AIverse shall be governed by the laws of Israel without regard to its conflict of law provisions.`
   },
   privacy: {
     title: 'Privacy Policy',
