@@ -79,12 +79,13 @@ const App: React.FC = () => {
 
     const fetchTools = async (search?: string) => {
         setIsLoading(true);
+        setError(null);
         try {
             const url = search ? `/api/tools?q=${encodeURIComponent(search)}` : '/api/tools';
-            const response = await fetch(url);
+            const response = await fetch(url, { cache: 'no-store' });
             if (!response.ok) throw new Error('Failed to fetch tools');
             const data = await response.json();
-            setTools(data);
+            setTools(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error("Error fetching tools:", err);
             setError('Failed to load tools. Please try again later.');
@@ -96,6 +97,22 @@ const App: React.FC = () => {
     useEffect(() => {
         fetchTools();
     }, []);
+
+    useEffect(() => {
+        const refreshTools = () => {
+            if (document.visibilityState === 'visible') {
+                fetchTools(searchQuery || undefined);
+            }
+        };
+
+        window.addEventListener('focus', refreshTools);
+        document.addEventListener('visibilitychange', refreshTools);
+
+        return () => {
+            window.removeEventListener('focus', refreshTools);
+            document.removeEventListener('visibilitychange', refreshTools);
+        };
+    }, [searchQuery]);
 
     // Favorites State
     const [favorites, setFavorites] = useState<number[]>(() => {
@@ -122,8 +139,21 @@ const App: React.FC = () => {
     // Compute unique tags sorted by frequency
     const popularTags = useMemo(() => {
         const counts: Record<string, number> = {};
-        tools.forEach(t => t.tags.forEach(tag => counts[tag] = (counts[tag] || 0) + 1));
+        tools.forEach(t => (Array.isArray(t.tags) ? t.tags : []).forEach(tag => counts[tag] = (counts[tag] || 0) + 1));
         return Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+    }, [tools]);
+
+    const availableCategories = useMemo(() => {
+        const knownCategories = CATEGORIES.filter(category => category !== 'All');
+        const discoveredCategories = [...new Set(
+            tools
+                .map(tool => tool.category)
+                .filter((category): category is string => typeof category === 'string' && category.trim().length > 0)
+        )]
+            .filter(category => !knownCategories.includes(category))
+            .sort((a, b) => a.localeCompare(b));
+
+        return ['All', ...knownCategories, ...discoveredCategories];
     }, [tools]);
 
     // Derived state for tools to display
@@ -155,7 +185,7 @@ const App: React.FC = () => {
 
         if (selectedTags.length > 0) {
             result = result.filter(item =>
-                selectedTags.every(tag => item.tool.tags.includes(tag))
+                selectedTags.every(tag => (item.tool.tags || []).includes(tag))
             );
         }
 
@@ -179,14 +209,14 @@ const App: React.FC = () => {
         if (activeCategory !== 'All' || searchQuery.length > 0 || view !== 'home') return null;
 
         const groups: Record<string, { tool: Tool, reason?: string }[]> = {};
-        CATEGORIES.filter(c => c !== 'All').forEach(cat => {
+        availableCategories.filter(c => c !== 'All').forEach(cat => {
             const catTools = displayedTools.filter(item => item.tool.category === cat);
             if (catTools.length > 0) {
                 groups[cat] = catTools;
             }
         });
         return Object.keys(groups).length > 0 ? groups : null;
-    }, [displayedTools, activeCategory, searchQuery, view]);
+    }, [availableCategories, displayedTools, activeCategory, searchQuery, view]);
 
     const handleAISearch = async (query: string) => {
         setSearchQuery(query);
@@ -432,7 +462,7 @@ const App: React.FC = () => {
                                                         role="tablist"
                                                         aria-label="Filter by Tool Category"
                                                     >
-                                                        {CATEGORIES.map((cat) => {
+                                                        {availableCategories.map((cat) => {
                                                             const colorSet = CATEGORY_COLORS[cat] || CATEGORY_COLORS['All'];
                                                             const CatIcon = CATEGORY_ICONS[cat] || LayoutGrid;
                                                             return (

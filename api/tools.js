@@ -7,8 +7,41 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
+const VALID_PRICING = new Set(['Free', 'Freemium', 'Paid']);
+
+function normalizePricing(value) {
+    return VALID_PRICING.has(value) ? value : 'Freemium';
+}
+
+function normalizeToolRow(row) {
+    const links = Array.isArray(row.links)
+        ? row.links
+            .filter(link => link && typeof link.url === 'string' && link.url.trim().length > 0)
+            .map(link => ({
+                platform: typeof link.platform === 'string' && link.platform.trim().length > 0
+                    ? link.platform
+                    : 'website',
+                url: link.url
+            }))
+        : [];
+
+    return {
+        ...row,
+        category: typeof row.category === 'string' && row.category.trim().length > 0
+            ? row.category
+            : 'Uncategorized',
+        icon: typeof row.icon === 'string' && row.icon.trim().length > 0 ? row.icon : 'Cpu',
+        pricing: normalizePricing(row.pricing),
+        tags: Array.isArray(row.tags) ? row.tags.filter(Boolean) : [],
+        features: Array.isArray(row.features) ? row.features.filter(Boolean) : [],
+        links
+    };
+}
+
 export default async function handler(req, res) {
     try {
+        res.setHeader('Cache-Control', 'no-store, max-age=0, must-revalidate');
+
         const { q } = req.query;
         let queryText = `
             SELECT 
@@ -59,11 +92,12 @@ export default async function handler(req, res) {
         } else {
             queryText += `
                 GROUP BY t.id
+                ORDER BY t.id DESC
             `;
         }
 
         const { rows } = await pool.query(queryText, queryParams);
-        res.status(200).json(rows);
+        res.status(200).json(rows.map(normalizeToolRow));
     } catch (error) {
         console.error('Database error:', error);
         res.status(500).json({
