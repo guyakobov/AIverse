@@ -16,7 +16,7 @@ Main table for AI tools shown on the website.
 | `id` | `integer` | yes | Auto-created unique id for each tool. |
 | `name` | `text` | yes | Tool name shown in the UI. |
 | `description` | `text` | yes | Short text shown in the tool card/details. |
-| `category` | `text` | yes | Main category, like `Ecosystem`, `Video`, `Image`, `Coding`, `Audio`, `Writing`, `Open Source`, or `AI Courses`. |
+| `category` | `text` | yes | Main category, like `Ecosystem`, `MCP`, `Video`, `Image`, `Coding`, `Audio`, `Writing`, `Open Source`, or `AI Courses`. |
 | `url` | `text` | yes | Main website URL for the tool. |
 | `icon` | `text` | yes | Icon key used by the React UI, like `Cpu`, `Zap`, or `Search`. |
 | `tags` | `text[]` | yes | Tags used for search and filtering. |

@@ -8,6 +8,7 @@ Project live services:
 - Main public tables: `tools`, `tool_links`, `suggestions`.
 - Website hosting: Vercel.
 - Data ingestion: n8n workflows.
+- Host/network notes: `HOST.md`.
 
 For this project, prefer MCP tools for live service work:
 
