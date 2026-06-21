@@ -1,20 +1,47 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# AIverse
 
-# Run and deploy your AI Studio app
+AIverse is a directory for discovering AI tools by category, features, and pricing.
 
-This contains everything you need to run your app locally.
+## Requirements
 
-View your app in AI Studio: https://ai.studio/apps/drive/1u_F9yb9VCNhKNgtA_GX1RYtBJaGf-IuT
+- Node.js 20 or newer
+- A Neon Postgres database
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
+## Local Setup
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+
+   ```bash
+   npm install
+   ```
+
+2. Create a `.env` file and add the database connection:
+
+   ```env
+   DATABASE_URL=your_neon_postgres_connection_string
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+## Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Project Documentation
+
+Project configuration and AI development instructions are in
+[`docs/ai/index.md`](docs/ai/index.md).
