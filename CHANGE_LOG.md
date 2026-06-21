@@ -5,6 +5,12 @@ Project change history. Formatting rules are defined in
 
 ## Version 0.0.0 - 2026-06-21
 
+- Description: Simplified the README to describe the AIverse website without local setup or contributor instructions.
+- Commit: `eb215b5`
+- Status: `success`
+
+## Version 0.0.0 - 2026-06-21
+
 - Description: Replaced the generated Google AI Studio README with AIverse setup and build instructions.
 - Commit: `8ac4024`
 - Status: `success`
