@@ -5,6 +5,12 @@ Project change history. Formatting rules are defined in
 
 ## Version 0.0.0 - 2026-06-21
 
+- Description: Replaced the generated Google AI Studio README with AIverse setup and build instructions.
+- Commit: `8ac4024`
+- Status: `success`
+
+## Version 0.0.0 - 2026-06-21
+
 - Description: Centralized AI project guidance under `docs/ai`, separated changelog instructions from project history, and moved loose test scripts into `tests/`.
 - Commit: `4068602`
 - Status: `success`
