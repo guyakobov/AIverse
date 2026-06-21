@@ -3,6 +3,12 @@
 Project change history. Formatting rules are defined in
 [`docs/ai/changelog.md`](docs/ai/changelog.md).
 
+## Version 0.0.0 - 2026-06-21
+
+- Description: Centralized AI project guidance under `docs/ai`, separated changelog instructions from project history, and moved loose test scripts into `tests/`.
+- Commit: `4068602`
+- Status: `success`
+
 ## 2026-04-24
 
 ### Data freshness and visibility fixes
