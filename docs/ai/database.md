@@ -66,6 +66,12 @@ Rules:
 
 ## Operations
 
+- The agent must run Neon authentication itself before database work. Do not ask the user to run it:
+
+  ```powershell
+  codex mcp login neon
+  ```
+
 - Keep credentials in environment variables or a secret manager.
 - Use migrations for schema changes.
 - Document backup and restore requirements.

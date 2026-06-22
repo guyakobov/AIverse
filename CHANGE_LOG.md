@@ -3,6 +3,12 @@
 Project change history. Formatting rules are defined in
 [`docs/ai/changelog.md`](docs/ai/changelog.md).
 
+## Version 0.0.0 - 2026-06-22
+
+- Description: Added WaveSpeed AI to the live Neon tools directory under Ecosystem.
+- Commit: `8314571`
+- Status: `success`
+
 ## Version 0.0.0 - 2026-06-21
 
 - Description: Simplified the README to describe the AIverse website without local setup or contributor instructions.
